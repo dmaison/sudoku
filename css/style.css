@@ -1,0 +1,103 @@
+body { 
+    align-items: center;
+    background-image: linear-gradient( olive, oliveDrab );
+    display: flex; 
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+nav { 
+    background-color: rgba( 0, 0, 0, .8 );
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+}
+
+nav > button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+nav > button:hover { background-color: rgba( 255, 255, 255, .3 ) }
+
+nav > button.active { background-color: green; }
+
+main {
+    border: 1px solid black;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat( 3, 1fr );
+    flex-basis: 80vh;
+    flex-shrink: 0;
+    margin: auto;
+    overflow: hidden;
+    width: 80vh;
+}
+
+main > section {
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat( 3, 1fr );
+    overflow: hidden;
+}
+
+main > section > div { 
+    position: relative; 
+}
+
+main > section > div::after {
+    content: attr( data-notes );
+    display: block;
+    font-size: 12px;
+    font-family: arial, helvetica, sans-serif;
+    left: 4px;
+    max-width: 100%;
+    position: absolute;
+    top: 4px;
+    word-break: break-all;
+}
+
+main > section input {
+    background-color: rgba( 255, 255, 255, .5 );
+    border: none;
+    border-bottom: 1px solid gainsboro;
+    border-right: 1px solid gainsboro;
+    color: black;
+    font-size: 3rem;
+    height: 100%;
+    outline: none;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+main > section div:nth-child( 3 ) input,
+main > section div:nth-child( 6 ) input,
+main > section div:nth-child( 9 ) input { border-right: none; }
+
+main > section div:nth-child( 7 ) input,
+main > section div:nth-child( 8 ) input,
+main > section div:nth-child( 9 ) input { border-bottom: none; }
+
+main > section input.error { 
+    background-color: rgba( 255, 0, 0, .2 );
+    color: crimson;
+}
+
+main > section input::-webkit-inner-spin-button,
+main > section input::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0;
+}
+
+main > section input:disabled { 
+    background-color: rgba( 0, 0, 0, .5 );
+    color: white; 
+}
