@@ -1,1 +1,3 @@
-"# sudoku" 
+# Sudoku
+
+A simple sudoku game.
