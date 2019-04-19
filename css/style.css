@@ -1,6 +1,10 @@
+:root {
+    --navBlack: rgba( 0, 0, 0, .8 );
+}
+
 body { 
     align-items: center;
-    background-image: linear-gradient( olive, oliveDrab );
+    background-image: linear-gradient( lightgray, white );
     display: flex; 
     flex-direction: column;
     height: 100vh;
@@ -9,7 +13,7 @@ body {
 }
 
 nav { 
-    background-color: rgba( 0, 0, 0, .8 );
+    background-color: var( --navBlack );
     height: 100vh;
     left: 0;
     position: fixed;
@@ -21,23 +25,55 @@ nav > button {
     border: none;
     color: white;
     cursor: pointer;
+    display: block;
     font-size: 2rem;
+    min-width: 64px;
+    outline: none;
+    overflow: hidden;
     padding: 1rem;
+    position: relative;
+    transition: .2s linear;
+    z-index: 2;
 }
 
-nav > button:hover { background-color: rgba( 255, 255, 255, .3 ) }
+nav > button::after {
+    align-content: center;
+    color: var( --navBlack );
+    content: attr( data-label );
+    font-size: 16px;
+    font-weight: bold;
+    height: calc( 100% - 2rem );
+    left: 100%;
+    line-height: 100%;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    top: calc( 50% - 10px );
+    transition: .5s ease-in-out;
+    white-space: nowrap;
+    z-index: -1;
+}
 
-nav > button.active { background-color: green; }
+nav > button:hover { 
+    background-color: steelblue; 
+    overflow: visible;
+}
+
+nav > button:hover::after { 
+    opacity: 1;
+    padding: 0 1rem; 
+}
+
+nav > button.active { background-color: steelblue; }
 
 main {
     border: 1px solid black;
-    border-radius: 20px;
     display: grid;
     grid-template-columns: repeat( 3, 1fr );
     flex-basis: 80vh;
     flex-shrink: 0;
     margin: auto;
-    overflow: hidden;
     width: 80vh;
 }
 
@@ -45,38 +81,56 @@ main > section {
     border: 1px solid black;
     display: grid;
     grid-template-columns: repeat( 3, 1fr );
-    overflow: hidden;
 }
 
 main > section > div { 
+    background-color: rgba( 255, 255, 255, .5 );
     position: relative; 
 }
 
-main > section > div::after {
-    content: attr( data-notes );
-    display: block;
-    font-size: 12px;
+main > section > div > mark {
+    align-items: center;
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: repeat( 3, 1fr );
+    font-size: 14px;
     font-family: arial, helvetica, sans-serif;
     left: 4px;
-    max-width: 100%;
+    line-height: 14px;
+    height: calc( 100% - 8px );
+    justify-items: center;
     position: absolute;
     top: 4px;
+    width: calc( 100% - 8px );
     word-break: break-all;
+    z-index: 2;
+}
+
+main > section > div > mark > span { min-height: 14px; }
+
+main > section > div > mark > span.active::after {
+    content: attr( data-value );
+    color: black
 }
 
 main > section input {
-    background-color: rgba( 255, 255, 255, .5 );
+    background-color: transparent;
     border: none;
-    border-bottom: 1px solid gainsboro;
-    border-right: 1px solid gainsboro;
-    color: black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    color: transparent;
     font-size: 3rem;
     height: 100%;
     outline: none;
     padding: 0;
+    position: absolute;
     text-align: center;
+    text-shadow: 0 0 0 steelblue;
     width: 100%;
+    z-index: 3;
 }
+
+main > section input:focus { box-shadow: 0 0 10px steelblue; }
 
 main > section div:nth-child( 3 ) input,
 main > section div:nth-child( 6 ) input,
@@ -97,7 +151,4 @@ main > section input::-webkit-outer-spin-button {
     margin: 0;
 }
 
-main > section input:disabled { 
-    background-color: rgba( 0, 0, 0, .5 );
-    color: white; 
-}
+main > section input:disabled { color: black; }

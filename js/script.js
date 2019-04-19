@@ -34,28 +34,14 @@ class Sudoku {
         value = Number( input.value + e.key ),
         parent = input.parentElement;
         if( value < 1 || value > 9 ) return e.preventDefault();
-        if( !this.takingNotes ){
-            delete parent.dataset.notes;
-            return;
-        }
+        if( !this.takingNotes ) return;
         e.preventDefault();
+        this.setNote( parent, value );
+    }
 
-        
-        let notes = parent.dataset.notes ? parent.dataset.notes.split( ',' ) : [],
-        index = notes.indexOf( value.toString() );
-
-        if( !isNaN( value ) ){
-            if( index > -1 ){
-                notes.splice( index, 1 );
-            } else {
-                notes.push( value );
-            }
-        } else {
-            if( e.key === 'Backspace' ) notes.pop();
-        }
-
-        parent.dataset.notes = notes;
-
+    setNote( container, value ){
+        let item = container.querySelector( `mark > span[data-value="${ value }"]` );
+        item.classList.toggle( 'active' );
     }
 
     /**
@@ -136,12 +122,22 @@ class Sudoku {
         //create inputs
         this.sections.forEach( section => {
             section.values = [];
-            this.options.forEach( option => {
+            this.options.forEach( () => {
                 let div = document.createElement( 'div' ),
+                mark = document.createElement( 'mark' ),
                 input = document.createElement( 'input' );
+
+                this.options.forEach( option => {
+                    let span = document.createElement( 'span' );
+                    span.dataset.value = option;
+                    mark.appendChild( span );
+                });
+
                 input.type = 'number';
                 input.onkeydown = this.handleInput;
-                div.appendChild( input )
+
+                div.appendChild( input );
+                div.appendChild( mark );
                 section.appendChild( div );
                 section.values.push( input );
             });
