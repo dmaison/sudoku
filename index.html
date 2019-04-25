@@ -8,16 +8,23 @@
     </head>
     <body>
         <nav>
-            <button data-toggle-notes data-label="Toggle Note Mode" data-width="162">
-                <i class="far fa-sticky-note"></i>
+            <button data-toggle-notes data-label="Toggle Note Mode (N)">
+                <i class="fas fa-edit"></i>
             </button>
-            <button data-new-game data-label="New Game" data-width="162">
+            <button data-new-game data-label="New Game">
                 <i class="fas fa-sync"></i>
             </button>
-            <button data-new-game data-label="Change Difficulty" data-width="162">
+            <button data-new-game data-label="Change Difficulty">
                 <i class="fas fa-cog"></i>
             </button>
+            <button data-save data-label="Save (S)">
+                <i class="fas fa-save"></i>
+            </button>
         </nav>
+        <aside>
+            <span class="errors" data-value="0">Errors:&nbsp;</span>
+            <span class="timer">Elapsed Time:&nbsp;</span>
+        </aside>
         <main></main>
         <script src="js/script.js"></script>
         <script>

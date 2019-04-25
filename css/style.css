@@ -7,6 +7,7 @@ body {
     background-image: linear-gradient( lightgray, white );
     display: flex; 
     flex-direction: column;
+    font-family: arial, helvetica, sans-serif;
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -27,6 +28,7 @@ nav > button {
     cursor: pointer;
     display: block;
     font-size: 2rem;
+    max-width: 64px;
     min-width: 64px;
     outline: none;
     overflow: hidden;
@@ -67,6 +69,21 @@ nav > button:hover::after {
 
 nav > button.active { background-color: steelblue; }
 
+aside { 
+    padding: 1rem 0; 
+    width: 80vh;
+}
+
+aside > span { 
+    display: block;
+    font-weight: bold; 
+}
+
+aside > span::after { 
+    content: attr( data-value ); 
+    font-weight: normal;
+}
+
 main {
     border: 1px solid black;
     display: grid;
@@ -94,7 +111,6 @@ main > section > div > mark {
     display: grid;
     grid-template-columns: repeat( 3, 1fr );
     font-size: 14px;
-    font-family: arial, helvetica, sans-serif;
     left: 4px;
     line-height: 14px;
     height: calc( 100% - 8px );
@@ -126,11 +142,12 @@ main > section input {
     position: absolute;
     text-align: center;
     text-shadow: 0 0 0 steelblue;
+    transition: .2s linear;
     width: 100%;
     z-index: 3;
 }
 
-main > section input:focus { box-shadow: 0 0 10px steelblue; }
+main > section input:focus { box-shadow: 0 0 20px steelblue; }
 
 main > section div:nth-child( 3 ) input,
 main > section div:nth-child( 6 ) input,

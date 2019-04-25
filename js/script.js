@@ -7,9 +7,14 @@ class Sudoku {
         this.difficulty = 'easy';
         this.options = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
         this.takingNotes = false;
+        this.errors = document.querySelector( 'aside > span.errors' );
+        this.timer = document.querySelector( 'aside > span.timer' );
         
         this.buttonNotes = document.querySelector( 'nav > button[data-toggle-notes]' );
         this.buttonNotes.onclick = this.toggleNotes;
+
+        this.buttonNewGame = document.querySelector( 'nav > button[data-new-game]' );
+        this.buttonNewGame.onclick = this.newGame;
 
         // bind keyboard controls
         document.addEventListener( 'keydown', e => {
@@ -23,6 +28,47 @@ class Sudoku {
     }
 
     /**
+     * @name clearNotes
+     * @method
+     * @description Clears the notes for a given cell
+     * @param {HTMLElement} container 
+     */
+    clearNotes( container ){
+        let items = container.querySelectorAll( 'mark > span' );
+        items.forEach( item => item.classList.remove( 'active' ) );
+    }
+
+    /**
+     * @name clearSiblingNotes
+     * @method
+     * @description Clears the notes of a sibling
+     * @param {HTMLElement} input Input to get siblings of
+     * @param {number} value Value to remove the notes of
+     */
+    clearSiblingNotes( input, value ){
+        if( input.classList.contains( 'error' ) ) return;
+        let section = this.sections.find( section => section.values.includes( input ) ).values,
+        column = this.inputs.filter( sibling => sibling.dataset.column === input.dataset.column ),
+        row = this.inputs.filter( sibling => sibling.dataset.row === input.dataset.row ),
+        inputs = [ ...section, ...column, ...row ];
+
+        inputs.forEach( sibling => {
+            let note = sibling.parentElement.querySelector( `mark > span[data-value="${ value }"]` );
+            note.classList.remove( 'active' );
+        });
+    }
+
+    /**
+     * @name handleError
+     * @method
+     * @description Increments error count
+     */
+    handleError(){
+        let current = Number( this.errors.dataset.value );
+        this.errors.dataset.value = ++current;
+    }
+
+    /**
      * @name handleInput
      * @method
      * @description Restrictions input to numbers 1-9 as well as determines what happens when the
@@ -33,15 +79,17 @@ class Sudoku {
         let input = e.target,
         value = Number( input.value + e.key ),
         parent = input.parentElement;
+        if( isNaN( value ) ) return;
         if( value < 1 || value > 9 ) return e.preventDefault();
-        if( !this.takingNotes ) return;
+        if( !this.takingNotes ){
+            let valid = this.isValueValid( input, value, true );
+            input.classList[ valid ? 'remove' : 'add' ]( 'error' );
+            if( !valid ) this.handleError();
+            this.clearNotes( parent );
+            return this.clearSiblingNotes( input, value );
+        }
         e.preventDefault();
         this.setNote( parent, value );
-    }
-
-    setNote( container, value ){
-        let item = container.querySelector( `mark > span[data-value="${ value }"]` );
-        item.classList.toggle( 'active' );
     }
 
     /**
@@ -52,7 +100,7 @@ class Sudoku {
      * @param {number} value value to check the availability of
      * @returns {boolean} `true` if value is valid, `false` if value is invalid
      */
-    isValueValid( input, value ){
+    isValueValid( input, value, testHidden=false ){
 
         let inputs = this.inputs.filter( sibling => {
             if( sibling === input ) return false;
@@ -61,12 +109,20 @@ class Sudoku {
                 sibling.dataset.row !== input.dataset.row && 
                 sibling.dataset.section !== input.dataset.section
             ) return false;
-            return ( sibling.value === value.toString() );
+            return testHidden ? ( sibling.hiddenValue === value.toString() ) : ( sibling.value === value.toString() );
         });
 
         return ( inputs.length === 0 );
     }
 
+    /**
+     * @name moveFocus
+     * @method
+     * @description
+     * @param {*} event 
+     * @param {*} horizontal 
+     * @param {*} vertical 
+     */
     moveFocus( event, horizontal, vertical ){
 
         event.preventDefault();
@@ -82,6 +138,25 @@ class Sudoku {
         next = this.playArea.querySelector( `input[data-column="${ column }"][data-row="${ row }"]` )
 
         if( next && !next.disabled ) next.focus();
+    }
+
+    /** */
+    newGame = e => {
+        e.preventDefault();
+        this.playArea.innerHTML = '';
+        this.tilesCreate();
+    }
+
+    /**
+     * @name setNote
+     * @method
+     * @description 
+     * @param {HTMLElement} container 
+     * @param {number} value 
+     */
+    setNote( container, value ){
+        let item = container.querySelector( `mark > span[data-value="${ value }"]` );
+        item.classList.toggle( 'active' );
     }
 
     /**
@@ -103,6 +178,34 @@ class Sudoku {
             this.options[ randomIndex ] = temporaryValue;
         }
         
+    }
+
+    startTimer(){
+
+        const setTime = container => {
+            if( !container.dataset.start ) container.dataset.start = new Date();
+
+            let now = new Date(),
+            then = new Date( container.dataset.start ),
+            seconds = Math.abs( now - then ) / 1000, 
+            minutes = Math.floor( seconds / 60);
+            seconds = Math.round( ( seconds - ( minutes * 60 ) ) % 60 );
+            
+
+            if( minutes < 10 ) minutes = '0' + minutes.toString();
+            if( seconds < 10 ) seconds = '0' + seconds.toString();
+            
+
+            container.dataset.value = `${ minutes }:${ seconds }`;
+
+        }
+
+        if( this.timerInt ){
+            delete this.timer.dataset.start;
+            clearInterval( this.timerInt );
+        }
+        setTime( this.timer );
+        this.timerInt = setInterval( setTime, 1000, this.timer );
     }
 
     /**
@@ -227,7 +330,10 @@ class Sudoku {
         })
 
         this.inputs.forEach( input => {
-            if( !input.disabled ) input.value = '';
+            if( !input.disabled ){
+                input.hiddenValue = input.value;
+                input.value = '';
+            }
         });
         
     }
@@ -249,6 +355,7 @@ class Sudoku {
      */
     render(){
         this.tilesCreate();
+        this.startTimer();
     }
 
 }
