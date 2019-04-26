@@ -246,7 +246,6 @@ class Sudoku {
             });
         });
 
-        this.shuffleOptions();
         this.tilesAssign();
         this.tilesFill();
         this.tilesCommit();
@@ -297,6 +296,8 @@ class Sudoku {
     tilesFill(){
         if( this.inputs.every( input => input.value !== '' ) ) return true;
         
+        this.shuffleOptions();
+
         let input = this.inputs.find( input => input.value === '' ), 
         viableOptions = this.options.filter( option => this.isValueValid( input, option ) );
         viableOptions.forEach( option => {
