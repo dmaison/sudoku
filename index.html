@@ -14,18 +14,33 @@
             <button data-new-game data-label="New Game">
                 <i class="fas fa-sync"></i>
             </button>
-            <button data-new-game data-label="Change Difficulty">
+            <button data-difficulty data-label="Change Difficulty">
                 <i class="fas fa-cog"></i>
             </button>
             <button data-save data-label="Save (S)">
                 <i class="fas fa-save"></i>
             </button>
         </nav>
-        <aside>
-            <span class="errors" data-value="0">Errors:&nbsp;</span>
-            <span class="timer">Elapsed Time:&nbsp;</span>
-        </aside>
-        <main></main>
+        <form>
+            <aside>
+                <span class="errors" data-value="0">Errors:&nbsp;</span>
+                <span class="timer">Elapsed Time:&nbsp;</span>
+                <span class="difficulty">Difficulty:&nbsp;</span>
+            </aside>
+            <main></main>
+            <dialog>
+                <div data-content></div>
+                <button type="reset">
+                    <i class="fas fa-2x fa-ban"></i>
+                    Cancel
+                </button>
+                <button type="submit">
+                    <i class="fas fa-2x fa-spinner fa-spin" data-loading></i>
+                    <i class="fas fa-2x fa-save" data-save></i>
+                    Save
+                </button>                
+            </dialog>
+        </form>
         <script src="js/script.js"></script>
         <script>
             const s = new Sudoku();

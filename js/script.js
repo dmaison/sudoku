@@ -4,17 +4,41 @@ class Sudoku {
         this.playArea = document.querySelector( 'main' );
         this.sections = [];
         this.inputs = [];
-        this.difficulty = 'easy';
         this.options = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
         this.takingNotes = false;
         this.errors = document.querySelector( 'aside > span.errors' );
         this.timer = document.querySelector( 'aside > span.timer' );
+        this.difficultyDisplay = document.querySelector( 'aside > span.difficulty' )
         
+        this.dialog = document.querySelector( 'dialog' );
+
         this.buttonNotes = document.querySelector( 'nav > button[data-toggle-notes]' );
         this.buttonNotes.onclick = this.toggleNotes;
 
         this.buttonNewGame = document.querySelector( 'nav > button[data-new-game]' );
         this.buttonNewGame.onclick = this.newGame;
+
+        this.buttonDifficulty = document.querySelector( 'nav > button[data-difficulty]' );
+        this.buttonDifficulty.onclick = this.changeDifficulty;
+
+        this.buttonAccept = document.querySelector( 'dialog > button[type="submit"]' );
+        this.buttonCancel = document.querySelector( 'dialog > button[type="reset"]' );
+        this.buttonCancel.onclick = this.cancel;
+
+        this.difficulties = [
+            {
+                level: 'hard',
+                pattern: [ 3, 3, 2, 3, 2, 1, 3, 2, 3 ]
+            },
+            {
+                level: 'medium',
+                pattern: [ 3, 3, 3, 3, 3, 3, 3, 3, 3 ]
+            },
+            {
+                level: 'easy',
+                pattern: [ 4, 3, 4, 3, 4, 3, 4, 3, 4 ]
+            }
+        ];
 
         // bind keyboard controls
         document.addEventListener( 'keydown', e => {
@@ -25,6 +49,61 @@ class Sudoku {
             if( e.code === 'ArrowUp' ) this.moveFocus( e, -1, 0 );
         });
 
+    }
+
+    /**
+     * @name cancel
+     * @method
+     * @description closes the modal without applying changes
+     */
+    cancel = e => {
+        e.preventDefault();
+        this.dialog.close();
+    }
+
+    /**
+     * @name changeDifficulty
+     * @method
+     * @description Displays modal for the user to change their difficulty settings
+     */
+    changeDifficulty = e => {
+        let content = this.dialog.querySelector( '[data-content]' ),
+        label = document.createElement( 'label' ),
+        select = document.createElement( 'select' ),
+        iconLoading = this.dialog.querySelector( '[data-loading]' ),
+        iconSave = this.dialog.querySelector( '[data-save]' );
+
+        iconSave.classList.remove( 'hide' );
+        iconLoading.classList.add( 'hide' );
+
+        content.innerHTML = '';
+        content.appendChild( label );
+        content.appendChild( select );
+
+        this.buttonAccept.onclick = e => {
+            e.preventDefault();
+            e.stopPropagation();
+            iconSave.classList.add( 'hide' );
+            iconLoading.classList.remove( 'hide' );
+            // do this to allow for activity indication
+            setTimeout( ()=> {
+                this.setDifficulty( select.selectedOptions[ 0 ].value );
+                this.newGame();
+                this.dialog.close();
+            }, 100 );
+        }
+
+        this.difficulties.forEach( difficulty => {
+            let option = document.createElement( 'option' );
+            option.value = difficulty.level;
+            option.innerText = difficulty.level;
+            if( difficulty.level === this.difficulty ) option.disabled = true;
+            select.appendChild( option );
+        });
+
+        label.innerText = 'Select difficulty';
+
+        this.dialog.showModal();
     }
 
     /**
@@ -79,7 +158,7 @@ class Sudoku {
         let input = e.target,
         value = Number( input.value + e.key ),
         parent = input.parentElement;
-        if( isNaN( value ) ) return;
+        if( isNaN( value ) ) return input.classList.remove( 'error' );
         if( value < 1 || value > 9 ) return e.preventDefault();
         if( !this.takingNotes ){
             let valid = this.isValueValid( input, value, true );
@@ -102,6 +181,8 @@ class Sudoku {
      */
     isValueValid( input, value, testHidden=false ){
 
+        if( testHidden ) return value === Number( input.hiddenValue );
+
         let inputs = this.inputs.filter( sibling => {
             if( sibling === input ) return false;
             if( 
@@ -109,7 +190,7 @@ class Sudoku {
                 sibling.dataset.row !== input.dataset.row && 
                 sibling.dataset.section !== input.dataset.section
             ) return false;
-            return testHidden ? ( sibling.hiddenValue === value.toString() ) : ( sibling.value === value.toString() );
+            return ( sibling.value === value.toString() );
         });
 
         return ( inputs.length === 0 );
@@ -140,11 +221,29 @@ class Sudoku {
         if( next && !next.disabled ) next.focus();
     }
 
-    /** */
+    /** 
+     * @name newGame
+     * @method
+     * @description Starts a new game
+     * @param {EventListenerObject} e
+     */
     newGame = e => {
-        e.preventDefault();
-        this.playArea.innerHTML = '';
-        this.tilesCreate();
+        e && e.preventDefault();
+        this.tilesClear();
+        this.tilesAssign();
+        this.tilesFill();
+        this.tilesCommit();
+        this.startTimer();
+    }
+
+    /**
+     * @name setDifficulty
+     * @descripiton Sets the difficulty level of the puzzle
+     * @param {string} [difficulty="easy"] Difficulty being set
+     */
+    setDifficulty( difficulty='easy' ){
+        this.difficulty = difficulty;
+        this.difficultyDisplay.dataset.value = this.difficulties.find( difficulty => difficulty.level === this.difficulty ).level;
     }
 
     /**
@@ -180,6 +279,11 @@ class Sudoku {
         
     }
 
+    /**
+     * @name startTimer
+     * @method
+     * @description Starts a new timer
+     */
     startTimer(){
 
         const setTime = container => {
@@ -206,6 +310,19 @@ class Sudoku {
         }
         setTime( this.timer );
         this.timerInt = setInterval( setTime, 1000, this.timer );
+    }
+
+    /**
+     * @name tilesClear
+     * @method
+     * @description Clears values from tiles
+     */
+    tilesClear(){
+        this.inputs.forEach( input => {
+            delete input.hiddenValue;
+            input.value = '';
+            input.removeAttribute( 'disabled' );
+        });
     }
 
     /**
@@ -245,10 +362,6 @@ class Sudoku {
                 section.values.push( input );
             });
         });
-
-        this.tilesAssign();
-        this.tilesFill();
-        this.tilesCommit();
 
     }
 
@@ -315,7 +428,7 @@ class Sudoku {
      */
     tilesCommit(){
 
-        let pattern = [ 3, 3, 2, 3, 2, 1, 3, 2, 3 ];
+        let pattern = [ ...this.difficulties.find( difficulty => this.difficulty === difficulty.level ).pattern ];
 
         this.sections.forEach( section => {
 
@@ -355,8 +468,10 @@ class Sudoku {
      * @description creates the initial game board and starts a new game
      */
     render(){
+        this.setDifficulty();
         this.tilesCreate();
-        this.startTimer();
+        this.newGame();
+        this.startTimer();        
     }
 
 }

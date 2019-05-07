@@ -3,12 +3,8 @@
 }
 
 body { 
-    align-items: center;
-    background-image: linear-gradient( lightgray, white );
-    display: flex; 
-    flex-direction: column;
-    font-family: arial, helvetica, sans-serif;
-    height: 100vh;
+    background-image: linear-gradient( lightgray, white );    
+    font-family: arial, helvetica, sans-serif;    
     margin: 0;
     padding: 0;
 }
@@ -82,6 +78,14 @@ aside > span {
 aside > span::after { 
     content: attr( data-value ); 
     font-weight: normal;
+    text-transform: capitalize;
+}
+
+form {
+    align-items: center;
+    display: flex; 
+    flex-direction: column;
+    height: 100vh;
 }
 
 main {
@@ -169,3 +173,47 @@ main > section input::-webkit-outer-spin-button {
 }
 
 main > section input:disabled { color: black; }
+
+dialog {
+    background-color: black;
+    border: none;
+    color: white;
+    opacity: 0;
+    top: 30vh;
+    transition: .5s ease-in-out;
+    width: 500px;
+}
+
+dialog[open]{
+    opacity: 1;
+    top: 40vh;
+}
+
+dialog::backdrop { background-color: rgba( 255, 255, 255, .5 ); }
+
+dialog > div[data-content] { margin-bottom: 1rem;}
+
+dialog label { 
+    display: block; 
+    margin-bottom: 1rem;
+}
+
+dialog option,
+dialog select { text-transform: capitalize; }
+
+dialog button {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: inline-flex;
+    outline: none;
+    padding: .5rem 1rem;
+    transition: .2s ease-in-out;
+}
+
+dialog button:hover { color: steelblue; }
+
+dialog button i { margin-right: .5rem; }
+dialog button i.hide { display: none; }
