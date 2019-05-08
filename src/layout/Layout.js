@@ -1,9 +1,14 @@
 import React from 'react';
+import Menu from '../containers/Menu';
+
+import Cell from '../components/Grid/Cell';
+import './style.css';
 
 const Layout = props => (
-    <div>
-        here
-    </div>
+    <React.Fragment>
+        <Menu />
+        <Cell />
+    </React.Fragment>
 );
 
 export default Layout;

@@ -1,0 +1,69 @@
+div { 
+    background-color: rgba( 255, 255, 255, .5 );
+    position: relative; 
+}
+
+main > section > div > mark {
+    align-items: center;
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: repeat( 3, 1fr );
+    font-size: 14px;
+    left: 4px;
+    line-height: 14px;
+    height: calc( 100% - 8px );
+    justify-items: center;
+    position: absolute;
+    top: 4px;
+    width: calc( 100% - 8px );
+    word-break: break-all;
+    z-index: 2;
+}
+
+main > section > div > mark > span { min-height: 14px; }
+
+main > section > div > mark > span.active::after {
+    content: attr( data-value );
+    color: black
+}
+
+main > section input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    color: transparent;
+    font-size: 3rem;
+    height: 100%;
+    outline: none;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 0 0 steelblue;
+    transition: .2s linear;
+    width: 100%;
+    z-index: 3;
+}
+
+main > section input:focus { box-shadow: 0 0 20px steelblue; }
+
+main > section div:nth-child( 3 ) input,
+main > section div:nth-child( 6 ) input,
+main > section div:nth-child( 9 ) input { border-right: none; }
+
+main > section div:nth-child( 7 ) input,
+main > section div:nth-child( 8 ) input,
+main > section div:nth-child( 9 ) input { border-bottom: none; }
+
+main > section input.error { 
+    background-color: rgba( 255, 0, 0, .2 );
+    color: crimson;
+}
+
+main > section input::-webkit-inner-spin-button,
+main > section input::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0;
+}
+
+main > section input:disabled { color: black; }

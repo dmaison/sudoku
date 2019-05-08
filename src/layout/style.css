@@ -1,0 +1,11 @@
+:root {
+    --navBlack: rgba( 0, 0, 0, .8 );
+}
+
+body { 
+    background-image: linear-gradient( lightgray, white );    
+    font-family: arial, helvetica, sans-serif;    
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
