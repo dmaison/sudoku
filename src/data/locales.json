@@ -1,0 +1,32 @@
+[
+    {
+        "code": "EN",
+        "localization": "English"
+    },
+    {
+        "code": "DE",
+        "localization": "Deutsche"
+    },
+    {
+        "code": "FR",
+        "localization": "Français"
+    },
+    {
+        "code": "IT",
+        "localization": "Italiano"
+    },
+    {
+        "name": "Hindi",
+        "code": "HI",
+        "localization": "हिन्दी भाषा"
+    },
+    {
+        "name": "Japanese",
+        "code": "JA",
+        "localization": "日本語"
+    },
+    {
+        "code": "PT",
+        "localization": "Português"
+    }
+]

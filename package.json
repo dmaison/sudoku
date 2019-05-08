@@ -1,0 +1,34 @@
+{
+  "name": "sudoku",
+  "version": "1.0.0",
+  "description": "A simple sudoku game",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmaison/sudoku.git"
+  },
+  "author": "David Maison",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmaison/sudoku/issues"
+  },
+  "homepage": "https://github.com/dmaison/sudoku#readme",
+  "devDependencies": {
+    "prop-types": "^15.6.1",
+    "react-scripts": "^1.1.4"
+  },
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-responsive": "^4.1.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
+  }
+}
