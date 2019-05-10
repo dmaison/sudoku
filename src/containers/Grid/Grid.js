@@ -1,8 +1,12 @@
 import React from 'react';
-import Button from '../../components/Menu/Button';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { GRID_OPTIONS } from '../../constants/grid';
+import { reset } from '../../actions/app';
+import Cell from '../../components/Grid/Cell';
+import Section from '../../components/Grid/Section';
 import './style.css';
-
-import { create, fill } from '../../utilities/grid';
 
 /**
  * @name Grid
@@ -10,18 +14,50 @@ import { create, fill } from '../../utilities/grid';
  * @returns {JSX}
  * @description Displays the menu controls for the game
  */
-const Grid = () => {
+class Grid extends React.PureComponent {
 
-    let grid = create();
-    fill( grid );
+    static propTypes = {
+        grid: PropTypes.arrayOf(
+            PropTypes.shape({
+                column: PropTypes.number.isRequired,
+                row: PropTypes.number.isRequired,
+                section: PropTypes.number.isRequired
+            })
+        ),
+        reset: PropTypes.func.isRequired
+    }
 
-    console.log( grid )
+    componentDidMount(){
+        this.props.reset();
+    }
 
-    return (
-        <main className="grid">
-            
-        </main>
-    )
+    render(){
+        return (
+            <main className="grid">
+                {
+                    GRID_OPTIONS.map(
+                        section => (
+                            <Section key={ 'section-' + section }>
+                                {
+                                    this
+                                        .props
+                                        .grid
+                                        .filter( cell => cell.section === ( section - 1 ) )
+                                        .map( ( cell, index ) => <Cell { ...cell } key={ `section-${ section }cell-${ index }` } /> )
+                                }
+                            </Section>
+                        )
+                    )
+                }
+            </main>
+        )
+    }
 }
 
-export default Grid;
+const mapStateToProps = state => ({
+    grid: state.app.grid
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ reset }, dispatch );
+
+export default connect( mapStateToProps, mapDispatchToProps )( Grid );

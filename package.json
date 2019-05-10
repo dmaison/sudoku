@@ -20,15 +20,15 @@
   },
   "homepage": "https://github.com/dmaison/sudoku#readme",
   "devDependencies": {
-    "prop-types": "^15.6.1",
-    "react-scripts": "^1.1.4"
+    "prop-types": "^15.7.2",
+    "react-scripts": "^1.1.5"
   },
   "dependencies": {
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-redux": "^5.0.7",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^5.1.1",
     "react-responsive": "^4.1.0",
-    "redux": "^4.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   }
 }

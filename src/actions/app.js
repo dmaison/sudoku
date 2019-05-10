@@ -1,9 +1,11 @@
+import { GRID_RESET } from '../constants/app';
+
 /**
- * @name overrideLocale
+ * @name reset
+ * @constant
  * @function
- * @description Enables user to override the automatic locale
- * @param {string} locale Language code to override with
+ * @description Creates a new puzzle
  */
-export const overrideLocale = locale => {
-    return dispatch => dispatch({ type: 'override locale', payload: locale });
+export const reset = () => {
+    return dispatch => dispatch({ type: GRID_RESET });
 }

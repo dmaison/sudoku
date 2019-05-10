@@ -1,6 +1,30 @@
 import { GRID_OPTIONS } from '../constants/grid';
+import { DIFFICULTIES, LEVEL_EASY } from '../constants/difficulties';
 import { shuffle } from './array';
 import { create as createCell, isValid } from './cell';
+
+export const commit = ( difficulty=LEVEL_EASY, grid ) => {
+    
+    let tempGrid = [ ...grid ],
+    pattern = shuffle( [ ...DIFFICULTIES.find( option => difficulty === option.level ).pattern ]),
+    sections = GRID_OPTIONS.map( ( s, index ) => tempGrid.filter( cell => cell.section === index ) );
+
+    sections.forEach( section => {
+
+        let tilesToCommit = pattern.pop();
+
+        while( tilesToCommit !== 0 ){
+            let index = Math.floor( Math.random() * section.length );
+            if( section[ index ].disabled ) continue;
+            section[ index ].disabled = true;
+            --tilesToCommit;
+        }
+
+    });
+
+    return tempGrid;
+        
+}
 
 /**
  * @name create

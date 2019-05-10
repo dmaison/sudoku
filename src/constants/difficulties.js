@@ -4,7 +4,7 @@
  * @string
  * @description
  */
-const LEVEL_EASY = 'easy';
+export const LEVEL_EASY = 'easy';
 
 /**
  * @name LEVEL_HARD
@@ -12,7 +12,7 @@ const LEVEL_EASY = 'easy';
  * @string
  * @description
  */
-const LEVEL_HARD = 'hard';
+export const LEVEL_HARD = 'hard';
 
 /**
  * @name LEVEL_MEDIUM
@@ -20,7 +20,7 @@ const LEVEL_HARD = 'hard';
  * @string
  * @description
  */
-const LEVEL_MEDIUM = 'medium';
+export const LEVEL_MEDIUM = 'medium';
 
 /**
  * @name PATTERN_EASY
@@ -28,7 +28,7 @@ const LEVEL_MEDIUM = 'medium';
  * @array
  * @description
  */
-const PATTERN_EASY = [ 4, 3, 4, 3, 4, 3, 4, 3, 4 ];
+export const PATTERN_EASY = [ 4, 3, 4, 3, 4, 3, 4, 3, 4 ];
 
 /**
  * @name PATTERN_HARD
@@ -36,7 +36,7 @@ const PATTERN_EASY = [ 4, 3, 4, 3, 4, 3, 4, 3, 4 ];
  * @array
  * @description
  */
-const PATTERN_HARD = [ 3, 3, 2, 3, 2, 1, 3, 2, 3 ];
+export const PATTERN_HARD = [ 3, 3, 2, 3, 2, 1, 3, 2, 3 ];
 
 /**
  * @name PATTERN_MEDIUM
@@ -44,7 +44,7 @@ const PATTERN_HARD = [ 3, 3, 2, 3, 2, 1, 3, 2, 3 ];
  * @array
  * @description
  */
-const PATTERN_MEDIUM = [ 3, 3, 3, 3, 3, 3, 3, 3, 3 ];
+export const PATTERN_MEDIUM = [ 3, 3, 3, 3, 3, 3, 3, 3, 3 ];
 
 /**
  * @name DIFFICULTIES
@@ -52,7 +52,7 @@ const PATTERN_MEDIUM = [ 3, 3, 3, 3, 3, 3, 3, 3, 3 ];
  * @array
  * @description
  */
-const DIFFICULTIES = [
+export const DIFFICULTIES = [
     {
         level: LEVEL_HARD,
         pattern: PATTERN_HARD

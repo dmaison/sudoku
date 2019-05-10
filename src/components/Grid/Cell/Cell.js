@@ -16,6 +16,10 @@ class Cell extends React.PureComponent {
         value: PropTypes.number
     }
 
+    validate = e => {
+
+    }
+
     render(){
 
         let classes = [ 'cell' ];
@@ -25,7 +29,7 @@ class Cell extends React.PureComponent {
         return (
             <div className={ classes.join( ' ' ) }>
                 <Note />
-                <input />
+                <input disabled={ this.props.disabled } defaultValue={ this.props.disabled ? this.state.value : null } />
             </div>
         );
     }

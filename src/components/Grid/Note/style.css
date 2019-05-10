@@ -4,15 +4,11 @@ mark.notes {
     display: grid;
     grid-template-columns: repeat( 3, 1fr );
     font-size: 14px;
-    left: 4px;
     line-height: 14px;
     height: calc( 100% - 8px );
     justify-items: center;
-    position: absolute;
-    top: 4px;
     width: calc( 100% - 8px );
     word-break: break-all;
-    z-index: 2;
 }
 
 mark.notes > span { min-height: 14px; }
