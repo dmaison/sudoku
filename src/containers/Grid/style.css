@@ -1,0 +1,9 @@
+main.grid {
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat( 3, 1fr );
+    flex-basis: 80vh;
+    flex-shrink: 0;
+    margin: auto;
+    width: 80vh;
+}

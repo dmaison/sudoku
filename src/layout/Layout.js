@@ -1,13 +1,12 @@
 import React from 'react';
 import Menu from '../containers/Menu';
-
-import Cell from '../components/Grid/Cell';
+import Grid from '../containers/Grid';
 import './style.css';
 
 const Layout = props => (
     <React.Fragment>
         <Menu />
-        <Cell />
+        <Grid />
     </React.Fragment>
 );
 
