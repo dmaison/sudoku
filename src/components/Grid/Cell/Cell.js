@@ -29,7 +29,7 @@ class Cell extends React.PureComponent {
         return (
             <div className={ classes.join( ' ' ) }>
                 <Note />
-                <input disabled={ this.props.disabled } defaultValue={ this.props.disabled ? this.state.value : null } />
+                <input disabled={ this.props.disabled } defaultValue={ this.props.disabled ? this.props.value : null } />
             </div>
         );
     }

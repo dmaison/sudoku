@@ -1,8 +1,9 @@
 import { commit, create, fill } from '../utilities/grid';
-import * as CONSTANTS from '../constants/app';
+import * as CONSTANTS from '../constants/actions/app';
 
 const INITIAL_STATE = {
-	grid: create()
+	grid: create(),
+	openDialog: null
 };
 
 const app = ( state = INITIAL_STATE, action ) => {
@@ -12,10 +13,13 @@ const app = ( state = INITIAL_STATE, action ) => {
 	switch( action.type ){
 
 		case CONSTANTS.GRID_RESET:
-			grid = [ ...state.grid ];
+			grid = create();
 			fill( grid );
 			grid = commit( state.difficulty, grid );
 			return { ...state, grid };
+	
+		case CONSTANTS.MENU_OPEN:
+			return { ...state, openDialog: action.payload.id };
 
 		default:
 			return state;
