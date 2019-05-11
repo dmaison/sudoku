@@ -11,14 +11,21 @@ import './style.css';
  * @param {string} [icon="cog"|"edit"|"save"|"sync"] Icon to display inside the button
  * @param {function} onClick Function to execute on click
  */
-const Button = props => (
-    <button 
-        className="menu item"
-        data-label={ props.hoverText }
-        onClick={ props.onClick }>
-            <i className={ `fas fa-${ props.icon }` } />
-    </button>
-);
+const Button = props => {
+
+    let classes = [ 'menu', 'item' ];
+
+    if( props.active ) classes.push( 'active' );
+
+    return (
+        <button 
+            className={ classes.join( ' ' ) }
+            data-label={ props.hoverText }
+            onClick={ props.onClick }>
+                <i className={ `fas fa-${ props.icon }` } />
+        </button>
+    );
+}
 
 Button.propTypes = {
     hoverText: PropTypes.string.isRequired,

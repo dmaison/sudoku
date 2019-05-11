@@ -1,4 +1,4 @@
-import { GRID_RESET, MENU_OPEN, SET_DIFFICULTY } from '../constants/actions/app';
+import { GRID_RESET, MENU_OPEN, SET_DIFFICULTY, TOGGLE_NOTE_MODE } from '../constants/actions/app';
 
 /**
  * @name handleDialog
@@ -25,7 +25,7 @@ export const reset = () => {
  * @name setDifficulty
  * @constant
  * @function
- * @description Creates a new puzzle
+ * @description Sets the difficulty and creates a new puzzle
  * @param {string} difficulty Difficulty to set the game to
  */
 export const setDifficulty = difficulty => {
@@ -33,4 +33,14 @@ export const setDifficulty = difficulty => {
         dispatch({ type: SET_DIFFICULTY, payload: { difficulty } });
         dispatch({ type: GRID_RESET });
     }
+}
+
+/**
+ * @name toggleNoteMode
+ * @constant
+ * @function
+ * @description Toggles the game between entry mode and note mode
+ */
+export const toggleNoteMode = difficulty => {
+    return dispatch => dispatch({ type: TOGGLE_NOTE_MODE });
 }

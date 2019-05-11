@@ -3,6 +3,7 @@ import * as CONSTANTS from '../constants/actions/app';
 
 const INITIAL_STATE = {
 	grid: create(),
+	noteMode: false,
 	openDialog: null
 };
 
@@ -23,6 +24,9 @@ const app = ( state = INITIAL_STATE, action ) => {
 
 		case CONSTANTS.SET_DIFFICULTY:
 			return { ...state, difficulty: action.payload.difficulty };
+
+		case CONSTANTS.TOGGLE_NOTE_MODE:
+			return { ...state, noteMode: !state.noteMode };
 
 		default:
 			return state;

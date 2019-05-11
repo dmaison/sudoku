@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { reset, handleDialog, setDifficulty } from '../../actions/app';
+import { reset, handleDialog, setDifficulty, toggleNoteMode } from '../../actions/app';
 import { GAME_DIFFICULTY, GAME_NEW } from '../../constants/menu';
 import { DIFFICULTIES, LEVEL_EASY } from '../../constants/difficulties';
 import Button from '../../components/Menu/Button';
@@ -26,10 +26,26 @@ const WARNING = (
  * @function
  * @description Retrieves the selected difficulty value and applies it to the game
  * @param {Object} props Properties passed from the JSX component containing actions
+ * @param {function} setState Sets the state of the component
  */
-const handleDifficulty = props => {
-    let select = document.querySelector( `dialog[data-id=${ GAME_DIFFICULTY }] select` );
+const handleDifficulty = ( props, setState ) => {
+    let select = document.querySelector( `dialog[data-id=${ GAME_DIFFICULTY }] select` ),
+    value = select.value;
+    setState( value );
     props.setDifficulty( select.value );
+};
+
+/**
+ * @name handleNoteMode
+ * @constant
+ * @function
+ * @param {Object} props 
+ * @param {function} setState 
+ * @param {boolean} active Current state of the Note Mode
+ */
+const handleNoteMode = ( props, setState, active ) => {
+    setState( !active );
+    props.toggleNoteMode();
 };
 
 /**
@@ -38,45 +54,52 @@ const handleDifficulty = props => {
  * @returns {JSX}
  * @description Displays the menu controls for the game
  */
-const Menu = props => (
-    <React.Fragment>
-        <nav>
-            <Button icon="edit" hoverText="Toggle Note Mode (N)" />
-            <Button icon="sync" hoverText="New Game" onClick={ () => props.handleDialog( GAME_NEW ) } />
-            <Button icon="cog" hoverText="Change Difficulty" onClick={ () => props.handleDialog( GAME_DIFFICULTY ) } />
-            <Button icon="save" hoverText="Save (S)" />
-        </nav>
-        <Dialog id={ GAME_NEW } onAccept={ props.reset }>
-            <h1>
-                <i className="fas fa-sync fa-2x" />
-                New Game
-            </h1>
-            { WARNING }
-        </Dialog>
-        <Dialog id={ GAME_DIFFICULTY } onAccept={ () => handleDifficulty( props ) }>
-            <h1>
-                <i className="fas fa-cog fa-2x" />
-                Change Difficulty
-            </h1>
-            { WARNING }
-            <select id="difficulty" defaultValue={ props.difficulty }>
-                {
-                    DIFFICULTIES.map(
-                        ( difficulty, index ) => (
-                            <option key={ `difficulty-${ index }` } value={ difficulty.level }>
-                                { difficulty.level }
-                            </option>
+const Menu = props => {
+
+    const [ noteMode, setNoteMode ] = useState( props.noteMode ),
+    [ difficulty, setDifficulty ] = useState( props.difficulty );
+
+    return (
+        <React.Fragment>
+            <nav>
+                <Button icon="edit" hoverText="Toggle Note Mode (N)" active={ noteMode } onClick={ () => handleNoteMode( props, setNoteMode, noteMode ) } />
+                <Button icon="sync" hoverText="New Game" onClick={ () => props.handleDialog( GAME_NEW ) } />
+                <Button icon="cog" hoverText="Change Difficulty" onClick={ () => props.handleDialog( GAME_DIFFICULTY ) } />
+                <Button icon="save" hoverText="Save (S)" />
+            </nav>
+            <Dialog id={ GAME_NEW } onAccept={ props.reset }>
+                <h1>
+                    <i className="fas fa-sync fa-2x" />
+                    New Game
+                </h1>
+                { WARNING }
+            </Dialog>
+            <Dialog id={ GAME_DIFFICULTY } onAccept={ () => handleDifficulty( props, setDifficulty ) }>
+                <h1>
+                    <i className="fas fa-cog fa-2x" />
+                    Change Difficulty
+                </h1>
+                { WARNING }
+                <select id="difficulty" defaultValue={ difficulty }>
+                    {
+                        DIFFICULTIES.map(
+                            ( option, index ) => (
+                                <option key={ `difficulty-${ index }` } disabled={ difficulty === option.level } value={ option.level }>
+                                    { option.level }
+                                </option>
+                            )
                         )
-                    )
-                }
-            </select>
-        </Dialog>
-    </React.Fragment>
-);
+                    }
+                </select>
+            </Dialog>
+        </React.Fragment>
+    );
+}
 
 
 Menu.defaultProps = {
-    difficulty: LEVEL_EASY
+    difficulty: LEVEL_EASY,
+    noteMode: false
 };
 
 Menu.propTypes = {
@@ -87,9 +110,10 @@ Menu.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    difficulty: state.difficulty
+    difficulty: state.difficulty,
+    noteMode: state.noteMode
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ handleDialog, reset, setDifficulty }, dispatch );
+const mapDispatchToProps = dispatch => bindActionCreators({ handleDialog, reset, setDifficulty, toggleNoteMode }, dispatch );
 
 export default connect( mapStateToProps, mapDispatchToProps )( Menu );
