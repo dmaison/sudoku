@@ -38,7 +38,7 @@ const Dialog = props => {
     };
 
     return (
-        <dialog open={ props.open === props.id }>
+        <dialog open={ ( props.open === props.id ) }>
             <div>{ props.children }</div>
             <div className="controls" onClick={ handleCancel }>
                 <button type="button">

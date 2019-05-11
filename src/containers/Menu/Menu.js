@@ -21,7 +21,7 @@ const Menu = props => (
             <Button icon="cog" hoverText="Change Difficulty" />
             <Button icon="save" hoverText="Save (S)" />
         </nav>
-        <Dialog id={ NEW_GAME }>
+        <Dialog id={ NEW_GAME } onAccept={ props.reset }>
             here!!
         </Dialog>
     </React.Fragment>
