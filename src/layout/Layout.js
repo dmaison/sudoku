@@ -3,7 +3,7 @@ import Menu from '../containers/Menu';
 import Grid from '../containers/Grid';
 import './style.css';
 
-const Layout = props => (
+const Layout = () => (
     <React.Fragment>
         <Menu />
         <Grid />

@@ -2,6 +2,14 @@ const GRID = 'GRID_',
 MENU = 'MENU_';
 
 /**
+ * @name SET_DIFFICULTY
+ * @constant
+ * @string
+ * @description Used for setting the game difficulty
+ */
+export const SET_DIFFICULTY = 'SET_DIFFICULTY';
+
+/**
  * @name GRID_RESET
  * @constant
  * @string

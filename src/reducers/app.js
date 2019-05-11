@@ -21,6 +21,9 @@ const app = ( state = INITIAL_STATE, action ) => {
 		case CONSTANTS.MENU_OPEN:
 			return { ...state, openDialog: action.payload.id };
 
+		case CONSTANTS.SET_DIFFICULTY:
+			return { ...state, difficulty: action.payload.difficulty };
+
 		default:
 			return state;
 	}

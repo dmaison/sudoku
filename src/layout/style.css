@@ -4,7 +4,7 @@
 
 body { 
     background-image: linear-gradient( lightgray, white );    
-    font-family: arial, helvetica, sans-serif;    
+    font-family: 'Montserrat', arial, helvetica, sans-serif; 
     margin: 0;
     padding: 0;
 }

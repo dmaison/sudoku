@@ -16,6 +16,7 @@ div.cell > input {
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     color: transparent;
+    font-family: 'Montserrat', arial, helvetica, sans-serif;
     font-size: 3rem;
     height: 100%;
     outline: none;
