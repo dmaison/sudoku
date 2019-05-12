@@ -1,6 +1,7 @@
 div.cell { 
     background-color: transparent;
     position: relative; 
+    transition: .2s linear;
 }
 
 div.cell > mark {
