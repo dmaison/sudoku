@@ -1,5 +1,5 @@
 div.cell { 
-    background-color: rgba( 255, 255, 255, .5 );
+    background-color: transparent;
     position: relative; 
 }
 
@@ -29,13 +29,6 @@ div.cell > input {
     z-index: 3;
 }
 
-div.cell > input:focus { box-shadow: 0 0 20px steelblue; }
-
-div.cell > input.error { 
-    background-color: rgba( 255, 0, 0, .2 );
-    color: crimson;
-}
-
 div.cell > input::-webkit-inner-spin-button,
 div.cell > input::-webkit-outer-spin-button { 
     -webkit-appearance: none; 
@@ -43,3 +36,17 @@ div.cell > input::-webkit-outer-spin-button {
 }
 
 div.cell > input:disabled { color: black; }
+
+/**
+ * States
+ */
+div.active.cell { background-color: white; }
+
+div.active.cell > input { border-color: steelblue; }
+
+div.cell.error > input { 
+    background-color: rgba( 255, 0, 0, .2 );
+    color: firebrick;
+}
+
+div.cell > input:focus { box-shadow: 0 0 20px steelblue; }

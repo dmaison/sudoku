@@ -1,4 +1,4 @@
-import { GRID_RESET, MENU_OPEN, SET_DIFFICULTY, TOGGLE_NOTE_MODE } from '../constants/actions/app';
+import * as CONSTANTS from '../constants/actions/app';
 
 /**
  * @name handleDialog
@@ -8,7 +8,20 @@ import { GRID_RESET, MENU_OPEN, SET_DIFFICULTY, TOGGLE_NOTE_MODE } from '../cons
  * @param {string} [id] If provided, opens the dialog with to corresponding id. If not provided, closes all dialogs
  */
 export const handleDialog = ( id=null ) => {
-    return dispatch => dispatch({ type: MENU_OPEN, payload: { id } });
+    return dispatch => dispatch({ type: CONSTANTS.MENU_OPEN, payload: { id } });
+}
+
+/**
+ * @name highlight
+ * @constant
+ * @function
+ * @description Highlights the active 
+ * @param {number} [column=null] Column number to highlight
+ * @param {number} [row=null] Row number to highlight
+ * @param {number} [section=null] Section to highlight
+ */
+export const highlight = ( column=null, row=null, section=null ) => {
+    return dispatch => dispatch({ type: CONSTANTS.GRID_HIGHLIGHT, payload: { column, row, section } });
 }
 
 /**
@@ -18,7 +31,7 @@ export const handleDialog = ( id=null ) => {
  * @description Creates a new puzzle
  */
 export const reset = () => {
-    return dispatch => dispatch({ type: GRID_RESET });
+    return dispatch => dispatch({ type: CONSTANTS.GRID_RESET });
 }
 
 /**
@@ -30,8 +43,8 @@ export const reset = () => {
  */
 export const setDifficulty = difficulty => {
     return dispatch => {
-        dispatch({ type: SET_DIFFICULTY, payload: { difficulty } });
-        dispatch({ type: GRID_RESET });
+        dispatch({ type: CONSTANTS.SET_DIFFICULTY, payload: { difficulty } });
+        dispatch({ type: CONSTANTS.GRID_RESET });
     }
 }
 
@@ -42,5 +55,5 @@ export const setDifficulty = difficulty => {
  * @description Toggles the game between entry mode and note mode
  */
 export const toggleNoteMode = difficulty => {
-    return dispatch => dispatch({ type: TOGGLE_NOTE_MODE });
+    return dispatch => dispatch({ type: CONSTANTS.TOGGLE_NOTE_MODE });
 }

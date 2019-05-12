@@ -2,7 +2,12 @@ import { commit, create, fill } from '../utilities/grid';
 import * as CONSTANTS from '../constants/actions/app';
 
 const INITIAL_STATE = {
-	grid: create(),
+	active: {
+		column: null,
+		row: null,
+		section: null
+	},
+	grid: create(),	
 	noteMode: false,
 	openDialog: null
 };
@@ -18,6 +23,9 @@ const app = ( state = INITIAL_STATE, action ) => {
 			fill( grid );
 			grid = commit( state.difficulty, grid );
 			return { ...state, grid };
+		
+		case CONSTANTS.GRID_HIGHLIGHT:
+			return { ...state, active: action.payload };
 	
 		case CONSTANTS.MENU_OPEN:
 			return { ...state, openDialog: action.payload.id };

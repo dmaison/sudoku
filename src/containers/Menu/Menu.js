@@ -80,42 +80,38 @@ const Menu = props => {
                     Change Difficulty
                 </h1>
                 { WARNING }
-                <form>
-                    <select id="difficulty" defaultValue={ difficulty }>
-                        {
-                            DIFFICULTIES.map(
-                                ( option, index ) => (
-                                    <option key={ `difficulty-${ index }` } disabled={ difficulty === option.level } value={ option.level }>
-                                        { option.level }
-                                    </option>
-                                )
+                <select id="difficulty" defaultValue={ difficulty }>
+                    {
+                        DIFFICULTIES.map(
+                            ( option, index ) => (
+                                <option key={ `difficulty-${ index }` } disabled={ difficulty === option.level } value={ option.level }>
+                                    { option.level }
+                                </option>
                             )
-                        }
-                    </select>
-                </form>
+                        )
+                    }
+                </select>
             </Dialog>
             <Dialog id={ GAME_SAVE } onAccept={ () => handleDifficulty( props, setDifficulty ) }>
                 <h1>
                     <i className="fas fa-save fa-2x" />
                     Save Game
                 </h1>
-                <form>
-                    {
-                        props.saves.length > 0 ?
-                            <select id="difficulty" defaultValue={ difficulty }>
-                                {
-                                    props.saves.map(
-                                        ( option, index ) => (
-                                            <option key={ `difficulty-${ index }` } disabled={ difficulty === option.level } value={ option.level }>
-                                                { option.level }
-                                            </option>
-                                        )
+                {
+                    props.saves.length > 0 ?
+                        <select id="difficulty" defaultValue={ difficulty }>
+                            {
+                                props.saves.map(
+                                    ( option, index ) => (
+                                        <option key={ `difficulty-${ index }` } disabled={ difficulty === option.level } value={ option.level }>
+                                            { option.level }
+                                        </option>
                                     )
-                                }
-                            </select>:
-                            null
-                    }
-                </form>
+                                )
+                            }
+                        </select>:
+                        null
+                }
             </Dialog>
         </React.Fragment>
     );

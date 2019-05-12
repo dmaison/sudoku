@@ -3,7 +3,7 @@
 }
 
 body { 
-    background-image: linear-gradient( lightgray, white );    
+    background-color: #f1f1f1;
     font-family: 'Montserrat', arial, helvetica, sans-serif; 
     margin: 0;
     padding: 0;

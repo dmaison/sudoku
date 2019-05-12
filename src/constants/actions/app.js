@@ -1,7 +1,13 @@
 const GRID = 'GRID_',
 MENU = 'MENU_';
 
-
+/**
+ * @name GRID_HIGHLIGHT
+ * @constant
+ * @string
+ * @description Used for highlighting the selected column, row, and section in the grid what a cell is focused
+ */
+export const GRID_HIGHLIGHT = GRID + 'HIGHLIGHT';
 
 /**
  * @name GRID_RESET
