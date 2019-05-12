@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { handleDialog } from '../../actions/app';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import './animation.css';
 import './style.css';
 
 /**

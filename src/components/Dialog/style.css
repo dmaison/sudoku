@@ -1,5 +1,6 @@
 dialog[open] {
     align-items: center;
+    animation: showDialog .5s;
     background-color: rgba( 0, 0, 0, .9 );
     border: none;
     color: white;
