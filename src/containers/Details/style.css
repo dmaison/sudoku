@@ -1,0 +1,19 @@
+aside.details { 
+    display: flex;
+    border-bottom: 1px solid black;
+    margin: 1rem auto;
+    padding: 1rem 0; 
+    width: 80vh;
+}
+
+aside.details > span { 
+    flex: 1;
+    font-weight: bold; 
+}
+
+aside.details > span::after { 
+    content: attr( data-value ); 
+    display: block;
+    font-weight: normal;
+    text-transform: capitalize;
+}

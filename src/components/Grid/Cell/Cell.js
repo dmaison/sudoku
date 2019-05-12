@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { highlight } from '../../../actions/app';
+import { highlight, trackMistake } from '../../../actions/app';
 import { GRID_MINIMUM, GRID_MAXIMUM } from '../../../constants/grid';
 import Note from '../Note';
 import './style.css';
@@ -49,6 +49,7 @@ class Cell extends React.PureComponent {
         noteMode: PropTypes.bool,
         row: PropTypes.number.isRequired,
         section: PropTypes.number.isRequired,
+        trackMistake: PropTypes.func.isRequired,
         value: PropTypes.number
     }
 
@@ -121,6 +122,7 @@ class Cell extends React.PureComponent {
         if( e.key === 'Backspace' && this.state.value !== '' ) return this.setState({ error: false, value: '' });
         if( this.isInvalidNumber( value ) ) return e.preventDefault();
         error = ( !isNaN( value ) && value !== this.props.value );
+        if( error ) this.props.trackMistake();
         this.setState({ error, value, notes: [] });
     }
 
@@ -152,6 +154,6 @@ const mapStateToProps = state => ({
     noteMode: state.app.noteMode
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ highlight }, dispatch );
+const mapDispatchToProps = dispatch => bindActionCreators({ highlight, trackMistake }, dispatch );
 
 export default connect( mapStateToProps, mapDispatchToProps )( Cell );

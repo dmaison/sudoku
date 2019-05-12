@@ -17,7 +17,6 @@ export const GRID_HIGHLIGHT = GRID + 'HIGHLIGHT';
  */
 export const GRID_RESET = GRID + 'RESET';
 
-
 /**
  * @name MENU_OPEN
  * @constant
@@ -41,3 +40,11 @@ export const SET_DIFFICULTY = 'SET_DIFFICULTY';
  * @description Used for toggling note mode
  */
 export const TOGGLE_NOTE_MODE = 'TOGGLE_NOTE_MODE';
+
+/**
+ * @name TRACK_MISTAKE
+ * @constant
+ * @string
+ * @description Used for tracking errors
+ */
+export const TRACK_MISTAKE = 'TRACK_MISTAKE';

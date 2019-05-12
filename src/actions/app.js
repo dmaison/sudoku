@@ -57,3 +57,13 @@ export const setDifficulty = difficulty => {
 export const toggleNoteMode = difficulty => {
     return dispatch => dispatch({ type: CONSTANTS.TOGGLE_NOTE_MODE });
 }
+
+/**
+ * @name trackMistake
+ * @constant
+ * @function
+ * @description Tracks a mistake
+ */
+export const trackMistake = () => {
+    return dispatch => dispatch({ type: CONSTANTS.TRACK_MISTAKE });
+}

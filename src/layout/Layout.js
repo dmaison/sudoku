@@ -1,10 +1,12 @@
 import React from 'react';
-import Menu from '../containers/Menu';
+import Details from '../containers/Details';
 import Grid from '../containers/Grid';
+import Menu from '../containers/Menu';
 import './style.css';
 
 const Layout = () => (
     <React.Fragment>
+        <Details />
         <Menu />
         <Grid />
     </React.Fragment>
