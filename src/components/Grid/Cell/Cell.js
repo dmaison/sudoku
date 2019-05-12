@@ -55,11 +55,11 @@ class Cell extends React.PureComponent {
     componentDidUpdate( prevProps ){
         // handle when a new game has been started
         if( this.props.disabled && this.state.value !== this.props.value ){ 
-            this.setState({ error: false, value: this.props.value });
+            this.setState({ error: false, value: this.props.value, notes: [] });
 
         // clear cell when previous cell displayed the answer by default
         } else if( !this.props.disabled && prevProps.disabled ){
-            this.setState({ error: false, value: '' });
+            this.setState({ error: false, value: '', notes: [] });
         }
     }
 
