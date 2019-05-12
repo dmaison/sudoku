@@ -5,8 +5,7 @@ button.menu.item {
     cursor: pointer;
     display: block;
     font-size: 2rem;
-    max-width: 64px;
-    min-width: 64px;
+    width: 64px;
     outline: none;
     overflow: hidden;
     padding: 1rem;
@@ -46,3 +45,21 @@ button.menu.item:hover::after {
 }
 
 button.menu.item.active { background-color: steelblue; }
+
+/**
+ * Mobile
+ */
+@media screen and ( max-device-width: 740px ){
+    button.menu.item {
+        overflow: visible;
+        width: 96px;
+    }
+
+    button.menu.item::after { 
+        color: white; 
+        font-size: 30px;
+        opacity: 1;
+    }
+    
+    button.menu.item i { font-size: 4rem; }
+}

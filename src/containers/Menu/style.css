@@ -4,4 +4,38 @@ nav {
     left: 0;
     position: fixed;
     top: 0;
+    z-index: 4;
+}
+
+nav + div.dropdown {
+    background-color: black;
+    height: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 96px;
+    animation: closeMenu .4s;
+    width: 100%;
+    z-index: 4;
+}
+
+nav + div.dropdown.open {
+    height: 544px;
+    overflow: visible;
+    animation: openMenu .4s;
+}
+
+nav + div.dropdown button {
+    margin: 2rem 0;
+}
+
+/**
+ * Mobile
+ */
+@media screen and ( max-device-width: 740px ){
+    nav {
+        height: 96px;
+        width: 100vw;
+        position: initial;
+    }
 }

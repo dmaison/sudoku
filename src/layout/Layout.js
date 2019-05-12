@@ -6,8 +6,8 @@ import './style.css';
 
 const Layout = () => (
     <React.Fragment>
-        <Details />
         <Menu />
+        <Details />        
         <Grid />
     </React.Fragment>
 );

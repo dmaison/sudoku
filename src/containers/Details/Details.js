@@ -17,12 +17,22 @@ class Details extends React.PureComponent {
         this.state = {
             time: 0
         };
-        this.timer;
+        this.timer = undefined;
         this.timerStart();
     }
 
     static defaultProps = {
-        difficulty: LEVEL_EASY
+        difficulty: LEVEL_EASY,
+        game: 1,
+        mistakes: 0,
+        timerOn: false
+    }
+
+    static propTypes = {
+        difficulty: PropTypes.string,
+        game: PropTypes.number,
+        mistakes: PropTypes.number,
+        timerOn: PropTypes.bool
     }
 
     componentDidUpdate( prevProps ){
@@ -92,8 +102,8 @@ class Details extends React.PureComponent {
 
 const mapStateToProps = state => ({
     difficulty: state.app.difficulty,
-    mistakes: state.app.mistakes,
     game: state.app.game,
+    mistakes: state.app.mistakes,    
     timerOn: state.app.timerOn
 });
 

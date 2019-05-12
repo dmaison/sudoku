@@ -1,6 +1,6 @@
 aside.details { 
     display: flex;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid var( --navBlack );
     margin: 1rem auto;
     padding: 1rem 0; 
     width: 80vh;
@@ -16,4 +16,13 @@ aside.details > span::after {
     display: block;
     font-weight: normal;
     text-transform: capitalize;
+}
+
+/**
+ * Mobile
+ */
+ @media screen and ( max-device-width: 740px ){
+    aside.details {
+        width: 900px;
+    }
 }

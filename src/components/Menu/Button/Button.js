@@ -28,8 +28,8 @@ const Button = props => {
 }
 
 Button.propTypes = {
-    hoverText: PropTypes.string.isRequired,
-    icon: PropTypes.oneOf([ 'cog', 'edit', 'save', 'sync' ]).isRequired,
+    hoverText: PropTypes.string,
+    icon: PropTypes.oneOf([ 'bars', 'cog', 'edit', 'save', 'sync' ]).isRequired,
     onClick: PropTypes.func
 }
 

@@ -1,0 +1,20 @@
+@keyframes openMenu {
+    0% {
+        overflow: hidden;
+        height: 0;
+    }
+    99% {
+        height: 544px;
+    }
+    100% { overflow: visible; }    
+}
+
+@keyframes closeMenu {
+    from {
+        overflow: hidden;
+        height: 544px;
+    }
+    to {
+        height: 0;
+    }
+}

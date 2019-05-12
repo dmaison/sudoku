@@ -6,3 +6,13 @@ main.grid {
     flex-shrink: 0;
     width: 80vh;
 }
+
+/**
+ * Mobile
+ */
+ @media screen and ( max-device-width: 740px ){
+    main.grid {
+        flex-basis: 900px;
+        width: 900px;
+    }
+}
