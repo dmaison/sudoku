@@ -7,6 +7,22 @@ import { GRID_MINIMUM, GRID_MAXIMUM } from '../../../constants/grid';
 import Note from '../Note';
 import './style.css';
 
+/**
+ * @name Cell
+ * @class
+ * @extends React.PureComponent
+ * @description Displays the cell input and note for the grid
+ * @param {Object} active
+ * @param {number} active.column
+ * @param {number} active.row
+ * @param {number} active.section
+ * @param {number} column
+ * @param {function} highlight
+ * @param {boolean} noteMode
+ * @param {number} row
+ * @param {number} section
+ * @param {number} value
+ */
 class Cell extends React.PureComponent {
 
     constructor( props ){
@@ -28,8 +44,11 @@ class Cell extends React.PureComponent {
             row: PropTypes.number,
             section: PropTypes.number
         }).isRequired,
+        column: PropTypes.number.isRequired,
         highlight: PropTypes.func.isRequired,
         noteMode: PropTypes.bool,
+        row: PropTypes.number.isRequired,
+        section: PropTypes.number.isRequired,
         value: PropTypes.number
     }
 
@@ -77,12 +96,20 @@ class Cell extends React.PureComponent {
         this.setState({ notes });
     }
 
+    /**
+     * @name isInvalidNumber
+     * @method
+     * @description Determines if the provided value is outside the accepted range for the grid
+     * @returns {boolean} `true` if the number is invalid (i.e. less than 1 or greater than 9), `false` if the number is value
+     * @param {number} value Number to be evaluated
+     */
     isInvalidNumber( value ){
         return ( value < GRID_MINIMUM || value > GRID_MAXIMUM );
     }
 
     /**
-     * _**Ignore the input prop type error:**_ This needs to occur for `onKeyDown`, otherwise we can't enforce values or let the user delete their last entry
+     * _**Ignore the input prop type onChange console error:**_ This needs to occur for `onKeyDown`, otherwise we 
+     * can't enforce values or let the user delete their last entry
      * @name validate
      * @method
      * @description Validates the user's input against the puzzle
