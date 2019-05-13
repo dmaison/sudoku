@@ -7,6 +7,12 @@ const INITIAL_STATE = {
 		row: null,
 		section: null
     },
+    clear: {
+		column: null,
+		row: null,
+        section: null,
+        value: null
+    },
     errors: 0,
     game: 1,
 	grid: create(),	
@@ -20,6 +26,9 @@ const app = ( state = INITIAL_STATE, action ) => {
     var grid;
 
 	switch( action.type ){
+
+        case CONSTANTS.GRID_CLEAR_NOTE:
+            return { ...state, clear: action.payload };
 
 		case CONSTANTS.GRID_RESET:
 			grid = create();

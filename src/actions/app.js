@@ -1,6 +1,20 @@
 import * as CONSTANTS from '../constants/actions/app';
 
 /**
+ * @name clearNote
+ * @constant
+ * @function
+ * @description Clears notes from sibling cells when a value has been committed
+ * @param {number} [column=null] Column to remove the value from
+ * @param {number} [row=null] Row to remove the value from
+ * @param {number} [section=null] Section to remove the value from
+ * @param {number} [value=null] Value to remove from the notes
+ */
+export const clearNote = ( column=null, row=null, section=null, value=null ) => {
+    return dispatch => dispatch({ type: CONSTANTS.GRID_CLEAR_NOTE, payload: { column, row, section, value } });
+}
+
+/**
  * @name handleDialog
  * @constant
  * @function

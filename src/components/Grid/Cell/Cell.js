@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { highlight, trackMistake } from '../../../actions/app';
+import { clearNote, highlight, trackMistake } from '../../../actions/app';
 import { GRID_MINIMUM, GRID_MAXIMUM } from '../../../constants/grid';
 import Note from '../Note';
 import './style.css';
@@ -44,6 +44,13 @@ class Cell extends React.PureComponent {
             row: PropTypes.number,
             section: PropTypes.number
         }).isRequired,
+        clear: PropTypes.shape({
+            column: PropTypes.number,
+            row: PropTypes.number,
+            section: PropTypes.number,
+            value: PropTypes.number
+        }).isRequired,
+        clearNote: PropTypes.func.isRequired,
         column: PropTypes.number.isRequired,
         highlight: PropTypes.func.isRequired,
         noteMode: PropTypes.bool,
@@ -59,9 +66,33 @@ class Cell extends React.PureComponent {
             this.setState({ error: false, value: this.props.value, notes: [] });
 
         // clear cell when previous cell displayed the answer by default
-        } else if( !this.props.disabled && prevProps.disabled ){
+        } else if( ( !this.props.disabled && prevProps.disabled ) || prevProps.value !== this.props.value ){
             this.setState({ error: false, value: '', notes: [] });
+
         }
+
+        if( this.shouldClearNote( prevProps ) ) this.setNote({ key: this.props.clear.value });
+    }
+
+    /**
+     * @name shouldClearNote
+     * @method
+     * @description Determines if the note should be cleared from the cell
+     * @returns {boolean} `true` if the note should be cleared, `false` if no action should be taken
+     */
+    shouldClearNote( prevProps ){
+        if( 
+            prevProps.clear.column === this.props.clear.column &&
+            prevProps.clear.row === this.props.clear.row &&
+            prevProps.clear.section === this.props.clear.section &&
+            prevProps.clear.value === this.props.clear.value
+        ) return false;
+
+        return (
+            this.props.clear.column === this.props.column ||
+            this.props.clear.row === this.props.row ||
+            this.props.clear.section === this.props.section
+        );
     }
 
     /**
@@ -88,7 +119,7 @@ class Cell extends React.PureComponent {
         let value = Number( e.key ),
         notes = [ ...this.state.notes ],
         index = notes.indexOf( value );
-        if( this.isInvalidNumber( value ) ) return e.preventDefault();
+        if( this.isInvalidNumber( value ) ) return ( e.preventDefault && e.preventDefault() );
         if( index === -1 ){
             notes.push( value );
         } else {
@@ -109,7 +140,7 @@ class Cell extends React.PureComponent {
     }
 
     /**
-     * _**Ignore the input prop type onChange console error:**_ This needs to occur for `onKeyDown`, otherwise we 
+     * _**Ignore the input prop type onChange console error!**_ This needs to occur for `onKeyDown`, otherwise we 
      * can't enforce values or let the user delete their last entry
      * @name validate
      * @method
@@ -119,11 +150,13 @@ class Cell extends React.PureComponent {
     validate = e => {
         let value = Number( e.key ),
         error = false;
+        if( isNaN( value ) ) return;
         if( e.key === 'Backspace' && this.state.value !== '' ) return this.setState({ error: false, value: '' });
         if( this.isInvalidNumber( value ) ) return e.preventDefault();
         error = ( !isNaN( value ) && value !== this.props.value );
         if( error ) this.props.trackMistake();
         this.setState({ error, value, notes: [] });
+        if( !error ) this.props.clearNote( value );
     }
 
     render(){
@@ -151,9 +184,10 @@ class Cell extends React.PureComponent {
 
 const mapStateToProps = state => ({
     active: state.app.active,
+    clear: state.app.clear,
     noteMode: state.app.noteMode
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ highlight, trackMistake }, dispatch );
+const mapDispatchToProps = dispatch => bindActionCreators({ clearNote, highlight, trackMistake }, dispatch );
 
 export default connect( mapStateToProps, mapDispatchToProps )( Cell );

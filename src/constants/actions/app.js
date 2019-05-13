@@ -2,6 +2,14 @@ const GRID = 'GRID_',
 MENU = 'MENU_';
 
 /**
+ * @name GRID_CLEAR_NOTE
+ * @constant
+ * @string
+ * @description Used for clearing a note from sibling cells when a value has been committed
+ */
+export const GRID_CLEAR_NOTE = GRID + 'CLEAR_NOTE';
+
+/**
  * @name GRID_HIGHLIGHT
  * @constant
  * @string
