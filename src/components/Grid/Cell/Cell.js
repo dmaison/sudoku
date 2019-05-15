@@ -71,7 +71,7 @@ class Cell extends React.PureComponent {
 
         }
 
-        if( this.shouldClearNote( prevProps ) ) this.setNote({ key: this.props.clear.value });
+        if( this.shouldClearNote( prevProps ) ) this.setNote({ key: this.props.clear.value }, true );
     }
 
     /**
@@ -81,6 +81,7 @@ class Cell extends React.PureComponent {
      * @returns {boolean} `true` if the note should be cleared, `false` if no action should be taken
      */
     shouldClearNote( prevProps ){
+
         if( 
             prevProps.clear.column === this.props.clear.column &&
             prevProps.clear.row === this.props.clear.row &&
@@ -115,15 +116,20 @@ class Cell extends React.PureComponent {
      * @description Adds or removes a note value
      * @param {EventListenerObject} e
      */
-    setNote = e => {
+    setNote = ( e, forceClear=false ) => {
+        
+        // don't add/remove notes when there's already a value set
+        if( this.state.value !== '' ) return;
+
         let value = Number( e.key ),
         notes = [ ...this.state.notes ],
         index = notes.indexOf( value );
         if( this.isInvalidNumber( value ) ) return ( e.preventDefault && e.preventDefault() );
-        if( index === -1 ){
+
+        if( index === -1 && !forceClear ){
             notes.push( value );
         } else {
-            notes.splice( index, 1 );
+            if( index !== -1 ) notes.splice( index, 1 );
         }
         this.setState({ notes });
     }
@@ -148,15 +154,18 @@ class Cell extends React.PureComponent {
      * @param {EventListenerObject} e
      */
     validate = e => {
+
+        if( this.state.value !== '' && !this.state.error ) return;
+
         let value = Number( e.key ),
         error = false;
-        if( isNaN( value ) ) return;
         if( e.key === 'Backspace' && this.state.value !== '' ) return this.setState({ error: false, value: '' });
+        if( isNaN( value ) ) return;        
         if( this.isInvalidNumber( value ) ) return e.preventDefault();
         error = ( !isNaN( value ) && value !== this.props.value );
         if( error ) this.props.trackMistake();
         this.setState({ error, value, notes: [] });
-        if( !error ) this.props.clearNote( value );
+        if( !error ) this.props.clearNote( this.props.column, this.props.row, this.props.section, value );
     }
 
     render(){
