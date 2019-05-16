@@ -1,13 +1,6 @@
 const GRID = 'GRID_',
-MENU = 'MENU_';
-
-/**
- * @name GRID_CLEAR_NOTE
- * @constant
- * @string
- * @description Used for clearing a note from sibling cells when a value has been committed
- */
-export const GRID_CLEAR_NOTE = GRID + 'CLEAR_NOTE';
+MENU = 'MENU_',
+SET = 'SET_';
 
 /**
  * @name GRID_HIGHLIGHT
@@ -39,7 +32,15 @@ export const MENU_OPEN = MENU + 'OPEN';
  * @string
  * @description Used for setting the game difficulty
  */
-export const SET_DIFFICULTY = 'SET_DIFFICULTY';
+export const SET_DIFFICULTY = SET + 'DIFFICULTY';
+
+/**
+ * @name SET_INPUT
+ * @constant
+ * @string
+ * @description Used for setting the value of a cell
+ */
+export const SET_INPUT = SET + 'INPUT';
 
 /**
  * @name TOGGLE_NOTE_MODE
@@ -48,11 +49,3 @@ export const SET_DIFFICULTY = 'SET_DIFFICULTY';
  * @description Used for toggling note mode
  */
 export const TOGGLE_NOTE_MODE = 'TOGGLE_NOTE_MODE';
-
-/**
- * @name TRACK_MISTAKE
- * @constant
- * @string
- * @description Used for tracking errors
- */
-export const TRACK_MISTAKE = 'TRACK_MISTAKE';

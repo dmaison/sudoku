@@ -27,9 +27,6 @@ const app = ( state = INITIAL_STATE, action ) => {
 
 	switch( action.type ){
 
-        case CONSTANTS.GRID_CLEAR_NOTE:
-            return { ...state, clear: action.payload };
-
 		case CONSTANTS.GRID_RESET:
 			grid = create();
 			fill( grid );
@@ -46,11 +43,53 @@ const app = ( state = INITIAL_STATE, action ) => {
 		case CONSTANTS.SET_DIFFICULTY:
 			return { ...state, difficulty: action.payload.difficulty };
 
+		case CONSTANTS.SET_INPUT:
+
+			let index = state.grid.findIndex( cell => cell.column === action.payload.column && cell.row === action.payload.row ),
+			cell = { ...state.grid[ index ] },
+			value = Number( action.payload.value ),
+			mistakes = Number( state.mistakes );
+
+			grid = [ ...state.grid ];
+
+			// don't do anything for a cell that already has values
+			if( cell.input && ( cell.input === cell.value ) ) return { ...state };
+
+			if( state.noteMode ){
+
+				if( !cell.notes ) cell.notes = [];
+
+				let noteIndex = cell.notes.indexOf( value );
+
+				if( noteIndex === -1 ){
+					cell.notes.push( value );
+				} else {
+					cell.notes.splice( noteIndex, 1 );
+				}
+
+			} else {
+
+				// clear the value
+				if( !action.payload.value ){
+					delete cell.input;
+
+				} else {
+
+					// set value to the cell
+					cell.input = value;
+
+					// set error if the input was wrong
+					if( cell.value !== value ) ++mistakes;
+				}
+
+			}
+
+			grid[ index ] = cell;
+
+			return { ...state, grid, mistakes };
+
 		case CONSTANTS.TOGGLE_NOTE_MODE:
             return { ...state, noteMode: !state.noteMode };
-            
-        case CONSTANTS.TRACK_MISTAKE:
-			return { ...state, mistakes: ( state.mistakes + 1 ) };
 
 		default:
 			return state;

@@ -1,20 +1,6 @@
 import * as CONSTANTS from '../constants/actions/app';
 
 /**
- * @name clearNote
- * @constant
- * @function
- * @description Clears notes from sibling cells when a value has been committed
- * @param {number} [column=null] Column to remove the value from
- * @param {number} [row=null] Row to remove the value from
- * @param {number} [section=null] Section to remove the value from
- * @param {number} [value=null] Value to remove from the notes
- */
-export const clearNote = ( column=null, row=null, section=null, value=null ) => {
-    return dispatch => dispatch({ type: CONSTANTS.GRID_CLEAR_NOTE, payload: { column, row, section, value } });
-}
-
-/**
  * @name handleDialog
  * @constant
  * @function
@@ -23,6 +9,23 @@ export const clearNote = ( column=null, row=null, section=null, value=null ) => 
  */
 export const handleDialog = ( id=null ) => {
     return dispatch => dispatch({ type: CONSTANTS.MENU_OPEN, payload: { id } });
+}
+
+/**
+ * @name handleInput
+ * @constant
+ * @function
+ * @description Sets the value of a cell
+ * @param {number} column Column row
+ * @param {number} row 
+ * @param {number} section 
+ * @param {number} value 
+ */
+export const handleInput = ( column, row, section, value ) => {
+    return dispatch => {
+        if( isNaN( value ) ) value = undefined;
+        dispatch({ type: CONSTANTS.SET_INPUT, payload: { column, row, section, value } });
+    }
 }
 
 /**
@@ -70,14 +73,4 @@ export const setDifficulty = difficulty => {
  */
 export const toggleNoteMode = difficulty => {
     return dispatch => dispatch({ type: CONSTANTS.TOGGLE_NOTE_MODE });
-}
-
-/**
- * @name trackMistake
- * @constant
- * @function
- * @description Tracks a mistake
- */
-export const trackMistake = () => {
-    return dispatch => dispatch({ type: CONSTANTS.TRACK_MISTAKE });
 }
