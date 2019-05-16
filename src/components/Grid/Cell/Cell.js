@@ -8,8 +8,8 @@ import './style.css';
 
 /**
  * @name Cell
- * @class
- * @extends React.PureComponent
+ * @function
+ * @returns {JSX}
  * @description Displays the cell input and note for the grid
  * @param {Object} active
  * @param {number} active.column
@@ -17,7 +17,7 @@ import './style.css';
  * @param {number} active.section
  * @param {number} column
  * @param {function} highlight
- * @param {boolean} noteMode
+ * @param {number} input
  * @param {number} row
  * @param {number} section
  * @param {number} value

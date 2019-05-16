@@ -77,6 +77,7 @@ const app = ( state = INITIAL_STATE, action ) => {
 
 					// set value to the cell
 					cell.input = value;
+					cell.notes = [];
 
 					// set error if the input was wrong
 					if( cell.value !== value ) ++mistakes;
