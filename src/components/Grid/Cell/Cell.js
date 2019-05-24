@@ -26,9 +26,7 @@ function Cell( props ){
 
     const [ error, setError ] = useState( false ),
     [ value, setValue ] = useState( '' ),
-    [ active, setActive ] = useState( false ),
-    [ notes, setNotes ] = useState( [] ),
-    [ update, setUpdate ] = useState( false );
+    [ active, setActive ] = useState( false );
 
     let classes = [ 'cell' ];
 
@@ -47,7 +45,7 @@ function Cell( props ){
         // check for active
         setActive( props.column === props.active.column || props.row === props.active.row || props.section === props.active.section );
 
-    });
+    }, [ props.active, props.input, props.value, props.notes ]);
     
     if( error ) classes.push( 'error' );
 
@@ -60,8 +58,8 @@ function Cell( props ){
                 value={ value }
                 disabled={ props.disabled } 
                 onBlur={ () => props.highlight() }
-                onChange={ () => setUpdate( !update ) }
-                onKeyDown={ e => props.handleInput( props.column, props.row, props.section, e.key ) }
+                onChange={ () => {} }
+                onKeyUp={ e => props.handleInput( props.column, props.row, props.section, e.key ) }
                 onFocus={ () => props.highlight( props.column, props.row, props.section ) } />
         </div>
     );
@@ -69,8 +67,8 @@ function Cell( props ){
 }
 
 Cell.defaultProps = {
-    noteMode: false
-};
+    notes: []
+}
 
 Cell.propTypes = {
     active: PropTypes.shape({

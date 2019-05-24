@@ -42,6 +42,7 @@ export const isValid = ( cells, cell, value ) => {
  */
 export const create = ( column, row, section, value ) => ({
     column,
+    notes: [],
     row,
     section,
     value

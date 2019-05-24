@@ -48,24 +48,26 @@ const app = ( state = INITIAL_STATE, action ) => {
 			let index = state.grid.findIndex( cell => cell.column === action.payload.column && cell.row === action.payload.row ),
 			cell = { ...state.grid[ index ] },
 			value = Number( action.payload.value ),
-			mistakes = Number( state.mistakes );
+            mistakes = Number( state.mistakes ),
+            clearNotes = false;
 
-			grid = [ ...state.grid ];
+			grid = [ ...state.grid.map( cell => ({ ...cell }) ) ];
 
 			// don't do anything for a cell that already has values
 			if( cell.input && ( cell.input === cell.value ) ) return { ...state };
 
 			if( state.noteMode ){
 
-				if( !cell.notes ) cell.notes = [];
-
-				let noteIndex = cell.notes.indexOf( value );
+                let notes = [ ...cell.notes ],
+                noteIndex = notes.indexOf( value );
 
 				if( noteIndex === -1 ){
-					cell.notes.push( value );
+					notes.push( value );
 				} else {
-					cell.notes.splice( noteIndex, 1 );
-				}
+					notes.splice( noteIndex, 1 );
+                }
+                
+                cell.notes = notes;
 
 			} else {
 
@@ -76,16 +78,35 @@ const app = ( state = INITIAL_STATE, action ) => {
 				} else {
 
 					// set value to the cell
-					cell.input = value;
-					cell.notes = [];
+                    cell.input = value;
+                    cell.notes = [];
 
 					// set error if the input was wrong
-					if( cell.value !== value ) ++mistakes;
+                    if( cell.value !== value ) ++mistakes;
+                    
+                    clearNotes = true;
 				}
 
 			}
 
-			grid[ index ] = cell;
+            grid[ index ] = cell;
+
+            // clear notes on other cells
+            if( clearNotes ){
+                
+                grid = grid.map( cell => {
+
+                    let notes = [ ...cell.notes ],
+                    index = notes ? notes.indexOf( value ) : -1;
+
+                    if( cell.column === action.payload.column || cell.row === action.payload.row || cell.section === action.payload.section ){
+                        if( index > -1 ) notes.splice( index, 1 );
+                    }
+                    cell.notes = notes;
+
+                    return cell;
+                });
+            }
 
 			return { ...state, grid, mistakes };
 
