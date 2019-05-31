@@ -4,7 +4,12 @@ main.grid {
     grid-template-columns: repeat( 3, 1fr );
     flex-basis: 80vh;
     flex-shrink: 0;
+    transition: .3s linear;
     width: 80vh;
+}
+
+nav:hover ~ main.grid {
+    opacity: .1;
 }
 
 /**
