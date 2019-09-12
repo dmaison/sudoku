@@ -52,7 +52,7 @@ function Cell( props ){
     if( active ) classes.push( 'active' );
 
     return (
-        <div className={ classes.join( ' ' ) }>
+        <div className={ classes.join( ' ' ) } data-row={ props.row } data-column={ props.column }>
             <Note values={ props.notes } />
             <input 
                 value={ value }

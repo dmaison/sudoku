@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { GRID_OPTIONS } from '../../constants/grid';
+import { KEYS } from '../../constants/config';
 import { reset } from '../../actions/app';
 import Cell from '../../components/Grid/Cell';
 import Section from '../../components/Grid/Section';
 import './style.css';
+
+document.addEventListener( 'keydown', bindKeys );
 
 /**
  * @name Grid
@@ -50,6 +53,46 @@ Grid.propTypes = {
     ),
     reset: PropTypes.func.isRequired
 };
+
+/**
+ * @name bindKeys
+ * @function
+ * @description binds key events to arrow keys, to allow user to move around the grid with keys
+ * @param {EventListenerObject} e 
+ */
+function bindKeys( e ){
+    
+    const activeInput = document.querySelector( 'input:focus' ),
+    activeCell = activeInput ? activeInput.parentElement : null;
+
+    let nextSelector = 'div[data-row="{row}"][data-column="{column}"] > input',
+    nextCell;
+
+    if( !activeCell ) return;
+
+    switch( e.code ){
+        case KEYS.DOWN:
+            nextSelector = nextSelector.replace( '{row}', ( Number( activeCell.dataset.row ) + 1 ) );
+            break;
+        case KEYS.LEFT:
+            nextSelector = nextSelector.replace( '{column}', ( Number( activeCell.dataset.column ) - 1 ) );
+            break;
+        case KEYS.RIGHT:
+            nextSelector = nextSelector.replace( '{column}', ( Number( activeCell.dataset.column ) + 1 ) );
+            break;
+        case KEYS.UP:
+            nextSelector = nextSelector.replace( '{row}', ( Number( activeCell.dataset.row ) - 1 ) );
+            break;
+        default:
+            return;
+    }
+
+    nextSelector = nextSelector.replace( '{column}', activeCell.dataset.column ).replace( '{row}', activeCell.dataset.row );
+
+    nextCell = document.querySelector( nextSelector );
+
+    if( nextCell ) nextCell.focus();
+}
 
 const mapStateToProps = state => ({
     grid: state.app.grid
