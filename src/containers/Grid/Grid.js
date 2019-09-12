@@ -20,7 +20,7 @@ document.addEventListener( 'keydown', bindKeys );
 const Grid = props => {
 
     useEffect( () => {
-        props.reset();
+        props.reset()
     }, []);
     
     return (
@@ -61,7 +61,7 @@ Grid.propTypes = {
  * @param {EventListenerObject} e 
  */
 function bindKeys( e ){
-    
+
     const activeInput = document.querySelector( 'input:focus' ),
     activeCell = activeInput ? activeInput.parentElement : null;
 

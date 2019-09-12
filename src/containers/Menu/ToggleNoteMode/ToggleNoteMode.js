@@ -1,23 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { KEYS } from '../../../constants/config';
 import { toggleNoteMode } from '../../../actions/app';
 import Button from '../../../components/Menu/Button';
 import './style.css';
-
-/**
- * @name handleNoteMode
- * @constant
- * @function
- * @param {Object} props 
- * @param {function} setState 
- * @param {boolean} active Current state of the Note Mode
- */
-const handleNoteMode = ( props, setState, active ) => {
-    setState( !active );
-    props.toggleNoteMode();
-};
 
 /**
  * @name ToggleNoteMode
@@ -27,12 +15,45 @@ const handleNoteMode = ( props, setState, active ) => {
  */
 const ToggleNoteMode = props => {
     const [ noteMode, setNoteMode ] = useState( props.noteMode );
+
+    useEffect(() => {
+
+        document.addEventListener( 'keydown', bindKeys );
+
+    }, []);
+
+    /**
+     * @name bindKeys
+     * @function
+     * @description binds key events to N key, to allow user to toggle notemode without leaving the game
+     * @param {EventListenerObject} e 
+     */
+    const bindKeys = e  => {
+        switch( e.code ){
+            case KEYS.NOTES:
+                handleNoteMode();
+                break;
+            default:
+                return;
+        }
+    }
+
+    /**
+     * @name handleNoteMode
+     * @constant
+     * @function
+     */
+    const handleNoteMode = () => {
+        setNoteMode( !noteMode );
+        props.toggleNoteMode();
+    };
+
     return (
         <Button 
             icon="edit" 
             hoverText="Toggle Note Mode (N)" 
             active={ noteMode } 
-            onClick={ () => handleNoteMode( props, setNoteMode, noteMode ) } />       
+            onClick={ () => handleNoteMode( setNoteMode, noteMode ) } />       
     );
 }
 
