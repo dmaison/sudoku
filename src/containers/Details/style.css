@@ -4,6 +4,7 @@ aside.details {
     margin: 1rem auto;
     padding: 1rem 0; 
     width: 80vh;
+    transition: .3s linear;
 }
 
 aside.details > span { 
@@ -16,6 +17,10 @@ aside.details > span::after {
     display: block;
     font-weight: normal;
     text-transform: capitalize;
+}
+
+nav:hover ~ aside.details {
+    opacity: .1;
 }
 
 /**
