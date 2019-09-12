@@ -111,7 +111,7 @@ const app = ( state = INITIAL_STATE, action ) => {
 			return { ...state, grid, mistakes };
 
 		case CONSTANTS.TOGGLE_NOTE_MODE:
-            return { ...state, noteMode: !state.noteMode };
+            return { ...state, noteMode: ( !state.noteMode ) };
 
 		default:
 			return state;

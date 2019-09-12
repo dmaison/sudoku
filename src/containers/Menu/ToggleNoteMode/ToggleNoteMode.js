@@ -13,14 +13,21 @@ import './style.css';
  * @returns {JSX}
  * @description Displays the menu controls for the game
  */
-const ToggleNoteMode = props => {
-    const [ noteMode, setNoteMode ] = useState( props.noteMode );
+function ToggleNoteMode( props ){
+    
+    const [ noteMode, setNoteMode ] = useState( props.noteMode ),
+    [ event, setEvent ] = useState( false ); 
 
     useEffect(() => {
 
-        document.addEventListener( 'keydown', bindKeys );
+        if( noteMode !== props.noteMode ) props.toggleNoteMode();
 
-    }, []);
+    });
+
+    if( !event ){
+        document.addEventListener( 'keydown', bindKeys );
+        setEvent( true );
+    }
 
     /**
      * @name bindKeys
@@ -28,10 +35,11 @@ const ToggleNoteMode = props => {
      * @description binds key events to N key, to allow user to toggle notemode without leaving the game
      * @param {EventListenerObject} e 
      */
-    const bindKeys = e  => {
+    const bindKeys = e => {
+        console.log( 'wtf' )
         switch( e.code ){
             case KEYS.NOTES:
-                handleNoteMode();
+                setNoteMode( !noteMode );
                 break;
             default:
                 return;
@@ -53,7 +61,7 @@ const ToggleNoteMode = props => {
             icon="edit" 
             hoverText="Toggle Note Mode (N)" 
             active={ noteMode } 
-            onClick={ () => handleNoteMode( setNoteMode, noteMode ) } />       
+            onClick={ () => handleNoteMode() } />       
     );
 }
 

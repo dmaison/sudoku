@@ -71,6 +71,6 @@ export const setDifficulty = difficulty => {
  * @function
  * @description Toggles the game between entry mode and note mode
  */
-export const toggleNoteMode = difficulty => {
+export const toggleNoteMode = () => {
     return dispatch => dispatch({ type: CONSTANTS.TOGGLE_NOTE_MODE });
 }
