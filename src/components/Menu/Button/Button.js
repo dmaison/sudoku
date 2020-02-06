@@ -11,11 +11,13 @@ import './style.css';
  * @param {string} [icon="cog"|"edit"|"save"|"sync"] Icon to display inside the button
  * @param {function} onClick Function to execute on click
  */
-const Button = props => {
+function Button( props ){
 
     let classes = [ 'menu', 'item' ];
 
     if( props.active ) classes.push( 'active' );
+
+    console.log( 'props.active', props.hoverText, props.active )
 
     return (
         <button 

@@ -14,12 +14,12 @@ import './style.css'
  * @returns {JSX}
  * @description Displays the menu controls for the game
  */
-function ToggleNoteMode( props ){
-    
-    const [ noteMode, setNoteMode ] = useState( props.noteMode ); 
+const ToggleNoteMode = props => {
+
+    const [ active, setActive ] = useState( false );
 
     useEffect(() => {
-        if( noteMode !== props.noteMode ) props.toggleNoteMode();
+        if( props.noteMode !== active ) setActive( props.noteMode );
     });
 
     /**
@@ -27,17 +27,14 @@ function ToggleNoteMode( props ){
      * @constant
      * @function
      */
-    const handleNoteMode = () => {
-        setNoteMode( !noteMode );
-        props.toggleNoteMode();
-    };
+    const handleNoteMode = () => props.toggleNoteMode();
 
     return (
         <>
             <Button 
                 icon="edit" 
                 hoverText="Toggle Note Mode (N)" 
-                active={ noteMode } 
+                active={ active } 
                 onClick={ handleNoteMode } />
             <KeyboardEventHandler
                 handleKeys={[ KEYS.NOTES ]}
@@ -56,7 +53,7 @@ ToggleNoteMode.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    noteMode: state.noteMode
+    noteMode: state.app.noteMode
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ toggleNoteMode }, dispatch );
