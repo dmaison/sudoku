@@ -21,7 +21,7 @@ function Details( props ){
     }, 1000 );
 
     useEffect(()=>{
-        if( prevGame !== props.game ) return timerReset();
+        if( prevGame !== props.game ) return setTime( 0 );
     });
 
     /**
@@ -40,15 +40,6 @@ function Details( props ){
 
         return `${ minutes }:${ seconds }`;
     }
-
-    /**
-     * @name timerReset
-     * @method
-     * @desription Resets the game timer
-     */
-    function timerReset(){
-        setTime( 0 );
-    } 
 
     return (
         <aside className="details">
