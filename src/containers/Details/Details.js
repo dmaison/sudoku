@@ -22,7 +22,7 @@ function Details( props ){
 
     useEffect(()=>{
         if( prevGame !== props.game ) return setTime( 0 );
-    });
+    }, [ prevGame, props.game ]);
 
     /**
      * @name timerFormat
