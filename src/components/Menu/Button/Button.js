@@ -17,8 +17,6 @@ function Button( props ){
 
     if( props.active ) classes.push( 'active' );
 
-    console.log( 'props.active', props.hoverText, props.active )
-
     return (
         <button 
             className={ classes.join( ' ' ) }

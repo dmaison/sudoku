@@ -20,7 +20,7 @@ const ToggleNoteMode = props => {
 
     useEffect(() => {
         if( props.noteMode !== active ) setActive( props.noteMode );
-    });
+    }, [ props.noteMode, active ]);
 
     /**
      * @name handleNoteMode
