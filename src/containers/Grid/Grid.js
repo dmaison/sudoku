@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { GRID_OPTIONS } from '../../constants/grid';
-import { KEYS } from '../../constants/config';
-import { reset } from '../../actions/app';
-import Cell from '../../components/Grid/Cell';
-import Section from '../../components/Grid/Section';
-import './style.css';
-
-document.addEventListener( 'keydown', bindKeys );
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { GRID_OPTIONS } from '../../constants/grid'
+import { KEYS } from '../../constants/config'
+import { reset, highlight } from '../../actions/app'
+import Cell from '../../components/Grid/Cell'
+import Section from '../../components/Grid/Section'
+import './style.css'
 
 /**
  * @name Grid
@@ -19,31 +18,82 @@ document.addEventListener( 'keydown', bindKeys );
  */
 const Grid = props => {
 
+    const [ init, setInit ] = useState( false )
+
     useEffect( () => {
-        props.reset()
-    }, []);
+        if( !init ){
+            props.reset();
+            setInit( true );
+        }
+    }, [ init, props ]);
     
+    /**
+     * @name bindKeys
+     * @function
+     * @description binds key events to arrow keys, to allow user to move around the grid with keys
+     * @param {string} key 
+     */
+    function handleKeys( key ){
+
+        let column = props.active.column,
+        row = props.active.row,
+        section = props.active.section;
+
+        switch( key ){
+            case KEYS.DOWN:
+                if( row !== 9 ) row += 1;
+                if( row % 3 === 1 ) section += 3;
+                break;
+            case KEYS.LEFT:
+                if( column !== 1 ) column -= 1;
+                if( column % 3 === 0 ) section -= 1;
+                break;
+            case KEYS.RIGHT:
+                if( column !== 9 ) column += 1;
+                if( column % 3 === 1 ) section += 1;
+                break;
+            case KEYS.UP:
+                if( row !== 1 ) row -= 1;
+                if( row % 3 === 0 ) section -= 3;
+                break;
+            default:
+                return;
+        }
+
+        props.highlight( column, row, section );
+    }
+
     return (
-        <main className="grid">
-            {
-                GRID_OPTIONS.map(
-                    section => (
-                        <Section key={ 'section-' + section }>
-                            {
-                                props
-                                    .grid
-                                    .filter( cell => cell.section === ( section - 1 ) )
-                                    .map( ( cell, index ) => <Cell { ...cell } key={ `section-${ section }cell-${ index }` } /> )
-                            }
-                        </Section>
+        <>
+            <main className="grid">
+                {
+                    GRID_OPTIONS.map(
+                        section => (
+                            <Section key={ 'section-' + section }>
+                                {
+                                    props
+                                        .grid
+                                        .filter( cell => cell.section === ( section - 1 ) )
+                                        .map( ( cell, index ) => <Cell { ...cell } key={ `section-${ section }cell-${ index }` } /> )
+                                }
+                            </Section>
+                        )
                     )
-                )
-            }
-        </main>
+                }
+            </main>
+            <KeyboardEventHandler
+                handleKeys={[ KEYS.DOWN, KEYS.LEFT, KEYS.RIGHT, KEYS.UP ]}
+                onKeyEvent={ handleKeys } />
+        </>
     );
 }
 
 Grid.propTypes = {
+    active: PropTypes.shape({
+        column: PropTypes.number,
+        row: PropTypes.number,
+        section: PropTypes.number
+    }),
     grid: PropTypes.arrayOf(
         PropTypes.shape({
             column: PropTypes.number.isRequired,
@@ -51,53 +101,15 @@ Grid.propTypes = {
             section: PropTypes.number.isRequired
         })
     ),
+    highlight: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired
 };
 
-/**
- * @name bindKeys
- * @function
- * @description binds key events to arrow keys, to allow user to move around the grid with keys
- * @param {EventListenerObject} e 
- */
-function bindKeys( e ){
-
-    const activeInput = document.querySelector( 'input:focus' ),
-    activeCell = activeInput ? activeInput.parentElement : null;
-
-    let nextSelector = 'div[data-row="{row}"][data-column="{column}"] > input',
-    nextCell;
-
-    if( !activeCell ) return;
-
-    switch( e.code ){
-        case KEYS.DOWN:
-            nextSelector = nextSelector.replace( '{row}', ( Number( activeCell.dataset.row ) + 1 ) );
-            break;
-        case KEYS.LEFT:
-            nextSelector = nextSelector.replace( '{column}', ( Number( activeCell.dataset.column ) - 1 ) );
-            break;
-        case KEYS.RIGHT:
-            nextSelector = nextSelector.replace( '{column}', ( Number( activeCell.dataset.column ) + 1 ) );
-            break;
-        case KEYS.UP:
-            nextSelector = nextSelector.replace( '{row}', ( Number( activeCell.dataset.row ) - 1 ) );
-            break;
-        default:
-            return;
-    }
-
-    nextSelector = nextSelector.replace( '{column}', activeCell.dataset.column ).replace( '{row}', activeCell.dataset.row );
-
-    nextCell = document.querySelector( nextSelector );
-
-    if( nextCell ) nextCell.focus();
-}
-
 const mapStateToProps = state => ({
+    active: state.app.active,
     grid: state.app.grid
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ reset }, dispatch );
+const mapDispatchToProps = dispatch => bindActionCreators({ highlight, reset }, dispatch );
 
 export default connect( mapStateToProps, mapDispatchToProps )( Grid );

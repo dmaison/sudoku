@@ -51,14 +51,17 @@ function Cell( props ){
 
     }, [ props.input, props.value, props.column, props.active.column, props.active.row, props.active.section, props.row, props.section, props.disabled, value ]);
 
-    const handleBlur = () => props.highlight();
-
+    /**
+     * @name handleClick
+     * @function
+     * @description Handles selection of the cell
+     */
     const handleClick = () => props.highlight( props.column, props.row, props.section );
 
     /**
      * @name handleInput
      * @function
-     * @description 
+     * @description Handles data entry to the cell
      * @param {*} key 
      */
     const handleInput = key => {
@@ -79,7 +82,6 @@ function Cell( props ){
                 className={ classes.join( ' ' ) } 
                 data-column={ props.column }
                 data-row={ props.row } 
-                onBlur={ handleBlur }
                 onClick={ handleClick }>
                     <Note values={ props.notes } />
                     <span>{ value }</span>
