@@ -16,7 +16,7 @@ import './style.css';
  * @description Displays the menu controls for the game
  */
 const NewGame = props => (
-    <React.Fragment>
+    <>
         <Button icon="sync" hoverText="New Game" onClick={ () => props.handleDialog( GAME_NEW ) } />
         <Dialog id={ GAME_NEW } onAccept={ props.reset }>
             <h1>
@@ -25,7 +25,7 @@ const NewGame = props => (
             </h1>
             <Warning />
         </Dialog>
-    </React.Fragment>
+    </>
 );
 
 NewGame.propTypes = {

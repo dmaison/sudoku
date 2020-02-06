@@ -45,7 +45,7 @@ const Menu = () => {
     if( open ) dropdownClasses.push( 'open' );
 
     return (
-        <React.Fragment>
+        <>
             <nav>
                 <MediaQuery minDeviceWidth={ Breakpoints.laptop.min }>
                     <MenuOptions callback={ close } />
@@ -59,7 +59,7 @@ const Menu = () => {
                     <MenuOptions callback={ close } />
                 </div>
             </MediaQuery>
-        </React.Fragment>
+        </>
     );
 }
 

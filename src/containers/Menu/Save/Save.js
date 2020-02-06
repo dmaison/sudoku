@@ -14,25 +14,22 @@ import './style.css';
  * @returns {JSX}
  * @description Displays the menu controls for the game
  */
-const Save = props => {
-
-    return (
-        <React.Fragment>
-            <Button icon="save" hoverText="Save (S)" onClick={ () => props.handleDialog( GAME_SAVE ) } />
-            <Dialog id={ GAME_SAVE } onAccept={ () => {} }>
-                <h1>
-                    <i className="fas fa-save fa-2x" />
-                    Save Game
-                </h1>
-                {
-                    props.saves.length > 0 ?
-                        <p>show dropdown</p>:
-                        null
-                }
-            </Dialog>
-        </React.Fragment>
-    );
-}
+const Save = props => (
+    <>
+        <Button icon="save" hoverText="Save (S)" onClick={ () => props.handleDialog( GAME_SAVE ) } />
+        <Dialog id={ GAME_SAVE } onAccept={ () => {} }>
+            <h1>
+                <i className="fas fa-save fa-2x" />
+                Save Game
+            </h1>
+            {
+                props.saves.length > 0 ?
+                    <p>show dropdown</p>:
+                    null
+            }
+        </Dialog>
+    </>
+);
 
 Save.defaultProps = {
     saves: []

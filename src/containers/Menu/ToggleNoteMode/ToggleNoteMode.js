@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,12 +22,12 @@ function ToggleNoteMode( props ){
 
         if( noteMode !== props.noteMode ) props.toggleNoteMode();
 
-    });
+        if( !event ){
+            document.addEventListener( 'keydown', bindKeys );
+            setEvent( true );
+        }
 
-    if( !event ){
-        document.addEventListener( 'keydown', bindKeys );
-        setEvent( true );
-    }
+    });
 
     /**
      * @name bindKeys
@@ -36,10 +36,9 @@ function ToggleNoteMode( props ){
      * @param {EventListenerObject} e 
      */
     const bindKeys = e => {
-        console.log( 'wtf' )
         switch( e.code ){
             case KEYS.NOTES:
-                setNoteMode( !noteMode );
+                handleNoteMode();
                 break;
             default:
                 return;
@@ -61,7 +60,7 @@ function ToggleNoteMode( props ){
             icon="edit" 
             hoverText="Toggle Note Mode (N)" 
             active={ noteMode } 
-            onClick={ () => handleNoteMode() } />       
+            onClick={ handleNoteMode } />
     );
 }
 

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { usePrevious } from '../../utilities/hooks';
 import { connect } from 'react-redux';
 import { LEVEL_EASY } from '../../constants/difficulties'
 import './style.css';
+
+var timer;
 
 /**
  * @name Details
@@ -10,45 +13,29 @@ import './style.css';
  * @returns {JSX}
  * @description Displays the menu controls for the game
  */
-class Details extends React.PureComponent { 
+function Details( props ){ 
 
-    constructor( props ){
-        super( props );
-        this.state = {
-            time: 0
-        };
-        this.timer = undefined;
-        this.timerStart();
-    }
+    const [ time, setTime ] = useState( 0 ),
+    prevGame = usePrevious( props.game ),
+    prevTimerOn = usePrevious( props.timerOn );
 
-    static defaultProps = {
-        difficulty: LEVEL_EASY,
-        game: 1,
-        mistakes: 0,
-        timerOn: false
-    }
-
-    static propTypes = {
-        difficulty: PropTypes.string,
-        game: PropTypes.number,
-        mistakes: PropTypes.number,
-        timerOn: PropTypes.bool
-    }
-
-    componentDidUpdate( prevProps ){
-        if( prevProps.game !== this.props.game ) return this.timerReset();
-        if( !prevProps.timerOn && this.props.timerOn ) this.timerStart();
-        if( prevProps.timerOn && !this.props.timerOn ) this.timerPause();
-    }
+    useEffect(()=>{
+        if( prevGame !== props.game ) return timerReset();
+        if( !prevTimerOn && props.timerOn ){
+            timerStart();
+        } else if( prevTimerOn && !props.timerOn ){
+            timerPause();
+        }
+    });
 
     /**
      * @name timerFormat
      * @method
      * @description Formats the time into minutes and seconds
      */
-    timerFormat(){
+    function timerFormat(){
 
-        let seconds = this.state.time, 
+        let seconds = time, 
         minutes = Math.floor( seconds / 60);
         seconds = Math.round( ( seconds - ( minutes * 60 ) ) % 60 );
         
@@ -63,8 +50,8 @@ class Details extends React.PureComponent {
      * @method
      * @description Stops the timer
      */
-    timerPause(){
-        clearInterval( this.timer );
+    function timerPause(){
+        clearInterval( timer );
     }
 
     /**
@@ -72,10 +59,10 @@ class Details extends React.PureComponent {
      * @method
      * @desription Resets the game timer
      */
-    timerReset(){
-        this.timerPause();
-        this.setState({ time: 0 });
-        this.timerStart();
+    function timerReset(){
+        timerPause();
+        setTime( 0 );
+        timerStart();
     }
 
     /**
@@ -83,21 +70,31 @@ class Details extends React.PureComponent {
      * @method
      * @desription Starts the game timer
      */
-    timerStart(){
-        this.timer = setInterval(() => {
-            this.setState({ time: this.state.time + 1 });
-        }, 1000 );
+    function timerStart(){
+        timer = setInterval( t => setTime( t + 1 ), 1000, time );
     }    
 
-    render(){
-        return (
-            <aside className="details">
-                <span data-value={ this.props.mistakes }>Mistakes</span>
-                <span data-value={ this.timerFormat() }>Timer</span>
-                <span data-value={ this.props.difficulty }>Difficulty</span>
-            </aside>
-        );
-    }
+    return (
+        <aside className="details">
+            <span data-value={ props.mistakes }>Mistakes</span>
+            <span data-value={ timerFormat() }>Timer</span>
+            <span data-value={ props.difficulty }>Difficulty</span>
+        </aside>
+    );
+}
+
+Details.defaultProps = {
+    difficulty: LEVEL_EASY,
+    game: 1,
+    mistakes: 0,
+    timerOn: false
+}
+
+Details.propTypes = {
+    difficulty: PropTypes.string,
+    game: PropTypes.number,
+    mistakes: PropTypes.number,
+    timerOn: PropTypes.bool
 }
 
 const mapStateToProps = state => ({

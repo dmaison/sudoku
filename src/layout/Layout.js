@@ -4,12 +4,14 @@ import Grid from '../containers/Grid';
 import Menu from '../containers/Menu';
 import './style.css';
 
-const Layout = () => (
-    <React.Fragment>
-        <Menu />
-        <Details />        
-        <Grid />
-    </React.Fragment>
-);
+const Layout = () => {
+    return (
+        <>
+            <Menu />
+            <Details />        
+            <Grid />
+        </>
+    );
+}
 
 export default Layout;

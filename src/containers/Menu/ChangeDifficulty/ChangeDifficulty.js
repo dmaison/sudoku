@@ -36,7 +36,7 @@ const ChangeDifficulty = props => {
     const [ difficulty, setDifficulty ] = useState( props.difficulty );
 
     return (
-        <React.Fragment>
+        <>
             <Button icon="cog" hoverText="Change Difficulty" onClick={ () => props.handleDialog( GAME_DIFFICULTY ) } />
             <Dialog id={ GAME_DIFFICULTY } onAccept={ () => handleDifficulty( props, setDifficulty ) }>
                 <h1>
@@ -56,7 +56,7 @@ const ChangeDifficulty = props => {
                     }
                 </select>
             </Dialog>
-        </React.Fragment>
+        </>
     );
 }
 
