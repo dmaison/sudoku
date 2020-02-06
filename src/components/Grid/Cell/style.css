@@ -11,7 +11,7 @@ div.cell > mark {
     z-index: 2;
 }
 
-div.cell > input {
+div.cell > span {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid black;
@@ -30,24 +30,18 @@ div.cell > input {
     z-index: 3;
 }
 
-div.cell > input::-webkit-inner-spin-button,
-div.cell > input::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0;
-}
-
-div.cell > input:disabled { color: black; }
+div.cell.disabled > span { color: black; }
 
 /**
  * States
  */
 div.active.cell { background-color: white; }
 
-div.active.cell > input { border-color: steelblue; }
+div.active.cell > span { border-color: steelblue; }
 
-div.cell.error > input { 
+div.cell.error > span { 
     background-color: rgba( 255, 0, 0, .2 );
     color: firebrick;
 }
 
-div.cell > input:focus { box-shadow: 0 0 20px steelblue; }
+div.selected.cell > span { box-shadow: 0 0 20px steelblue; }

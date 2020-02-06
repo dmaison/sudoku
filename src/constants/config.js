@@ -4,9 +4,11 @@
  * @description Contains the key codes for the keydown events
  */
 export const KEYS = {
-    DOWN: 'ArrowDown',
-    LEFT: 'ArrowLeft',
+    BACKSPACE: 'backspace',
+    DOWN: 'down',
+    LEFT: 'left',
     NOTES: 'n',
-    RIGHT: 'ArrowRight',
-    UP: 'ArrowUp'
+    NUMERIC: 'numeric',
+    RIGHT: 'right',
+    UP: 'up'
 };

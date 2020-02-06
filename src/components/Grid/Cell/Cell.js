@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { handleInput, highlight } from '../../../actions/app';
-import Note from '../Note';
-import './style.css';
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
+import { KEYS } from '../../../constants/config'
+import { handleInput, highlight } from '../../../actions/app'
+import Note from '../Note'
+import './style.css'
 
 /**
  * @name Cell
@@ -26,7 +28,8 @@ function Cell( props ){
 
     const [ error, setError ] = useState( false ),
     [ value, setValue ] = useState( '' ),
-    [ active, setActive ] = useState( false );
+    [ active, setActive ] = useState( false ),
+    [ selected, setSelected ] = useState( false );;
 
     let classes = [ 'cell' ];
 
@@ -44,24 +47,47 @@ function Cell( props ){
 
         // check for active
         setActive( props.column === props.active.column || props.row === props.active.row || props.section === props.active.section );
+        setSelected( props.column === props.active.column && props.row === props.active.row && props.section === props.active.section );
 
-    }, [ props.active, props.input, props.value, props.notes ]);
-    
+    }, [ props.input, props.value, props.column, props.active.column, props.active.row, props.active.section, props.row, props.section, props.disabled, value ]);
+
+    const handleBlur = () => props.highlight();
+
+    const handleClick = () => props.highlight( props.column, props.row, props.section );
+
+    /**
+     * @name handleInput
+     * @function
+     * @description 
+     * @param {*} key 
+     */
+    const handleInput = key => {
+        if( selected && !props.disabled ) props.handleInput( props.column, props.row, props.section, ( key === KEYS.BACKSPACE ) ? '' : key );
+    }
+
     if( error ) classes.push( 'error' );
 
     if( active ) classes.push( 'active' );
 
+    if( selected ) classes.push( 'selected' );
+
+    if( props.disabled ) classes.push( 'disabled' );
+
     return (
-        <div className={ classes.join( ' ' ) } data-row={ props.row } data-column={ props.column }>
-            <Note values={ props.notes } />
-            <input 
-                value={ value }
-                disabled={ props.disabled } 
-                onBlur={ () => props.highlight() }
-                onChange={ () => {} }
-                onKeyUp={ e => props.handleInput( props.column, props.row, props.section, e.key ) }
-                onFocus={ () => props.highlight( props.column, props.row, props.section ) } />
-        </div>
+        <>
+            <div 
+                className={ classes.join( ' ' ) } 
+                data-column={ props.column }
+                data-row={ props.row } 
+                onBlur={ handleBlur }
+                onClick={ handleClick }>
+                    <Note values={ props.notes } />
+                    <span>{ value }</span>
+            </div>
+            <KeyboardEventHandler
+                handleKeys={[ KEYS.BACKSPACE, KEYS.NUMERIC ]}
+                onKeyEvent={ handleInput } />
+        </>
     );
 
 }
