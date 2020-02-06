@@ -17,9 +17,9 @@ export const usePrevious = value => {
 /**
  * @name useInterval
  * @function
- * @description 
- * @param {function} callback 
- * @param {number} delay 
+ * @description Allows for intervals to be used and manipulate the state
+ * @param {function} callback function that executes for each interval
+ * @param {number} delay interval increment
  */
 export const useInterval = ( callback, delay ) =>{
     const savedCallback = useRef();
