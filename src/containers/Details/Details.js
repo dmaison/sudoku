@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { usePrevious } from '../../utilities/hooks';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { usePrevious, useInterval } from '../../utilities/hooks'
+import { connect } from 'react-redux'
 import { LEVEL_EASY } from '../../constants/difficulties'
-import './style.css';
-
-var timer;
+import './style.css'
 
 /**
  * @name Details
@@ -16,16 +14,14 @@ var timer;
 function Details( props ){ 
 
     const [ time, setTime ] = useState( 0 ),
-    prevGame = usePrevious( props.game ),
-    prevTimerOn = usePrevious( props.timerOn );
+    prevGame = usePrevious( props.game );
+
+    useInterval(() => {
+        if( props.timerOn ) setTime( time + 1 );
+    }, 1000 );
 
     useEffect(()=>{
         if( prevGame !== props.game ) return timerReset();
-        if( !prevTimerOn && props.timerOn ){
-            timerStart();
-        } else if( prevTimerOn && !props.timerOn ){
-            timerPause();
-        }
     });
 
     /**
@@ -46,33 +42,13 @@ function Details( props ){
     }
 
     /**
-     * @name timerPause
-     * @method
-     * @description Stops the timer
-     */
-    function timerPause(){
-        clearInterval( timer );
-    }
-
-    /**
      * @name timerReset
      * @method
      * @desription Resets the game timer
      */
     function timerReset(){
-        timerPause();
         setTime( 0 );
-        timerStart();
-    }
-
-    /**
-     * @name timerStart
-     * @method
-     * @desription Starts the game timer
-     */
-    function timerStart(){
-        timer = setInterval( t => setTime( t + 1 ), 1000, time );
-    }    
+    } 
 
     return (
         <aside className="details">
