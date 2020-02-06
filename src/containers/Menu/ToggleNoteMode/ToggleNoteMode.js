@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { KEYS } from '../../../constants/config';
-import { toggleNoteMode } from '../../../actions/app';
-import Button from '../../../components/Menu/Button';
-import './style.css';
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
+import { KEYS } from '../../../constants/config'
+import { toggleNoteMode } from '../../../actions/app'
+import Button from '../../../components/Menu/Button'
+import './style.css'
 
 /**
  * @name ToggleNoteMode
@@ -15,35 +16,11 @@ import './style.css';
  */
 function ToggleNoteMode( props ){
     
-    const [ noteMode, setNoteMode ] = useState( props.noteMode ),
-    [ event, setEvent ] = useState( false ); 
+    const [ noteMode, setNoteMode ] = useState( props.noteMode ); 
 
     useEffect(() => {
-
         if( noteMode !== props.noteMode ) props.toggleNoteMode();
-
-        if( !event ){
-            document.addEventListener( 'keydown', bindKeys );
-            setEvent( true );
-        }
-
     });
-
-    /**
-     * @name bindKeys
-     * @function
-     * @description binds key events to N key, to allow user to toggle notemode without leaving the game
-     * @param {EventListenerObject} e 
-     */
-    const bindKeys = e => {
-        switch( e.code ){
-            case KEYS.NOTES:
-                handleNoteMode();
-                break;
-            default:
-                return;
-        }
-    }
 
     /**
      * @name handleNoteMode
@@ -56,11 +33,16 @@ function ToggleNoteMode( props ){
     };
 
     return (
-        <Button 
-            icon="edit" 
-            hoverText="Toggle Note Mode (N)" 
-            active={ noteMode } 
-            onClick={ handleNoteMode } />
+        <>
+            <Button 
+                icon="edit" 
+                hoverText="Toggle Note Mode (N)" 
+                active={ noteMode } 
+                onClick={ handleNoteMode } />
+            <KeyboardEventHandler
+                handleKeys={[ KEYS.NOTES ]}
+                onKeyEvent={ handleNoteMode } />
+        </>
     );
 }
 

@@ -6,7 +6,7 @@
 export const KEYS = {
     DOWN: 'ArrowDown',
     LEFT: 'ArrowLeft',
-    NOTES: 'KeyN',
+    NOTES: 'n',
     RIGHT: 'ArrowRight',
     UP: 'ArrowUp'
 };
