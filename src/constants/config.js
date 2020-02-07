@@ -21,6 +21,14 @@ export const KEYS = {
 };
 
 /**
+ * @name MAX_SAVES
+ * @constant
+ * @number
+ * @description Determines the maximum number of saves allowed
+ */
+export const MAX_SAVES = 3;
+
+/**
  * @name STORAGE_NAME
  * @constant
  * @description Name of localstorage object
