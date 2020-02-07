@@ -44,7 +44,7 @@ function Details( props ){
     return (
         <aside className="details">
             <span data-value={ props.mistakes }>Mistakes</span>
-            <span data-value={ timerFormat() }>Timer</span>
+            <span data-value={ timerFormat() } id="time">Timer</span>
             <span data-value={ props.difficulty }>Difficulty</span>
         </aside>
     );

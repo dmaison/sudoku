@@ -1,4 +1,11 @@
 /**
+ * @name INPUTS
+ * @constant
+ * @description array of possible inputs for the cells
+ */
+export const INPUTS = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+
+/**
  * @name KEYS
  * @constant
  * @description Contains the key codes for the keydown events
@@ -14,8 +21,8 @@ export const KEYS = {
 };
 
 /**
- * @name INPUTS
+ * @name STORAGE_NAME
  * @constant
- * @description array of possible inputs for the cells
+ * @description Name of localstorage object
  */
-export const INPUTS = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+export const STORAGE_NAME = 'sudoku-saves';

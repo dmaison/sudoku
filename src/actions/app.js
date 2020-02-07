@@ -42,6 +42,16 @@ export const highlight = ( column=null, row=null, section=null ) => {
 }
 
 /**
+ * @name load
+ * @constant
+ * @function
+ * @description Used to load a saved game
+ */
+export const load = id => {
+    return dispatch => dispatch({ type: CONSTANTS.GAME_SAVE, payload: { id } });
+}
+
+/**
  * @name reset
  * @constant
  * @function
@@ -49,6 +59,16 @@ export const highlight = ( column=null, row=null, section=null ) => {
  */
 export const reset = () => {
     return dispatch => dispatch({ type: CONSTANTS.GRID_RESET });
+}
+
+/**
+ * @name save
+ * @constant
+ * @function
+ * @description Used to save a game
+ */
+export const save = () => {
+    return dispatch => dispatch({ type: CONSTANTS.GAME_SAVE });
 }
 
 /**

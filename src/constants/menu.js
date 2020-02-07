@@ -23,3 +23,12 @@ export const GAME_NEW = GAME + 'NEW';
  * @description Used to identify the save game dialog
  */
 export const GAME_SAVE = GAME + 'SAVE';
+
+
+/**
+ * @name GAME_SAVED
+ * @constant
+ * @string
+ * @description Used to identify the save game has been saved
+ */
+export const GAME_SAVED = GAME + 'SAVED';

@@ -1,5 +1,7 @@
 import { commit, create, fill } from '../utilities/grid';
+import { get, save } from '../utilities/data';
 import * as CONSTANTS from '../constants/actions/app';
+import { GAME_SAVED } from '../constants/menu';
 
 const INITIAL_STATE = {
 	active: {
@@ -18,6 +20,7 @@ const INITIAL_STATE = {
 	grid: create(),	
 	noteMode: false,
     openDialog: null,
+    saves: get(),
     timerOn: true
 };
 
@@ -26,6 +29,10 @@ const app = ( state = INITIAL_STATE, action ) => {
     var grid;
 
 	switch( action.type ){
+
+        case CONSTANTS.GAME_SAVE:
+            save( state.grid, state.mistakes, document.getElementById( 'time' ).dataset.value );
+            return { ...state, openDialog: GAME_SAVED, saves: get() };
 
 		case CONSTANTS.GRID_RESET:
 			grid = create();

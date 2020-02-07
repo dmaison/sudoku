@@ -1,6 +1,23 @@
-const GRID = 'GRID_',
+const GAME = 'GAME_',
+GRID = 'GRID_',
 MENU = 'MENU_',
 SET = 'SET_';
+
+/**
+ * @name GAME_LOAD
+ * @constant
+ * @string
+ * @description Used to load a game
+ */
+export const GAME_LOAD = GAME + 'LOAD';
+
+/**
+ * @name GAME_SAVE
+ * @constant
+ * @string
+ * @description Used to save a game
+ */
+export const GAME_SAVE = GAME + 'SAVE';
 
 /**
  * @name GRID_HIGHLIGHT

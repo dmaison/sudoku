@@ -43,14 +43,24 @@ const Dialog = props => {
             <form>
                 <div>{ props.children }</div>
                 <div className="controls" >
-                    <button type="button" className="close" onClick={ handleCancel }>
-                        <i className="fas fa-2x fa-ban" />
-                        Cancel
-                    </button>
-                    <button type="button" className="accept" onClick={ handleAccept }>
-                        <i className="fas blue fa-2x fa-check" />
-                        Accept
-                    </button>
+                    {
+                        props.acknowledge ?
+                            <button type="button" className="accept" onClick={ handleCancel }>
+                                <i className="fas blue fa-2x fa-check" />
+                                Got it!
+                            </button> :
+                            <>
+                                    <button type="button" className="close" onClick={ handleCancel }>
+                                    <i className="fas fa-2x fa-ban" />
+                                    Cancel
+                                </button>
+                                <button type="button" className="accept" onClick={ handleAccept }>
+                                    <i className="fas blue fa-2x fa-check" />
+                                    Accept
+                                </button>
+                            </>
+                    }
+                   
                 </div>
             </form>
         </dialog>
@@ -58,12 +68,14 @@ const Dialog = props => {
 };
 
 Dialog.defaultProps = {
+    acknowledge: false,
     onAccept: () => {},
     onCancel: () => {},
     open: null
 }
 
 Dialog.propTypes = {
+    acknowledge: PropTypes.bool,
     handleDialog: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     onAccept: PropTypes.func,
