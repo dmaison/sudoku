@@ -8,9 +8,7 @@ main.grid {
     width: 80vh;
 }
 
-nav:hover ~ main.grid {
-    opacity: .1;
-}
+nav:hover ~ main.grid { opacity: .1; }
 
 /**
  * Mobile
