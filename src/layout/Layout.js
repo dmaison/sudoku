@@ -1,4 +1,5 @@
 import React from 'react';
+import Controls from '../containers/Controls';
 import Details from '../containers/Details';
 import Grid from '../containers/Grid';
 import Menu from '../containers/Menu';
@@ -10,6 +11,7 @@ const Layout = () => {
             <Menu />
             <Details />        
             <Grid />
+            <Controls />
         </>
     );
 }
