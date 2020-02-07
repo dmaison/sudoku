@@ -9,6 +9,14 @@ const GAME = 'GAME_';
 export const GAME_DIFFICULTY = GAME + 'DIFFICULTY';
 
 /**
+ * @name GAME_LOAD
+ * @constant
+ * @string
+ * @description Used to identify the load game dialog
+ */
+export const GAME_LOAD = GAME + 'LOAD';
+
+/**
  * @name GAME_NEW
  * @constant
  * @string
@@ -29,6 +37,6 @@ export const GAME_SAVE = GAME + 'SAVE';
  * @name GAME_SAVED
  * @constant
  * @string
- * @description Used to identify the save game has been saved
+ * @description Used to identify the successful save game dialog
  */
 export const GAME_SAVED = GAME + 'SAVED';

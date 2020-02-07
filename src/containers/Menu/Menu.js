@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import Breakpoints from '../../constants/breakpoints';
 import ChangeDifficulty from './ChangeDifficulty';
+import Load from './Load';
 import NewGame from './NewGame';
 import Save from './Save';
 import ToggleNoteMode from './ToggleNoteMode';
@@ -22,6 +23,7 @@ const MenuOptions = props => (
         <NewGame callback={ props.callback } />
         <ChangeDifficulty callback={ props.callback } />
         <Save callback={ props.callback } />
+        <Load callback={ props.callback } />
     </React.Fragment>
 );
 

@@ -9,7 +9,7 @@ import './style.css';
  */
 const Warning = () => (
     <p className="warning">
-        Clicking accept will begin a new game and all unsaved progress will be lost.
+        Clicking accept will cause any unsaved progress to be lost.
     </p>
 );
 
