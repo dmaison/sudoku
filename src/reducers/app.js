@@ -32,6 +32,10 @@ const app = ( state = INITIAL_STATE, action ) => {
 
 	switch( action.type ){
 
+		case CONSTANTS.GAME_LOAD:
+			let game = state.saves.find( ( save, index ) => index === action.payload.index );
+			return { ...state, difficulty: game.difficulty, mistakes: game.mistakes, newTime: game.time, grid: game.grid, game: state.game + 1 };
+
         case CONSTANTS.GAME_SAVE:
             save( state.grid, state.difficulty, state.mistakes, document.getElementById( 'time' ).dataset.value );
             return { ...state, openDialog: GAME_SAVED, saves: get() };

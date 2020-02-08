@@ -18,11 +18,7 @@ import './style.css';
  */
 const Load = props => { 
 
-    const [ load, setLoad ] = useState( null )
-
-    const handleLoad = () => {
-
-    }
+    const [ load, setLoad ] = useState( null );
 
     /**
      * @name handleClick
@@ -31,6 +27,16 @@ const Load = props => {
      * @param {number} index index of the save to be loaded
      */
     const handleClick = index => setLoad( load !== index ? index : null );
+
+    /**
+     * @name handleLoad
+     * @function
+     * @description Loads the selected game
+     */
+    const handleLoad = () => {
+        props.load( load );
+        setLoad( null );
+    }
 
     return (
         props.saves.length > 0 ?
