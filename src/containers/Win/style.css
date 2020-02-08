@@ -1,0 +1,52 @@
+dialog[data-id="GAME_WIN"][open] { z-index: 5; }
+
+dialog[data-id="GAME_WIN"] h1 { position: relative; }
+
+dialog[data-id="GAME_WIN"] h1 > i.fa-trophy { 
+    color: gold; 
+    position: relative;
+    text-shadow: 0 5px 5px rgba( 0, 0, 0, .2 );
+    z-index: 1;
+}
+
+dialog[data-id="GAME_WIN"] dd { 
+    font-style: italic;
+    margin: 0 0 1rem 0; 
+    text-transform: capitalize;
+}
+
+/**
+ * Stars
+ */
+dialog[data-id="GAME_WIN"] h1 > i.fa-star {
+    position: absolute;    
+    width: 72px;
+}
+
+dialog[data-id="GAME_WIN"] h1 > i.fa-star:nth-child( 2 ){ 
+    animation: star 2s infinite .1s;
+    color: greenyellow;
+    left: -50px; 
+    top: -20px;
+}
+
+dialog[data-id="GAME_WIN"][open] h1 > i.fa-star:nth-child( 3 ){ 
+    animation: star 2s infinite .3s;
+    color: steelblue;
+    left: 10px;
+    top: -70px; 
+}
+
+dialog[data-id="GAME_WIN"][open] h1 > i.fa-star:nth-child( 4 ){
+    animation: star 2s infinite; 
+    color: blueviolet;
+    top: -70px; 
+    left: 122px;
+}
+
+dialog[data-id="GAME_WIN"][open] h1 > i.fa-star:nth-child( 5 ){ 
+    animation: star 2s infinite .2s;
+    color: orange;
+    left: 152px;
+    top: 0;
+}

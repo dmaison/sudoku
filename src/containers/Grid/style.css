@@ -8,7 +8,8 @@ main.grid {
     width: 80vh;
 }
 
-nav:hover ~ main.grid { opacity: .1; }
+nav:hover ~ main.grid,
+dialog[data-id="GAME_WIN"][open] ~ main.grid { opacity: .1; }
 
 /**
  * Mobile

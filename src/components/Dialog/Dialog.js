@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { handleDialog } from '../../actions/app';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import './animation.css';
-import './style.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { handleDialog } from '../../actions/app'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import './animation.css'
+import './style.css'
 
 /**
  * @name Dialog
@@ -27,6 +27,7 @@ const Dialog = props => {
         props.handleDialog();
         props.onAccept();
     },
+
     /**
      * @name handleCancel
      * @constant
@@ -65,7 +66,7 @@ const Dialog = props => {
             </form>
         </dialog>
     );
-};
+}
 
 Dialog.defaultProps = {
     acknowledge: false,
@@ -81,12 +82,12 @@ Dialog.propTypes = {
     onAccept: PropTypes.func,
     onCancel: PropTypes.func,
     open: PropTypes.string
-};
+}
 
 const mapStateToProps = state => ({ 
     open: state.app.openDialog
-});
+})
 
-const mapDispatchToProps = dispatch => bindActionCreators({ handleDialog }, dispatch );
+const mapDispatchToProps = dispatch => bindActionCreators({ handleDialog }, dispatch )
 
-export default connect( mapStateToProps, mapDispatchToProps )( Dialog );
+export default connect( mapStateToProps, mapDispatchToProps )( Dialog )

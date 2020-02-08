@@ -7,7 +7,8 @@ aside.controls {
     transition: .3s linear;
 }
 
-nav:hover ~ aside.controls { opacity: .1; }
+nav:hover ~ aside.controls,
+dialog[data-id="GAME_WIN"][open] ~ aside.controls { opacity: .1; }
 
 @media screen and (max-device-width: 740px){
 

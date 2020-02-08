@@ -1,7 +1,7 @@
 import { commit, create, fill } from '../utilities/grid';
 import { get, save } from '../utilities/data';
 import * as CONSTANTS from '../constants/actions/app';
-import { GAME_SAVED } from '../constants/menu';
+import { GAME_SAVED, GAME_WIN } from '../constants/menu';
 import { LEVEL_EASY } from '../constants/difficulties';
 
 const INITIAL_STATE = {
@@ -21,7 +21,7 @@ const INITIAL_STATE = {
     game: 1,
 	grid: create(),	
 	noteMode: false,
-    openDialog: null,
+	openDialog: null,
     saves: get(),
     timerOn: true
 };

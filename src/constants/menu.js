@@ -25,6 +25,14 @@ export const GAME_LOAD = GAME + 'LOAD';
 export const GAME_NEW = GAME + 'NEW';
 
 /**
+ * @name GAME_WIN
+ * @constant
+ * @string
+ * @description Used to identify the win game dialog
+ */
+export const GAME_WIN = GAME + 'WIN';
+
+/**
  * @name GAME_SAVE
  * @constant
  * @string

@@ -24,7 +24,7 @@ function Details( props ){
 
     useEffect(()=>{
         if( prevGame !== props.game ) return setTime( ( props.newTime && prevNewTime !== props.newTime ) ? parseTime( props.newTime ) : 0 );
-    }, [ prevGame, props.game ]);
+    }, [ prevGame, props.game, props.newTime, prevNewTime ]);
 
     /**
      * @name parseTime
