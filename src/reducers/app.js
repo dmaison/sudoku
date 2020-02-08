@@ -1,5 +1,5 @@
-import { commit, create, fill } from '../utilities/grid';
-import { get, save } from '../utilities/data';
+import { check, commit, create, fill } from '../utilities/grid';
+import { gameTime, get, save } from '../utilities/data';
 import * as CONSTANTS from '../constants/actions/app';
 import { GAME_SAVED, GAME_WIN } from '../constants/menu';
 import { LEVEL_EASY } from '../constants/difficulties';
@@ -20,10 +20,12 @@ const INITIAL_STATE = {
     errors: 0,
     game: 1,
 	grid: create(),	
+	mistakes: 0,
 	noteMode: false,
 	openDialog: null,
     saves: get(),
-    timerOn: true
+	timerOn: true,
+	winTime: null
 };
 
 const app = ( state = INITIAL_STATE, action ) => {
@@ -37,26 +39,29 @@ const app = ( state = INITIAL_STATE, action ) => {
 			return { ...state, difficulty: game.difficulty, mistakes: game.mistakes, newTime: game.time, grid: game.grid, game: state.game + 1 };
 
         case CONSTANTS.GAME_SAVE:
-            save( state.grid, state.difficulty, state.mistakes, document.getElementById( 'time' ).dataset.value );
+            save( state.grid, state.difficulty, state.mistakes, gameTime() );
             return { ...state, openDialog: GAME_SAVED, saves: get() };
 
 		case CONSTANTS.GRID_RESET:
 			grid = create();
 			fill( grid );
 			grid = commit( state.difficulty, grid );
-			return { ...state, game: ( state.game + 1 ), grid, mistakes: 0 };
+			return { ...state, game: ( state.game + 1 ), grid, mistakes: 0, winTime: null, timerOn: true, noteMode: false };
 		
 		case CONSTANTS.GRID_HIGHLIGHT:
 			return { ...state, active: action.payload };
 	
         case CONSTANTS.MENU_OPEN:
-            let timerOn = ( action.payload.id ) ? false : true; // pause timer when menu open
+			let timerOn = ( action.payload.id ) ? false : true; // pause timer when menu open
+			if( state.openDialog === GAME_WIN && action.payload.id === null ) timerOn = false;
 			return { ...state, openDialog: action.payload.id, timerOn };
 
 		case CONSTANTS.SET_DIFFICULTY:
 			return { ...state, difficulty: action.payload.difficulty };
 
 		case CONSTANTS.SET_INPUT:
+
+			if( state.winTime ) return { ...state };
 
 			let index = state.grid.findIndex( cell => cell.column === action.payload.column && cell.row === action.payload.row ),
 			cell = { ...state.grid[ index ] },
@@ -121,7 +126,9 @@ const app = ( state = INITIAL_STATE, action ) => {
                 });
             }
 
-			return { ...state, grid, mistakes };
+			let complete = check( grid );
+
+			return { ...state, grid, mistakes, timeOn: complete ? false : true, openDialog: complete ? GAME_WIN : null, winTime: complete ? gameTime() : null };
 
 		case CONSTANTS.TOGGLE_NOTE_MODE:
             return { ...state, noteMode: ( !state.noteMode ) };

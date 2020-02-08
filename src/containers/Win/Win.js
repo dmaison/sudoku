@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { gameTime } from '../../utilities/data'
 import { GAME_WIN } from '../../constants/menu'
 import Dialog from '../../components/Dialog'
 import './style.css'
@@ -21,7 +22,7 @@ const Win = props => {
                 <dt>Difficulty</dt>
                 <dd>{ props.difficulty }</dd>
                 <dt>Time</dt>
-                <dd></dd>
+                <dd>{ props.time }</dd>
                 <dt>Mistakes</dt>
                 <dd>{ props.mistakes }</dd>
             </dl>
@@ -36,7 +37,8 @@ Win.propTypes = {
 
 const mapStateToProps = state => ({
     difficulty: state.app.difficulty,
-    mistakes: state.app.mistakes
+    mistakes: state.app.mistakes,
+    time: state.app.winTime
 })
 
 export default connect( mapStateToProps )( Win )

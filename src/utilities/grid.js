@@ -3,6 +3,26 @@ import { DIFFICULTIES, LEVEL_EASY } from '../constants/difficulties';
 import { shuffle } from './array';
 import { create as createCell, isValid } from './cell';
 
+/**
+ * @name check
+ * @function
+ * @description checks to see if a puzzle is complete
+ * @param {*} grid 
+ * @returns {booelan} `true` if puzzle is completed. `false` if puzzle is incomplete
+ */
+export const check = grid => grid.every( cell => {
+    if( cell.disabled ) return true;
+    return cell.input && cell.input === cell.value 
+});
+    
+
+/**
+ * @name commit
+ * @function
+ * @description Finalizes a puzzle. 
+ * @param {*} difficulty 
+ * @param {*} grid 
+ */
 export const commit = ( difficulty=LEVEL_EASY, grid ) => {
     
     let tempGrid = [ ...grid ],

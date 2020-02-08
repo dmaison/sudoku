@@ -1,6 +1,13 @@
 import { STORAGE_NAME } from '../constants/config'
 
 /**
+ * @name gameTime
+ * @function
+ * @description Retrieve current game time
+ */
+export const gameTime = () => document.getElementById( 'time' ).dataset.value;
+
+/**
  * @name get
  * @function
  * @description Retrieves all saved game data
