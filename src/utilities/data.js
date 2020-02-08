@@ -19,7 +19,7 @@ export const get = () => {
  * @param {number} mistakes 
  * @param {number} time 
  */
-export const save = ( grid, mistakes, time ) => {
+export const save = ( grid, difficulty, mistakes, time ) => {
 
     let saves = get();
 
@@ -27,6 +27,7 @@ export const save = ( grid, mistakes, time ) => {
 
     saves.push({
         id: new Date(),
+        difficulty,
         grid,
         mistakes,
         time

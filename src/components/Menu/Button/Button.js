@@ -29,7 +29,7 @@ function Button( props ){
 
 Button.propTypes = {
     hoverText: PropTypes.string,
-    icon: PropTypes.oneOf([ 'bars', 'cog', 'edit', 'save', 'sync' ]).isRequired,
+    icon: PropTypes.oneOf([ 'bars', 'cog', 'edit', 'save', 'sync', 'folder-open' ]).isRequired,
     onClick: PropTypes.func
 }
 

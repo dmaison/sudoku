@@ -47,8 +47,8 @@ export const highlight = ( column=null, row=null, section=null ) => {
  * @function
  * @description Used to load a saved game
  */
-export const load = id => {
-    return dispatch => dispatch({ type: CONSTANTS.GAME_SAVE, payload: { id } });
+export const load = index => {
+    return dispatch => dispatch({ type: CONSTANTS.GAME_LOAD, payload: { index } });
 }
 
 /**

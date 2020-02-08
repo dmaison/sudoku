@@ -2,6 +2,7 @@ import { commit, create, fill } from '../utilities/grid';
 import { get, save } from '../utilities/data';
 import * as CONSTANTS from '../constants/actions/app';
 import { GAME_SAVED } from '../constants/menu';
+import { LEVEL_EASY } from '../constants/difficulties';
 
 const INITIAL_STATE = {
 	active: {
@@ -14,7 +15,8 @@ const INITIAL_STATE = {
 		row: null,
         section: null,
         value: null
-    },
+	},
+	difficulty: LEVEL_EASY,
     errors: 0,
     game: 1,
 	grid: create(),	
@@ -31,7 +33,7 @@ const app = ( state = INITIAL_STATE, action ) => {
 	switch( action.type ){
 
         case CONSTANTS.GAME_SAVE:
-            save( state.grid, state.mistakes, document.getElementById( 'time' ).dataset.value );
+            save( state.grid, state.difficulty, state.mistakes, document.getElementById( 'time' ).dataset.value );
             return { ...state, openDialog: GAME_SAVED, saves: get() };
 
 		case CONSTANTS.GRID_RESET:

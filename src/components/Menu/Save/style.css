@@ -1,0 +1,33 @@
+article.save {
+    border: 2px solid white;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 1rem;
+    position: relative;
+    top: 0;
+    transition: .2s linear;
+    width: calc( 200px - 2rem );
+}
+
+article.save > h1 {
+    font-size: 6rem;
+    margin: 0;
+}
+
+article.save > dl { text-align: left; }
+
+article.save > dl > dd { 
+    font-style: italic;
+    margin: 0 0 1rem 0;
+    text-transform: capitalize;
+}
+
+/**
+ * States
+ */
+article.save.active { 
+    background-color: rgba( 70, 130, 180, .2 );
+    border-color: steelblue; 
+}
+
+section.saves:hover > article.save:not( :hover ) { opacity: .2; }

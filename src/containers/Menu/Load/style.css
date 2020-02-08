@@ -1,0 +1,3 @@
+section.saves { border: none; }
+
+section.saves > article.save { margin: 0 1rem; }
