@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { handleDialog, load } from '../../../actions/app';
-import { GAME_LOAD } from '../../../constants/menu';
-import Button from '../../../components/Menu/Button';
-import Save from '../../../components/Menu/Save';
-import Dialog from '../../../components/Dialog';
-import Warning from '../../../components/Menu/Warning';
-import './style.css';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { handleDialog, load } from '../../../actions/app'
+import { KEYS } from '../../../constants/config'
+import { GAME_LOAD } from '../../../constants/menu'
+import Button from '../../../components/Menu/Button'
+import Save from '../../../components/Menu/Save'
+import Dialog from '../../../components/Dialog'
+import Warning from '../../../components/Menu/Warning'
+import './style.css'
 
 /**
  * @name Load
@@ -38,10 +40,12 @@ const Load = props => {
         setLoad( null );
     }
 
+    const openLoad = () => props.handleDialog( GAME_LOAD )
+
     return (
         props.saves.length > 0 ?
             <>
-                <Button icon="folder-open" hoverText="Load (L)" onClick={ () => props.handleDialog( GAME_LOAD ) } />
+                <Button icon="folder-open" hoverText="Load (L)" onClick={ openLoad } />
                 <Dialog id={ GAME_LOAD } onAccept={ handleLoad }>
                     <h1>
                         <i className="fas fa-folder-open fa-2x" />
@@ -56,6 +60,9 @@ const Load = props => {
                         }
                     </section>
                 </Dialog>
+                <KeyboardEventHandler
+                    handleKeys={[ KEYS.LOAD ]}
+                    onKeyEvent={ openLoad } />
             </> :
             null
     );

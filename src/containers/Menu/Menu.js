@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import MediaQuery from 'react-responsive';
-import Breakpoints from '../../constants/breakpoints';
-import ChangeDifficulty from './ChangeDifficulty';
-import Load from './Load';
-import NewGame from './NewGame';
-import Save from './Save';
-import ToggleNoteMode from './ToggleNoteMode';
-import Button from '../../components/Menu/Button';
-import './animation.css';
-import './style.css';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import MediaQuery from 'react-responsive'
+import Breakpoints from '../../constants/breakpoints'
+import ChangeDifficulty from './ChangeDifficulty'
+import Load from './Load'
+import NewGame from './NewGame'
+import ReportBug from './ReportBug'
+import Save from './Save'
+import ToggleNoteMode from './ToggleNoteMode'
+import Button from '../../components/Menu/Button'
+import './animation.css'
+import './style.css'
 
 /**
  * @name MenuOptions
@@ -24,6 +25,7 @@ const MenuOptions = props => (
         <ChangeDifficulty callback={ props.callback } />
         <Save callback={ props.callback } />
         <Load callback={ props.callback } />
+        <ReportBug />
     </React.Fragment>
 );
 

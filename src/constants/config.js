@@ -1,4 +1,12 @@
 /**
+ * @name BUG_URL
+ * @constant
+ * @string
+ * @description URL for reporting bugs
+ */
+export const BUG_URL = 'https://github.com/dmaison/sudoku/issues/new'
+
+/**
  * @name INPUTS
  * @constant
  * @description array of possible inputs for the cells
@@ -14,9 +22,11 @@ export const KEYS = {
     BACKSPACE: 'backspace',
     DOWN: 'down',
     LEFT: 'left',
+    LOAD: 'l',
     NOTES: 'n',
     NUMERIC: 'numeric',
     RIGHT: 'right',
+    SAVE: 's',
     UP: 'up'
 };
 

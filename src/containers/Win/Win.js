@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { gameTime } from '../../utilities/data'
 import { GAME_WIN } from '../../constants/menu'
 import Dialog from '../../components/Dialog'
 import './style.css'
