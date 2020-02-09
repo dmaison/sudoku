@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './style.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import './style.css'
 
 /**
  * @name Button
@@ -11,7 +11,7 @@ import './style.css';
  * @param {string} [icon="cog"|"edit"|"save"|"sync"] Icon to display inside the button
  * @param {function} onClick Function to execute on click
  */
-const Button = props => {
+function Button( props ){
 
     let classes = [ 'menu', 'item' ];
 
@@ -29,8 +29,8 @@ const Button = props => {
 
 Button.propTypes = {
     hoverText: PropTypes.string,
-    icon: PropTypes.oneOf([ 'bars', 'cog', 'edit', 'save', 'sync' ]).isRequired,
+    icon: PropTypes.oneOf([ 'bug', 'bars', 'cog', 'edit', 'save', 'sync', 'folder-open' ]).isRequired,
     onClick: PropTypes.func
 }
 
-export default Button;
+export default Button

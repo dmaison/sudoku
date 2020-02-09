@@ -1,23 +1,12 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { toggleNoteMode } from '../../../actions/app';
-import Button from '../../../components/Menu/Button';
-import './style.css';
-
-/**
- * @name handleNoteMode
- * @constant
- * @function
- * @param {Object} props 
- * @param {function} setState 
- * @param {boolean} active Current state of the Note Mode
- */
-const handleNoteMode = ( props, setState, active ) => {
-    setState( !active );
-    props.toggleNoteMode();
-};
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
+import { KEYS } from '../../../constants/config'
+import { toggleNoteMode } from '../../../actions/app'
+import Button from '../../../components/Menu/Button'
+import './style.css'
 
 /**
  * @name ToggleNoteMode
@@ -26,13 +15,31 @@ const handleNoteMode = ( props, setState, active ) => {
  * @description Displays the menu controls for the game
  */
 const ToggleNoteMode = props => {
-    const [ noteMode, setNoteMode ] = useState( props.noteMode );
+
+    const [ active, setActive ] = useState( false );
+
+    useEffect(() => {
+        if( props.noteMode !== active ) setActive( props.noteMode );
+    }, [ props.noteMode, active ]);
+
+    /**
+     * @name handleNoteMode
+     * @constant
+     * @function
+     */
+    const handleNoteMode = () => props.toggleNoteMode();
+
     return (
-        <Button 
-            icon="edit" 
-            hoverText="Toggle Note Mode (N)" 
-            active={ noteMode } 
-            onClick={ () => handleNoteMode( props, setNoteMode, noteMode ) } />       
+        <>
+            <Button 
+                icon="edit" 
+                hoverText="Toggle Note Mode (N)" 
+                active={ active } 
+                onClick={ handleNoteMode } />
+            <KeyboardEventHandler
+                handleKeys={[ KEYS.NOTES ]}
+                onKeyEvent={ handleNoteMode } />
+        </>
     );
 }
 
@@ -46,7 +53,7 @@ ToggleNoteMode.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    noteMode: state.noteMode
+    noteMode: state.app.noteMode
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ toggleNoteMode }, dispatch );

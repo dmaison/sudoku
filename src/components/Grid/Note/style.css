@@ -17,3 +17,12 @@ mark.notes > span.active::after {
     content: attr( data-value );
     color: black
 }
+
+@media screen and ( max-device-width: 740px ){
+    mark.notes {
+        font-size: 10px;
+        height: calc( 100% - 4px );
+        line-height: 3px;
+        width: calc( 100% - 8px );
+    }
+}

@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import MediaQuery from 'react-responsive';
-import Breakpoints from '../../constants/breakpoints';
-import ChangeDifficulty from './ChangeDifficulty';
-import NewGame from './NewGame';
-import Save from './Save';
-import ToggleNoteMode from './ToggleNoteMode';
-import Button from '../../components/Menu/Button';
-import './animation.css';
-import './style.css';
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import MediaQuery from 'react-responsive'
+import { connect } from 'react-redux'
+import { usePrevious } from '../../utilities/hooks' 
+import Breakpoints from '../../constants/breakpoints'
+import ChangeDifficulty from './ChangeDifficulty'
+import Load from './Load'
+import NewGame from './NewGame'
+import ReportBug from './ReportBug'
+import Save from './Save'
+import ToggleNoteMode from './ToggleNoteMode'
+import Button from '../../components/Menu/Button'
+import './animation.css'
+import './style.css'
 
 /**
  * @name MenuOptions
@@ -17,12 +21,14 @@ import './style.css';
  * @description Menu items (I'm that lazy)
  */
 const MenuOptions = props => (
-    <React.Fragment>
+    <>
         <ToggleNoteMode callback={ props.callback } />
         <NewGame callback={ props.callback } />
         <ChangeDifficulty callback={ props.callback } />
         <Save callback={ props.callback } />
-    </React.Fragment>
+        <Load callback={ props.callback } />
+        <ReportBug />
+    </>
 );
 
 MenuOptions.propTypes = {
@@ -35,17 +41,23 @@ MenuOptions.propTypes = {
  * @returns {JSX}
  * @description Displays the menu controls for the game
  */
-const Menu = () => {
+const Menu = props => {
 
     const [ open, setOpen ] = useState( false ),
-    close = () => setOpen( false );
+    prevOpen = usePrevious( props.openDialog );
+
+    useEffect( () => {
+        if( prevOpen && !props.openDialog ) setOpen( false )
+    }, [ prevOpen, props.openDialog ]);
+
+    const close = () => setOpen( false );
 
     let dropdownClasses = [ 'dropdown' ];
 
     if( open ) dropdownClasses.push( 'open' );
 
     return (
-        <React.Fragment>
+        <>
             <nav>
                 <MediaQuery minDeviceWidth={ Breakpoints.laptop.min }>
                     <MenuOptions callback={ close } />
@@ -59,8 +71,12 @@ const Menu = () => {
                     <MenuOptions callback={ close } />
                 </div>
             </MediaQuery>
-        </React.Fragment>
+        </>
     );
 }
 
-export default Menu;
+const mapStateToProps = state => ({
+    openDialog: state.app.openDialog
+})
+
+export default connect( mapStateToProps )( Menu )

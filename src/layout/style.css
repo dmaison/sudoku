@@ -24,4 +24,6 @@ div#root {
     body {
         font-size: 30px;
     }
+
+    div#root { justify-content: space-between; }
 }

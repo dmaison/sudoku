@@ -13,14 +13,14 @@ nav + div.dropdown {
     left: 0;
     overflow: hidden;
     position: absolute;
-    top: 96px;
+    top: 56px;
     animation: closeMenu .4s;
     width: 100%;
     z-index: 4;
 }
 
 nav + div.dropdown.open {
-    height: 544px;
+    height: calc( 100vh - 56px );
     overflow: visible;
     animation: openMenu .4s;
 }
@@ -34,7 +34,7 @@ nav + div.dropdown button {
  */
 @media screen and ( max-device-width: 740px ){
     nav {
-        height: 96px;
+        height: 56px;
         width: 100vw;
         position: initial;
     }

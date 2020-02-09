@@ -11,15 +11,18 @@ div.cell > mark {
     z-index: 2;
 }
 
-div.cell > input {
+div.cell > span {
+    align-items: center;
     background-color: transparent;
     border: none;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     color: transparent;
+    display: flex;
     font-family: 'Montserrat', arial, helvetica, sans-serif;
     font-size: 3rem;
     height: 100%;
+    justify-content: center;
     outline: none;
     padding: 0;
     position: absolute;
@@ -30,24 +33,25 @@ div.cell > input {
     z-index: 3;
 }
 
-div.cell > input::-webkit-inner-spin-button,
-div.cell > input::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0;
-}
-
-div.cell > input:disabled { color: black; }
+div.cell.disabled > span { color: black; }
 
 /**
  * States
  */
 div.active.cell { background-color: white; }
 
-div.active.cell > input { border-color: steelblue; }
+div.active.cell > span { border-color: steelblue; }
 
-div.cell.error > input { 
+div.cell.error > span { 
     background-color: rgba( 255, 0, 0, .2 );
     color: firebrick;
 }
 
-div.cell > input:focus { box-shadow: 0 0 20px steelblue; }
+div.selected.cell > span { box-shadow: 0 0 20px steelblue; }
+
+@media screen and (max-device-width: 740px){
+
+    div.cell > span { font-size: 2rem; }
+
+    div.selected.cell > span { box-shadow: 0 0 5px steelblue; }
+}

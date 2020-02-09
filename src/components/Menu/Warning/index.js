@@ -1,2 +1,2 @@
-import Warning from './Warning';
-export default Warning;
+import Warning from './Warning'
+export default Warning

@@ -1,0 +1,24 @@
+aside.controls {
+    display: grid;
+    grid-template-columns: repeat( 11, 1fr );
+    grid-column-gap: 10px;
+    margin: auto;
+    min-width: 80vh;
+    transition: .3s linear;
+}
+
+nav:hover ~ aside.controls,
+dialog[data-id="GAME_WIN"][open] ~ aside.controls { opacity: .1; }
+
+@media screen and (max-device-width: 740px){
+
+    aside.controls {
+        grid-column-gap: 0;
+        margin: 0;
+        min-width: initial;
+        width: auto;
+    }
+
+    nav:hover ~ aside.controls,
+    dialog[data-id="GAME_WIN"][open] ~ aside.controls { opacity: 1; }
+}

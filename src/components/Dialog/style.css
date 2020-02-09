@@ -71,3 +71,17 @@ dialog option {
 }
 
 dialog option:disabled { font-style: italic; }
+
+@media screen and (max-device-width: 740px){
+    dialog[open] { 
+        position: absolute;
+        top: -56px;
+        z-index: 6;
+    }
+    dialog:not([open]) { display: none; }
+
+    dialog div.controls { 
+        display: inline-block;
+        margin-top: 1rem; 
+    }
+}

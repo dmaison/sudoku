@@ -4,7 +4,7 @@
         height: 0;
     }
     99% {
-        height: 544px;
+        height: calc( 100vh - 56px );
     }
     100% { overflow: visible; }    
 }
@@ -12,7 +12,7 @@
 @keyframes closeMenu {
     from {
         overflow: hidden;
-        height: 544px;
+        height: calc( 100vh - 56px );
     }
     to {
         height: 0;

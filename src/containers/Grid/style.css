@@ -4,15 +4,23 @@ main.grid {
     grid-template-columns: repeat( 3, 1fr );
     flex-basis: 80vh;
     flex-shrink: 0;
+    transition: .3s linear;
     width: 80vh;
 }
+
+nav:hover ~ main.grid,
+dialog[data-id="GAME_WIN"][open] ~ main.grid { opacity: .1; }
 
 /**
  * Mobile
  */
  @media screen and ( max-device-width: 740px ){
     main.grid {
-        flex-basis: 900px;
-        width: 900px;
+        flex-basis: 95vw;
+        width: 95vw;
     }
+
+    nav:hover ~ main.grid,
+    dialog[data-id="GAME_WIN"][open] ~ main.grid { opacity: 1; }
+
 }
