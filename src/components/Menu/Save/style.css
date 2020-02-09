@@ -31,3 +31,16 @@ article.save.active {
 }
 
 section.saves:hover > article.save:not( :hover ) { opacity: .2; }
+
+@media screen and ( max-device-width: 740px ){
+    article.save { width: auto; }
+
+    article.save > h1 {
+        font-size: 3rem;
+        margin: 0;
+    }
+
+    article.save > dl { font-size: 1rem; }
+
+    article.save > dl > dd { margin-bottom: .5rem; }
+}

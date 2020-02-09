@@ -19,14 +19,14 @@ import './style.css'
  * @description Menu items (I'm that lazy)
  */
 const MenuOptions = props => (
-    <React.Fragment>
+    <>
         <ToggleNoteMode callback={ props.callback } />
         <NewGame callback={ props.callback } />
         <ChangeDifficulty callback={ props.callback } />
         <Save callback={ props.callback } />
         <Load callback={ props.callback } />
         <ReportBug />
-    </React.Fragment>
+    </>
 );
 
 MenuOptions.propTypes = {

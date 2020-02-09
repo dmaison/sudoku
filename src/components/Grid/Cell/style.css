@@ -48,3 +48,10 @@ div.cell.error > span {
 }
 
 div.selected.cell > span { box-shadow: 0 0 20px steelblue; }
+
+@media screen and (max-device-width: 740px){
+
+    div.cell > span {
+        font-size: 2rem;
+    }
+}

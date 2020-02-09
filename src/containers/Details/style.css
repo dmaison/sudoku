@@ -27,6 +27,12 @@ dialog[data-id="GAME_WIN"][open] ~ aside.details { opacity: .1; }
  */
  @media screen and ( max-device-width: 740px ){
     aside.details {
-        width: 900px;
+        font-size: 1rem;
+        margin: 0 0 1rem;
+        max-width: 95vw;
+        width: 100%;
     }
+
+    nav:hover ~ aside.details,
+    dialog[data-id="GAME_WIN"][open] ~ aside.details { opacity: 1; }
 }

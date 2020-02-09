@@ -52,14 +52,15 @@ button.menu.item.active { background-color: steelblue; }
 @media screen and ( max-device-width: 740px ){
     button.menu.item {
         overflow: visible;
+        padding: .5rem 0;
         width: 96px;
     }
 
     button.menu.item::after { 
         color: white; 
-        font-size: 30px;
+        font-size: 1rem;
         opacity: 1;
     }
     
-    button.menu.item i { font-size: 4rem; }
+    button.menu.item i { font-size: 2rem; }
 }

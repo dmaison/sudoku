@@ -19,3 +19,11 @@ button.control > small {
  */
 button.control.active,
 button.control:hover { color: steelblue; }
+
+@media screen and (max-device-width: 740px){
+
+    button.control {
+        font-size: 2rem;
+        padding: 0 .2rem;
+    }
+}

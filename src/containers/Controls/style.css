@@ -13,11 +13,12 @@ dialog[data-id="GAME_WIN"][open] ~ aside.controls { opacity: .1; }
 @media screen and (max-device-width: 740px){
 
     aside.controls {
-        bottom: 0;
-        left: 0;
+        grid-column-gap: 0;
         margin: 0;
-        padding: 2rem;
-        position: fixed;               
+        min-width: initial;
         width: auto;
     }
-}    
+
+    nav:hover ~ aside.controls,
+    dialog[data-id="GAME_WIN"][open] ~ aside.controls { opacity: 1; }
+}
