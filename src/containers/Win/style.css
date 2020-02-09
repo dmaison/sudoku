@@ -50,3 +50,7 @@ dialog[data-id="GAME_WIN"][open] h1 > i.fa-star:nth-child( 5 ){
     left: 152px;
     top: 0;
 }
+
+@media screen and ( max-device-width: 740px ){
+    dialog[data-id="GAME_WIN"] { top: 0; }
+}
