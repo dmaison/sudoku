@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import MediaQuery from 'react-responsive'
+import { connect } from 'react-redux'
+import { usePrevious } from '../../utilities/hooks' 
 import Breakpoints from '../../constants/breakpoints'
 import ChangeDifficulty from './ChangeDifficulty'
 import Load from './Load'
@@ -39,10 +41,16 @@ MenuOptions.propTypes = {
  * @returns {JSX}
  * @description Displays the menu controls for the game
  */
-const Menu = () => {
+const Menu = props => {
 
     const [ open, setOpen ] = useState( false ),
-    close = () => setOpen( false );
+    prevOpen = usePrevious( props.openDialog );
+
+    useEffect( () => {
+        if( prevOpen && !props.openDialog ) setOpen( false )
+    }, [ prevOpen, props.openDialog ]);
+
+    const close = () => setOpen( false );
 
     let dropdownClasses = [ 'dropdown' ];
 
@@ -67,4 +75,8 @@ const Menu = () => {
     );
 }
 
-export default Menu;
+const mapStateToProps = state => ({
+    openDialog: state.app.openDialog
+})
+
+export default connect( mapStateToProps )( Menu )
