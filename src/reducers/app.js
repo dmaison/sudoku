@@ -1,8 +1,8 @@
-import { check, commit, create, fill } from '../utilities/grid';
-import { gameTime, get, save } from '../utilities/data';
-import * as CONSTANTS from '../constants/actions/app';
-import { GAME_SAVED, GAME_WIN } from '../constants/menu';
-import { LEVEL_EASY } from '../constants/difficulties';
+import { check, commit, create, fill } from '../utilities/grid'
+import { gameTime, get, save } from '../utilities/data'
+import * as CONSTANTS from '../constants/actions/app'
+import { GAME_SAVED, GAME_WIN } from '../constants/menu'
+import { LEVEL_EASY } from '../constants/difficulties'
 
 const INITIAL_STATE = {
 	active: {

@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './style.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import './style.css'
 
 /**
  * @name Button
@@ -33,4 +33,4 @@ Button.propTypes = {
     onClick: PropTypes.func
 }
 
-export default Button;
+export default Button

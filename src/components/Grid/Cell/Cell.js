@@ -111,12 +111,12 @@ Cell.propTypes = {
     row: PropTypes.number.isRequired,
     section: PropTypes.number.isRequired,
     value: PropTypes.number
-};
+}
 
 const mapStateToProps = state => ({
     active: state.app.active
-});
+})
 
-const mapDispatchToProps = dispatch => bindActionCreators({ handleInput, highlight }, dispatch );
+const mapDispatchToProps = dispatch => bindActionCreators({ handleInput, highlight }, dispatch )
 
-export default connect( mapStateToProps, mapDispatchToProps )( Cell );
+export default connect( mapStateToProps, mapDispatchToProps )( Cell )

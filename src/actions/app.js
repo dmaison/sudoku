@@ -1,4 +1,4 @@
-import * as CONSTANTS from '../constants/actions/app';
+import * as CONSTANTS from '../constants/actions/app'
 
 /**
  * @name handleDialog

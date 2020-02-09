@@ -1,7 +1,7 @@
-import React from 'react';
-import { GRID_OPTIONS } from '../../../constants/grid';
-import PropTypes from 'prop-types';
-import './style.css';
+import React from 'react'
+import { GRID_OPTIONS } from '../../../constants/grid'
+import PropTypes from 'prop-types'
+import './style.css'
 
 const Note = props => (
     <mark className="notes">
@@ -14,14 +14,14 @@ const Note = props => (
             )
         }
     </mark>
-);
+)
 
 Note.defaultProps = {
     values: []
-};
+}
 
 Note.propTypes = {
     values: PropTypes.arrayOf( PropTypes.number )
-};
+}
 
-export default Note;
+export default Note
