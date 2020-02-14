@@ -1,5 +1,5 @@
 import { check, commit, create, fill } from '../utilities/grid'
-import { gameTime, get, save } from '../utilities/data'
+import { gameTime, get, save, personalBestSave } from '../utilities/data'
 import * as CONSTANTS from '../constants/actions/app'
 import { GAME_SAVED, GAME_WIN } from '../constants/menu'
 import { LEVEL_EASY } from '../constants/difficulties'
@@ -126,9 +126,12 @@ const app = ( state = INITIAL_STATE, action ) => {
                 });
             }
 
-			let complete = check( grid );
+            let complete = check( grid ),
+            winTime = gameTime();
+            
+            if( complete ) personalBestSave( state.difficulty, mistakes, winTime );
 
-			return { ...state, grid, mistakes, timeOn: complete ? false : true, openDialog: complete ? GAME_WIN : null, winTime: complete ? gameTime() : null };
+			return { ...state, grid, mistakes, timeOn: complete ? false : true, openDialog: complete ? GAME_WIN : null, winTime: complete ? winTime : null };
 
 		case CONSTANTS.TOGGLE_NOTE_MODE:
             return { ...state, noteMode: ( !state.noteMode ) };

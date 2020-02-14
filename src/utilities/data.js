@@ -71,9 +71,22 @@ export const personalBestGet = difficulty => {
  */
 export const personalBestSave = ( difficulty, mistakes, time ) => {
 
-    let bests = personalBestGet();
+    let bests = personalBestGet(),
+    best = bests[ difficulty ];
 
-    bests[ difficulty ] = { mistakes, time };
+    if( !best ){
+        best = { mistakes, time };
+
+    } else {
+
+        let oldTime = Number( best.time.replace( ':', '' ) ),
+        newTime = Number( time.replace( ':', '' ) );
+
+        if( newTime < oldTime ) best = { mistakes, time };
+
+    }
+
+    bests[ difficulty ] = best;
 
     localStorage.setItem( STORAGE_BEST, JSON.stringify( bests ) );
 

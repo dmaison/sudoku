@@ -28,8 +28,7 @@ export const LEVEL_MEDIUM = 'medium';
  * @array
  * @description
  */
-// export const PATTERN_EASY = [ 4, 3, 4, 3, 4, 3, 4, 3, 4 ];
-export const PATTERN_EASY = [ 9, 9, 9, 9, 9, 9, 9, 9, 8 ];
+export const PATTERN_EASY = [ 4, 3, 4, 3, 4, 3, 4, 3, 4 ];
 
 /**
  * @name PATTERN_HARD
