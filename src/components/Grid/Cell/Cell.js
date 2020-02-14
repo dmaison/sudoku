@@ -62,10 +62,14 @@ function Cell( props ){
      * @name handleInput
      * @function
      * @description Handles data entry to the cell
-     * @param {*} key 
+     * @param {string} key Name of the key that was pressed
      */
     const handleInput = key => {
-        if( selected && !props.disabled ) props.handleInput( props.column, props.row, props.section, ( key === KEYS.BACKSPACE ) ? '' : key );
+        let value = key;
+
+        if( key === KEYS.BACKSPACE || key === KEYS.SPACE ) value = '';
+
+        if( selected && !props.disabled ) props.handleInput( props.column, props.row, props.section,  value );
     }
 
     if( error ) classes.push( 'error' );
@@ -87,7 +91,7 @@ function Cell( props ){
                     <span>{ value }</span>
             </div>
             <KeyboardEventHandler
-                handleKeys={[ KEYS.BACKSPACE, KEYS.NUMERIC ]}
+                handleKeys={[ KEYS.BACKSPACE, KEYS.SPACE, KEYS.NUMERIC ]}
                 onKeyEvent={ handleInput } />
         </>
     );

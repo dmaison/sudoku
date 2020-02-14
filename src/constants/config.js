@@ -27,6 +27,7 @@ export const KEYS = {
     NUMERIC: 'numeric',
     RIGHT: 'right',
     SAVE: 's',
+    SPACE: 'space',
     UP: 'up'
 };
 
