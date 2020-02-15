@@ -5,8 +5,12 @@ import { GAME_WIN } from '../../constants/menu'
 import Dialog from '../../components/Dialog'
 import './style.css'
 import './animation.css'
+import { personalBestGet } from '../../utilities/data'
 
 const Win = props => {
+
+    let best = personalBestGet( props.difficulty );
+
     return (
         <Dialog id={ GAME_WIN } acknowledge>
             <h1>
@@ -22,6 +26,8 @@ const Win = props => {
                 <dd>{ props.difficulty }</dd>
                 <dt>Time</dt>
                 <dd>{ props.time }</dd>
+                <dt>Best time</dt>
+                <dd>{ best.time || props.time }</dd>
                 <dt>Mistakes</dt>
                 <dd>{ props.mistakes }</dd>
             </dl>

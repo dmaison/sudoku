@@ -39,8 +39,15 @@ export const KEYS = {
 export const MAX_SAVES = 3;
 
 /**
- * @name STORAGE_NAME
+ * @name STORAGE_SAVE
  * @constant
  * @description Name of localstorage object
  */
-export const STORAGE_NAME = 'sudoku-saves';
+export const STORAGE_SAVE = 'sudoku-saves';
+
+/**
+ * @name STORAGE_BEST
+ * @constant
+ * @description Name of localstorage object
+ */
+export const STORAGE_BEST = 'sudoku-bests';
