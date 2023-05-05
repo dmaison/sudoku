@@ -61,7 +61,7 @@ function findValidOption( length, exclusions=[] ){
         if( exclusions.includes( option ) || !!validOption ) continue;
         validOption = option;
     }
-    
+
     return validOption;
 
 }
@@ -82,7 +82,7 @@ function populateGrid( grid, limit ){
         // get all of the values for the cell's siblings 
         for( const sibling of grid ){
             if( sibling === cell || ( sibling.row !== cell.row && sibling.column !== cell.column && sibling.section !== cell.section ) ) continue;
-            if( sibling.value && !exclusions.includes( sibling.value ) ) exclusions.push( sibling.value );
+            if( sibling.answer && !exclusions.includes( sibling.answer ) ) exclusions.push( sibling.answer );
         }
 
         cell.answer = findValidOption( limit, exclusions );
@@ -116,6 +116,5 @@ function shuffle( shuffledArray ){
 
     return shuffledArray;
 }
-
 
 export default reducer;
