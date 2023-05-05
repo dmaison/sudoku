@@ -1,12 +1,16 @@
 import * as ACTIONS from '../actions/playArea';
 
 const INITIAL_STATE = {
+    activeCell: null,
     grid: createGrid()
 };
 
 const reducer = ( state=INITIAL_STATE, action ) => {
 
     switch( action.type ){
+
+        case ACTIONS.ACTIVE_CELL:
+            return { ...state, activeCell: { ...action.payload } };
 
         default:
             return { ...state };
