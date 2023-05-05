@@ -24,15 +24,19 @@
     "react-scripts": "^5.0.1"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.3",
+    "@reduxjs/toolkit": "^1.9.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-keyboard-event-handler": "^1.5.4",
     "react-redux": "^8.0.5",
     "react-responsive": "^8.0.3",
     "redux": "^4.2.1",
-    "redux-thunk": "^2.4.2"
+    "redux-thunk": "^2.4.2",
+    "web-vitals": "^3.3.1"
   },
   "browserslist": {
     "production": [
