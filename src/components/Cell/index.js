@@ -46,7 +46,7 @@ const Cell = props => {
     }, [ active, oddSection, theme, activeCell, column, row ]);
 
     /**
-     * sets the current cell to be the active cell
+     * sets the current cell to the active cell
      */
     const onClick = () => {
         dispatch({ type: ACTIVE_CELL, payload: props });
