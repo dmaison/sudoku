@@ -30,13 +30,13 @@ const Cell = props => {
     dispatch = useDispatch(),
     theme = useTheme(),
     oddSection = Boolean( section % 2 === 0 ),
-    active = useMemo(() => ( activeCell.index === index ), [ activeCell, index ]),
+    active = useMemo(() => ( activeCell?.index === index ), [ activeCell, index ]),
     backgroundColor = useMemo(() => {
 
         if( active ){
             return null;
         } else {
-            if( activeCell.column === column || activeCell.row === row ){
+            if( activeCell?.column === column || activeCell?.row === row ){
                 return alpha( theme.palette.secondary.light, oddSection ? .25 : .1 )
             }
         }

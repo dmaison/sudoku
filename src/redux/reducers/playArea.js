@@ -1,7 +1,13 @@
 import * as ACTIONS from '../actions/playArea';
 
+const DEFAULT_LIMIT = 9;
+
+const DEFAULT_SIZE = 3;
+
 const INITIAL_STATE = {
     activeCell: null,
+    limit: DEFAULT_LIMIT, // max number that can be represented in the grid
+    size: DEFAULT_SIZE, // section grid dimension size (e.g. 3x3)
     grid: createGrid()
 };
 
@@ -25,7 +31,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
  * @param {number} [size=3] Both X and Y dimensions of the grouping (e.g. 3x3)
  * @returns {array} The grid
  */
-function createGrid( limit=9, size=3 ){
+function createGrid( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE ){
 
     const grid = [];
 
