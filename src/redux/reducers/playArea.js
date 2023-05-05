@@ -29,7 +29,7 @@ function createGrid( limit=9, size=3 ){
 
         const column = i % limit || limit,
         row = Math.ceil( i / limit ),
-        bigColumn = Math.ceil( i / size ) % size || 3,
+        bigColumn = Math.ceil( i / size ) % size || size,
         bigRow = Math.ceil( i / ( limit * size ) ) - 1,
         section = bigColumn + ( size * bigRow );
 
