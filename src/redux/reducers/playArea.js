@@ -47,6 +47,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
                 // if not taking notes, set as input
                 } else {
                     grid[ index ].input = input;
+                    grid[ index ].notes = [];
                 }
             }
             return { ...state, grid };
