@@ -9,7 +9,6 @@ import { alpha } from "@mui/material";
 import { withTheme  } from "@mui/styles";
 import { useDispatch, useSelector } from 'react-redux';
 import { ACTIVE_CELL } from '../../redux/actions/playArea';
-// import { black } from '@mui/material/colors';
 
 const Button = styled( withTheme( ButtonBase ) )( ({ theme, err }) => ({
     alignItems: 'center',
@@ -43,7 +42,7 @@ const Cell = props => {
 
         const oddSection = Boolean( section % 2 === 0 );
 
-        // if it has an error, show it
+        // if it has an error, its always red
         if( error ){
             return alpha( theme.palette.error.light, oddSection ? .25 : .15 );
 
@@ -51,11 +50,11 @@ const Cell = props => {
         } else if( active ){
             return null;
 
-        // if its a visible or correctly answered cell, higlight the other visible or correctly answered cells with the same value
+        // if it shares an answer with the active cell and the answers of both are shown
         } else if( activeCell?.answer === answer && ( activeCell?.visible || ( activeCell?.input === activeCell?.answer ) ) ){
             if( visible || ( !!input && !error ) ) return alpha( theme.palette.secondary.light, .5 );
 
-        // highlight the siblings of the active cell
+        // if its a sibling of the active cell
         } else if( activeCell?.column === column || activeCell?.row === row || activeCell?.section === section ){
             return alpha( theme.palette.secondary.light, oddSection ? .25 : .15 )
         }
