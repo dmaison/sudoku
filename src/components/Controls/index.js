@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { useMemo } from 'react';
-import { CLEAR_CELL, FILL_CELL } from '../../redux/actions/playArea';
+import { CLEAR_CELL, FILL_CELL, TOGGLE_NOTES } from '../../redux/actions/playArea';
 
 const CLEAR = 'clear';
 
@@ -18,9 +18,9 @@ const NOTES = 'notes';
 const Controls = () => {
 
     const dispatch = useDispatch(),
-    length = useSelector( state => state.playArea.limit ),
+    { limit, takingNotes } = useSelector( state => state.playArea ),
     theme = useTheme(),
-    inputAry = useMemo(() => Array.from({ length }, ( _, i ) => ( i + 1 ).toString() ), [ length ]);
+    inputAry = useMemo(() => Array.from({ length: limit }, ( _, i ) => ( i + 1 ).toString() ), [ limit ]);
 
     const onKeyEvent = payload => {
         dispatch({ type: FILL_CELL, payload });
@@ -32,6 +32,7 @@ const Controls = () => {
                 dispatch({ type: CLEAR_CELL, payload: value });
                 break;
             case NOTES:
+                dispatch({ type: TOGGLE_NOTES });
                 break;
             default:
                 dispatch({ type: FILL_CELL, payload: value });
@@ -61,7 +62,7 @@ const Controls = () => {
                         )
                     )   
                 }
-                <BottomNavigationAction value={ NOTES } label={ `Notes: Off` } icon={ <EditIcon sx={{ color: theme.palette.primary.main }} /> } />
+                <BottomNavigationAction value={ NOTES } label={ `Notes: ${ takingNotes ? 'On' : 'Off' }` } icon={ <EditIcon sx={{ color: theme.palette.primary.main }} /> } />
                 <BottomNavigationAction value={ CLEAR } label="Clear Cell" icon={ <ClearIcon sx={{ color: theme.palette.primary.main }} /> } />
             </BottomNavigation>
         </Container>

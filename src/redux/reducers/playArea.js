@@ -8,7 +8,8 @@ const INITIAL_STATE = {
     activeCell: null,
     limit: DEFAULT_LIMIT, // max number that can be represented in the grid
     size: DEFAULT_SIZE, // section grid dimension size (e.g. 3x3)
-    grid: createGrid()
+    grid: createGrid(),
+    takingNotes: false
 };
 
 const reducer = ( state=INITIAL_STATE, action ) => {
@@ -28,6 +29,9 @@ const reducer = ( state=INITIAL_STATE, action ) => {
         case ACTIONS.FILL_CELL:
             grid[ index ].input = parseInt( action.payload );
             return { ...state, grid };
+
+        case ACTIONS.TOGGLE_NOTES:
+            return { ...state, takingNotes: !state.takingNotes };
 
         default:
             return { ...state };
@@ -63,6 +67,7 @@ function createGrid( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE ){
             column, 
             error: false,
             index: ( i - 1 ),
+            notes: [],
             row,
             section,
             visible

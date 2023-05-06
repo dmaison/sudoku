@@ -18,3 +18,9 @@ export const CLEAR_CELL = CELL + 'CLEAR';
  * @type {string}
  */
 export const FILL_CELL = CELL + 'FILL';
+
+/**
+ * Used to toggle notes mode on or off
+ * @type {string}
+ */
+export const TOGGLE_NOTES = BASE + 'TOGGLE_NOTES';
