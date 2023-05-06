@@ -50,9 +50,9 @@ const Cell = props => {
         } else if( active ){
             return null;
 
-        // if its a visible cell, higlight the other visible cells with the same value
-        } else if( activeCell?.visible ){
-            if( visible && activeCell.answer === answer ) return alpha( theme.palette.secondary.light, .4 );
+        // if its a visible or correctly answered cell, higlight the other visible or correctly answered cells with the same value
+        } else if( activeCell?.answer === answer && ( activeCell?.visible || ( activeCell?.input === activeCell?.answer ) ) ){
+            if( visible || ( !!input && !error ) ) return alpha( theme.palette.secondary.light, .5 );
 
         // highlight the siblings of the active cell
         } else if( activeCell?.column === column || activeCell?.row === row || activeCell?.section === section ){
@@ -61,7 +61,7 @@ const Cell = props => {
 
         return oddSection ? alpha( grey[ 400 ], .1 ) : null;
 
-    }, [ active, error, section, theme, activeCell, column, row, visible, answer ]);
+    }, [ active, error, section, theme, activeCell, column, row, visible, answer, input ]);
 
     /**
      * sets the current cell to the active cell
