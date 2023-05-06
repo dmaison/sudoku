@@ -9,11 +9,12 @@ const PlayArea = () => {
     
     const grid = useSelector( state => state.playArea.grid ),
     theme = useTheme(),
-    md = '60vh';
+    md = '60vh',
+    xs = '100vw';
 
     return (
         <Container sx={{
-            maxWidth: { md }
+            width: { md, xs }
         }}>
             hello
             <Box
@@ -24,7 +25,7 @@ const PlayArea = () => {
                     container 
                     columns={ 9 } 
                     sx={{ 
-                        height: { md }
+                        height: { md, xs }
                     }}>
                     {
                         grid.map(
