@@ -9,7 +9,7 @@ const PlayArea = () => {
     
     const grid = useSelector( state => state.playArea.grid ),
     theme = useTheme(),
-    md = '40vw';
+    md = '60vh';
 
     return (
         <Container sx={{
