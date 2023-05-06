@@ -17,6 +17,7 @@ const Button = styled( withTheme( ButtonBase ) )( ({ theme, err }) => ({
     justifyContent: 'center',
     height: '100%',
     outlineOffset: -1,
+    transition: 'linear .2s',
     width: '100%'
 }));
 
