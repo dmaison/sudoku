@@ -45,7 +45,7 @@ const Cell = props => {
                 if( visible && activeCell.answer === answer ) return alpha( theme.palette.secondary.light, .4 );
 
             // highlight the siblings of the active cell
-            } else if( activeCell?.column === column || activeCell?.row === row || activeCell.section === section ){
+            } else if( activeCell?.column === column || activeCell?.row === row || activeCell?.section === section ){
                 return alpha( theme.palette.secondary.light, oddSection ? .25 : .15 )
             }
         }
