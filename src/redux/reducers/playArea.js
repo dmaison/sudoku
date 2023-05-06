@@ -13,10 +13,17 @@ const INITIAL_STATE = {
 
 const reducer = ( state=INITIAL_STATE, action ) => {
 
+    let grid = [ ...state.grid ],
+    index = state.activeCell?.index;
+
     switch( action.type ){
 
         case ACTIONS.ACTIVE_CELL:
             return { ...state, activeCell: { ...action.payload } };
+
+        case ACTIONS.FILL_CELL:
+            grid[ index ].input = parseInt( action.payload );
+            return { ...state, grid };
 
         default:
             return { ...state };
@@ -50,6 +57,8 @@ function createGrid( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE ){
 
         grid.push({ 
             column, 
+            error: false,
+            index: ( i - 1 ),
             row,
             section,
             visible
