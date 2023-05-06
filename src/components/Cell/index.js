@@ -1,4 +1,4 @@
-import Box from '@mui/material/Box';
+import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
@@ -25,25 +25,34 @@ const Button = styled( withTheme( ButtonBase ) )( ({ theme }) => ({
 
 const Cell = props => {
 
-    const { answer, column, index, row, section } = props,
+    const { answer, column, index, input, row, section, visible } = props,
     activeCell = useSelector( state => state.playArea.activeCell ),
     dispatch = useDispatch(),
     theme = useTheme(),
-    oddSection = Boolean( section % 2 === 0 ),
     active = useMemo(() => ( activeCell?.index === index ), [ activeCell, index ]),
     backgroundColor = useMemo(() => {
 
+        const oddSection = Boolean( section % 2 === 0 );
+
+        // if its active, its always white
         if( active ){
             return null;
+
         } else {
-            if( activeCell?.column === column || activeCell?.row === row ){
-                return alpha( theme.palette.secondary.light, oddSection ? .25 : .1 )
+
+            // if its a visible cell, higlight the other visible cells with the same value
+            if( activeCell?.visible ){
+                if( visible && activeCell.answer === answer ) return alpha( theme.palette.secondary.light, .4 );
+
+            // highlight the siblings of the active cell
+            } else if( activeCell?.column === column || activeCell?.row === row || activeCell.section === section ){
+                return alpha( theme.palette.secondary.light, oddSection ? .25 : .15 )
             }
         }
 
         return oddSection ? alpha( grey[ 400 ], .1 ) : null;
 
-    }, [ active, oddSection, theme, activeCell, column, row ]);
+    }, [ active, section, theme, activeCell, column, row, visible, answer ]);
 
     /**
      * sets the current cell to the active cell
@@ -59,12 +68,26 @@ const Cell = props => {
             square
             onClick={ onClick }
             sx={{ backgroundColor }}>
-            <Box>
-                <Typography variant="h5" component="div">{ answer }</Typography>
-            </Box>
+                <Typography variant="h4" component="div" sx={{ color: !visible ? theme.palette.primary.light : null }}>
+                    { 
+                        visible ? 
+                            answer :
+                            input
+                    }
+                </Typography>
         </Button>
     )
 
+}
+
+Cell.propTypes = {
+    answer: PropTypes.number.isRequired, 
+    column: PropTypes.number.isRequired, 
+    index: PropTypes.number.isRequired, 
+    input: PropTypes.number, 
+    row: PropTypes.number.isRequired, 
+    section: PropTypes.number.isRequired, 
+    visible: PropTypes.bool
 }
 
 export default Cell

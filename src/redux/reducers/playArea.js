@@ -41,12 +41,18 @@ function createGrid( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE ){
         row = Math.ceil( i / limit ),
         bigColumn = Math.ceil( i / size ) % size || size,
         bigRow = Math.ceil( i / ( limit * size ) ) - 1,
-        section = bigColumn + ( size * bigRow );
+        section = bigColumn + ( size * bigRow ),
+        rand = Math.random();
+
+        let visible = true;
+
+        if( rand < .5 ) visible = false;
 
         grid.push({ 
             column, 
             row,
             section,
+            visible
         });
 
     }
