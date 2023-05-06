@@ -4,6 +4,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
@@ -33,9 +34,9 @@ const Controls = () => {
                         value => (
                             <BottomNavigationAction 
                                 icon={ 
-                                    <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                                    <Typography variant="h3" component="span" sx={{ color: theme.palette.primary.main }}>
                                         { value }
-                                    </Avatar> 
+                                    </Typography>
                                 } 
                                 key={ `input-${ value }` }
                                 />
