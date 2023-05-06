@@ -71,8 +71,8 @@ const Cell = props => {
     }
 
     useEffect(() => {
-        if( !visible && input ){
-            const hasError = ( input !== answer );
+        if( !visible ){
+            const hasError = ( input && input !== answer );
             setError( hasError );
         }
     }, [ visible, input, answer, setError ]);

@@ -21,6 +21,10 @@ const reducer = ( state=INITIAL_STATE, action ) => {
         case ACTIONS.ACTIVE_CELL:
             return { ...state, activeCell: { ...action.payload } };
 
+        case ACTIONS.CLEAR_CELL:
+            delete grid[ index ].input;
+            return { ...state, grid };
+
         case ACTIONS.FILL_CELL:
             grid[ index ].input = parseInt( action.payload );
             return { ...state, grid };

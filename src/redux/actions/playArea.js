@@ -8,6 +8,12 @@ CELL = BASE + 'CELL_';
 export const ACTIVE_CELL = CELL + 'ACTIVATE';
 
 /**
+ * Used to set an active cell
+ * @type {string}
+ */
+export const CLEAR_CELL = CELL + 'CLEAR';
+
+/**
  * Used to fill a cell with a value
  * @type {string}
  */

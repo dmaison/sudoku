@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { useMemo } from 'react';
-import { FILL_CELL } from '../../redux/actions/playArea';
+import { CLEAR_CELL, FILL_CELL } from '../../redux/actions/playArea';
 
 const CLEAR = 'clear';
 
@@ -29,6 +29,7 @@ const Controls = () => {
     const onControlsClick = ( _, value )=> {
         switch( value ){
             case CLEAR:
+                dispatch({ type: CLEAR_CELL, payload: value });
                 break;
             case NOTES:
                 break;
