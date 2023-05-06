@@ -11,6 +11,10 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { useMemo } from 'react';
 import { FILL_CELL } from '../../redux/actions/playArea';
 
+const CLEAR = 'clear';
+
+const NOTES = 'notes';
+
 const Controls = () => {
 
     const dispatch = useDispatch(),
@@ -22,17 +26,30 @@ const Controls = () => {
         dispatch({ type: FILL_CELL, payload });
     }
 
+    const onControlsClick = ( _, value )=> {
+        switch( value ){
+            case CLEAR:
+                break;
+            case NOTES:
+                break;
+            default:
+                dispatch({ type: FILL_CELL, payload: value });
+                break;
+        }
+    }
+
     return (
         <Container sx={{ mt: 3 }}>
             <KeyboardEventHandler
                 handleFocusableElements
                 handleKeys={ [ ...inputAry ] } 
                 onKeyEvent={ onKeyEvent } />
-            <BottomNavigation showLabels>
+            <BottomNavigation showLabels onChange={ onControlsClick }>
                 {
                     inputAry.map(
                         value => (
                             <BottomNavigationAction 
+                                value={ value }
                                 icon={ 
                                     <Typography variant="h3" component="span" sx={{ color: theme.palette.primary.main }}>
                                         { value }
@@ -43,8 +60,8 @@ const Controls = () => {
                         )
                     )   
                 }
-                <BottomNavigationAction label={ `Notes: Off` } icon={ <EditIcon sx={{ color: theme.palette.primary.main }} /> } />
-                <BottomNavigationAction label="Clear Cell" icon={ <ClearIcon sx={{ color: theme.palette.primary.main }} /> } />
+                <BottomNavigationAction value={ NOTES } label={ `Notes: Off` } icon={ <EditIcon sx={{ color: theme.palette.primary.main }} /> } />
+                <BottomNavigationAction value={ CLEAR } label="Clear Cell" icon={ <ClearIcon sx={{ color: theme.palette.primary.main }} /> } />
             </BottomNavigation>
         </Container>
     )
