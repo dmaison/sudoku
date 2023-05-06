@@ -27,7 +27,28 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             return { ...state, grid };
 
         case ACTIONS.FILL_CELL:
-            if( index ) grid[ index ].input = parseInt( action.payload );
+            const input = parseInt( action.payload );
+            if( index ){
+
+                // if taking notes, set as a note
+                if( state.takingNotes ){
+                    let notes = grid[ index ].notes,
+                    noteIndex = notes.indexOf( input );
+
+                    // if not already noted, add
+                    if( noteIndex === -1 ){
+                        notes.push( input );
+
+                    // if already noted remove
+                    } else {
+                        notes.splice( noteIndex, 1 );
+                    }
+
+                // if not taking notes, set as input
+                } else {
+                    grid[ index ].input = input;
+                }
+            }
             return { ...state, grid };
 
         case ACTIONS.TOGGLE_NOTES:

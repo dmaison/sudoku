@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import { useTheme, styled } from '@mui/material/styles';
@@ -10,21 +11,34 @@ import { withTheme  } from "@mui/styles";
 import { useDispatch, useSelector } from 'react-redux';
 import { ACTIVE_CELL } from '../../redux/actions/playArea';
 
-const Button = styled( withTheme( ButtonBase ) )( ({ theme, err }) => ({
+const Button = styled( ButtonBase )(() => ({
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'center',
     height: '100%',
     outlineOffset: -1,
+    position: 'relative',
     transition: 'linear .2s',
+    width: '100%'
+}));
+
+const Notes = styled( withTheme( Box ) )( ({ theme }) => ({
+    alignItems: 'center',
+    color: theme.palette.secondary.dark,
+    display: 'grid',
+    gridTemplateColumns: 'repeat( 3, 1fr )',
+    height: '100%',
+    position: 'absolute',
+    textAlign: 'center',
     width: '100%'
 }));
 
 const Cell = props => {
 
-    const { answer, column, index, input, row, section, visible } = props,
-    activeCell = useSelector( state => state.playArea.activeCell ),
+    const { answer, column, index, input, notes, row, section, visible } = props,
+    { activeCell, limit } = useSelector( state => state.playArea ),
     dispatch = useDispatch(),
+    noteMap = useMemo( () => Array.from({ length: limit }, (_, index ) => ( index + 1 ) ), [ limit ]),
     theme = useTheme(),
     active = useMemo(() => ( activeCell?.index === index ), [ activeCell, index ]),
     [ error, setError ] = useState( false ),
@@ -92,6 +106,17 @@ const Cell = props => {
                     backgroundColor: theme.palette[ error ? 'error' : 'primary' ].light
                 }
             }}>
+                <Notes>
+                    { 
+                        noteMap.map(
+                            note => (
+                                <Typography key={ note }>
+                                    <span dangerouslySetInnerHTML={{ __html: notes.includes( note ) ? note : '&nbsp;' }} />
+                                </Typography>
+                            )
+                        )
+                    }
+                </Notes>
                 <Typography variant="h4" component="div" sx={{ color }}>
                     { 
                         visible ? 
