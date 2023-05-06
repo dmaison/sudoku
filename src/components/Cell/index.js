@@ -16,10 +16,8 @@ const Button = styled( withTheme( ButtonBase ) )( ({ theme, err }) => ({
     display: 'flex',
     justifyContent: 'center',
     height: '100%',
-    width: '100%',
-    '&& .MuiTouchRipple-child': {
-        backgroundColor: theme.palette.primary.light
-    }
+    outlineOffset: -1,
+    width: '100%'
 }));
 
 const Cell = props => {
@@ -90,7 +88,9 @@ const Cell = props => {
                 borderBottom: `1px solid ${ theme.palette.secondary.light }`,
                 borderRight: `1px solid ${ theme.palette.secondary.light }`,
                 outline: error ? `${ theme.palette.error.light } solid 1px` : null,
-                outlineOffset: -1
+                '&& .MuiTouchRipple-child': {
+                    backgroundColor: theme.palette[ error ? 'error' : 'primary' ].light
+                }
             }}>
                 <Typography variant="h4" component="div" sx={{ color }}>
                     { 
