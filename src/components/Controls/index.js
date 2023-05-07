@@ -118,7 +118,7 @@ const Controls = () => {
                         )
                     )   
                 }
-                <BottomNavigationAction value={ NOTES } label={ `Notes: ${ takingNotes ? 'On' : 'Off' }` } icon={ <EditIcon sx={{ color: theme.palette.primary.main }} /> } />
+                <BottomNavigationAction value={ NOTES } label={ `Notes: ${ takingNotes ? 'On' : 'Off' }` } icon={ <EditIcon sx={{ color: takingNotes ? theme.palette.primary.main : null }} /> } />
                 <BottomNavigationAction value={ CLEAR } label="Clear Cell" icon={ <ClearIcon sx={{ color: theme.palette.primary.main }} /> } />
                 <BottomNavigationAction disabled={ !hasHistory } value={ UNDO } label="Undo" icon={ <HistoryIcon sx={{ color: hasHistory ? theme.palette.primary.main : null }} /> } />
             </BottomNavigation>
