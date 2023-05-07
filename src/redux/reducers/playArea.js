@@ -26,7 +26,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
         case ACTIONS.FILL_CELL:
             const input = parseInt( action.payload );
-            if( index ){
+            if( index > -1 ){
 
                 let activeCell = grid[ index ];
 
@@ -37,6 +37,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
                 // if not taking notes, set as input
                 } else {
+
                     activeCell.input = input;
                     activeCell.notes = [];
 
