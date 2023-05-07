@@ -53,6 +53,16 @@ const reducer = ( state=INITIAL_STATE, action ) => {
         case ACTIONS.TOGGLE_NOTES:
             return { ...state, takingNotes: !state.takingNotes };
 
+        case ACTIONS.UNDO_MOVE:
+
+            let gridHistory = [ ...state.gridHistory ];
+                    
+            grid = [ ...gridHistory.pop() ];
+
+            console.log( 'after', grid, gridHistory );
+
+            return { ...state, grid, gridHistory };
+
         default:
             return { ...state };
 

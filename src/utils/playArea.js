@@ -71,6 +71,8 @@ export const createHistory = state => {
 
     if( gridHistory.length > DEFAULT_HISTORY_LIMIT ) gridHistory.shift();
 
+    console.log( gridHistory );
+
     return { ...state, gridHistory };
 
 }

@@ -24,3 +24,9 @@ export const FILL_CELL = CELL + 'FILL';
  * @type {string}
  */
 export const TOGGLE_NOTES = BASE + 'TOGGLE_NOTES';
+
+/**
+ * Undoes a change
+ * @type {string}
+ */
+export const UNDO_MOVE = BASE + 'UNDO';
