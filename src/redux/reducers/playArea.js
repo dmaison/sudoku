@@ -31,7 +31,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             if( index ){
 
                 // if taking notes, set as a note
-                if( state.takingNotes ){
+                if( state.takingNotes && !grid[ index ].visible ){
                     let notes = grid[ index ].notes,
                     noteIndex = notes.indexOf( input );
 
