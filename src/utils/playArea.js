@@ -63,17 +63,15 @@ export const createGrid = ( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE ) => {
  * @param {object} state
  * @returns {object} The state object w/ updated history
  */
-export const createHistory = state => {
+export const createHistory = ( state, grid ) => {
 
     const gridHistory = [ ...state.gridHistory ];
 
-    gridHistory.push([ ...state.grid ]);
+    gridHistory.push( spreadGrid( state.grid ) );
 
     if( gridHistory.length > DEFAULT_HISTORY_LIMIT ) gridHistory.shift();
 
-    console.log( gridHistory );
-
-    return { ...state, gridHistory };
+    return { ...state, grid, gridHistory };
 
 }
 
@@ -147,6 +145,15 @@ export const shuffle = shuffledArray => {
     }
 
     return shuffledArray;
+}
+
+/**
+ * Maps the grid to a unique object to eliminate inheritence
+ * @param {array} grid 
+ * @returns {array} Independent instance of the provided `grid` array
+ */
+export const spreadGrid = grid => {
+    return [ ...grid ].map( cell => ({ ...cell }))
 }
 
 /**

@@ -1,18 +1,19 @@
 import * as ACTIONS from '../actions/playArea';
-import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE } from '../../utils/playArea';
+import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, spreadGrid } from '../../utils/playArea';
 
-const INITIAL_STATE = {
+const INITIAL_GRID = createGrid(),
+INITIAL_STATE = {
     activeCell: null,
     gridHistory: [],
     limit: DEFAULT_LIMIT, // max number that can be represented in the grid
     size: DEFAULT_SIZE, // section grid dimension size (e.g. 3x3)
-    grid: createGrid(),
+    grid: INITIAL_GRID,
     takingNotes: false
 };
 
 const reducer = ( state=INITIAL_STATE, action ) => {
 
-    let grid = [ ...state.grid ],
+    let grid = spreadGrid( state.grid ),
     index = state.activeCell?.index;
 
     switch( action.type ){
@@ -22,7 +23,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
         case ACTIONS.CLEAR_CELL:
             if( index ) delete grid[ index ].input;
-            return createHistory({ ...state, grid });
+            return createHistory({ ...state }, grid );
 
         case ACTIONS.FILL_CELL:
             const input = parseInt( action.payload );
@@ -49,19 +50,14 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
                 }
             }
-            return createHistory({ ...state, grid });
+            return createHistory({ ...state }, grid );
 
         case ACTIONS.TOGGLE_NOTES:
             return { ...state, takingNotes: !state.takingNotes };
 
         case ACTIONS.UNDO_MOVE:
-
-            let gridHistory = [ ...state.gridHistory ];
-                    
-            grid = [ ...gridHistory.pop() ];
-
-            console.log( 'after', grid, gridHistory );
-
+            const gridHistory = [ ...state.gridHistory ];
+            if( gridHistory.length > 0 ) grid = gridHistory.pop();
             return { ...state, grid, gridHistory };
 
         default:
