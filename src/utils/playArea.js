@@ -1,4 +1,23 @@
-import { DEFAULT_LIMIT, DEFAULT_SIZE } from "../redux/reducers/playArea";
+/**
+ * Determines the number of "undos" a player can use
+ * @constant
+ * @type {number}
+ */
+export const DEFAULT_HISTORY_LIMIT = 3;
+
+/**
+ * Determines the default grid width as 9x9
+ * @constant
+ * @type {number}
+ */
+export const DEFAULT_LIMIT = 9;
+
+/**
+ * Determines the default grid section size as 3x3
+ * @constant
+ * @type {number}
+ */
+export const DEFAULT_SIZE = 3;
 
 /**
  * Creates a puzzle grid
@@ -36,6 +55,23 @@ export const createGrid = ( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE ) => {
     }
 
     return populateGrid( grid, limit );
+
+}
+
+/**
+ * Automatically generates the history of the grid
+ * @param {object} state
+ * @returns {object} The state object w/ updated history
+ */
+export const createHistory = state => {
+
+    const gridHistory = [ ...state.gridHistory ];
+
+    gridHistory.push([ ...state.grid ]);
+
+    if( gridHistory.length > DEFAULT_HISTORY_LIMIT ) gridHistory.shift();
+
+    return { ...state, gridHistory };
 
 }
 

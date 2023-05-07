@@ -1,12 +1,9 @@
 import * as ACTIONS from '../actions/playArea';
-import { createGrid, toggleNotes } from '../../utils/playArea';
-
-export const DEFAULT_LIMIT = 9;
-
-export const DEFAULT_SIZE = 3;
+import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE } from '../../utils/playArea';
 
 const INITIAL_STATE = {
     activeCell: null,
+    gridHistory: [],
     limit: DEFAULT_LIMIT, // max number that can be represented in the grid
     size: DEFAULT_SIZE, // section grid dimension size (e.g. 3x3)
     grid: createGrid(),
@@ -25,7 +22,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
         case ACTIONS.CLEAR_CELL:
             if( index ) delete grid[ index ].input;
-            return { ...state, grid };
+            return createHistory({ ...state, grid });
 
         case ACTIONS.FILL_CELL:
             const input = parseInt( action.payload );
@@ -51,7 +48,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
                 }
             }
-            return { ...state, grid };
+            return createHistory({ ...state, grid });
 
         case ACTIONS.TOGGLE_NOTES:
             return { ...state, takingNotes: !state.takingNotes };
