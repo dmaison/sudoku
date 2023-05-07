@@ -16,6 +16,7 @@ const Controls = () => {
 
     const dispatch = useDispatch(),
     { limit, takingNotes } = useSelector( state => state.playArea ),
+    hasHistory = useSelector( state => ( state.playArea.gridHistory.length > 0 ) ),
     theme = useTheme(),
     inputAry = useMemo(() => Array.from({ length: limit }, ( _, i ) => ( i + 1 ).toString() ), [ limit ]);
 
@@ -64,7 +65,7 @@ const Controls = () => {
                 }
                 <BottomNavigationAction value={ NOTES } label={ `Notes: ${ takingNotes ? 'On' : 'Off' }` } icon={ <EditIcon sx={{ color: theme.palette.primary.main }} /> } />
                 <BottomNavigationAction value={ CLEAR } label="Clear Cell" icon={ <ClearIcon sx={{ color: theme.palette.primary.main }} /> } />
-                <BottomNavigationAction value={ UNDO } label="Undo" icon={ <HistoryIcon sx={{ color: theme.palette.primary.main }} /> } />
+                <BottomNavigationAction disabled={ !hasHistory } value={ UNDO } label="Undo" icon={ <HistoryIcon sx={{ color: hasHistory ? theme.palette.primary.main : null }} /> } />
             </BottomNavigation>
         </Container>
     )
