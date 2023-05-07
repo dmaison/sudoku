@@ -20,6 +20,12 @@ export const CLEAR_CELL = CELL + 'CLEAR';
 export const FILL_CELL = CELL + 'FILL';
 
 /**
+ * Used to move the active cell
+ * @type {string}
+ */
+export const MOVE_ACTIVE_CELL = CELL + 'MOVE_ACTIVE';
+
+/**
  * Used to toggle notes mode on or off
  * @type {string}
  */

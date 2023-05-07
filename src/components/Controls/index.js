@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { useMemo } from 'react';
-import { CLEAR_CELL, FILL_CELL, TOGGLE_NOTES, UNDO_MOVE } from '../../redux/actions/playArea';
+import { CLEAR_CELL, FILL_CELL, MOVE_ACTIVE_CELL, TOGGLE_NOTES, UNDO_MOVE } from '../../redux/actions/playArea';
 import { CLEAR, NOTES, UNDO } from './config';
 
 const Controls = () => {
@@ -20,10 +20,50 @@ const Controls = () => {
     theme = useTheme(),
     inputAry = useMemo(() => Array.from({ length: limit }, ( _, i ) => ( i + 1 ).toString() ), [ limit ]);
 
+    /**
+     * Sets the input value of the active cell to the value of the payload parameter
+     * @param {number|string} payload
+     */
     const fillCell = payload => {
-        dispatch({ type: FILL_CELL, payload });
+        if( !isNaN( payload ) ){
+            dispatch({ type: FILL_CELL, payload });
+        }
     }
 
+    /**
+     * Allows for keyboard to control movement of the active cell instead of having to use the mouse
+     * @param {string} key the key that was pressed to trigger this event
+     */
+    const moveCell = key => {
+        let column = 0,
+        row = 0;
+        switch( key ){
+            case 'w':
+            case 'up':
+                row -= 1;
+                break;
+            case 's':
+            case 'down':
+                row += 1;
+                break;
+            case 'a':
+            case 'left':
+                column -= 1;
+                break;
+            case 'd':
+            case 'right':
+                column += 1;
+                break;
+        }
+
+        dispatch({ type: MOVE_ACTIVE_CELL, payload: { column, row }});
+    }
+
+    /**
+     * Allows for mobile input and control of the game
+     * @param {*} _ 
+     * @param {string} value Which button was pressed
+     */
     const onControlsClick = ( _, value )=> {
         switch( value ){
             case CLEAR:
@@ -43,6 +83,10 @@ const Controls = () => {
 
     return (
         <Container sx={{ mt: 3 }}>
+            <KeyboardEventHandler
+                handleFocusableElements
+                handleKeys={ [ 'left', 'up', 'right', 'down', 'w', 'a', 's', 'd' ] } 
+                onKeyEvent={ moveCell } />
             <KeyboardEventHandler
                 handleFocusableElements
                 handleKeys={ [ ...inputAry ] } 

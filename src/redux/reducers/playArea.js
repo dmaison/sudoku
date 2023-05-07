@@ -52,6 +52,22 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             }
             return createHistory({ ...state }, grid );
 
+        case ACTIONS.MOVE_ACTIVE_CELL:
+
+            const { column, row } = action.payload,
+            previousActive = ( index !== undefined ) ? { ...grid[ index ] } : null,
+            nextColumn = ( previousActive?.column + column ),
+            nextRow = ( previousActive?.row + row );
+            
+            // default active cell to the first grid
+            let activeCell = { ...( previousActive || grid[ 0 ] ) };
+
+            if( !!previousActive && ( nextColumn >= 1 && nextColumn <= 9 && nextRow >= 1 && nextRow <= 9 ) ){
+                activeCell = { ...grid.find( ({ column, row }) => ( column === nextColumn && row === nextRow ) ) };
+            }
+
+            return { ...state, activeCell };
+
         case ACTIONS.TOGGLE_NOTES:
             return { ...state, takingNotes: !state.takingNotes };
 
