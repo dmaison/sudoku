@@ -4,6 +4,7 @@ import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, sp
 const INITIAL_GRID = createGrid(),
 INITIAL_STATE = {
     activeCell: null,
+    errors: 0,
     gridHistory: [],
     limit: DEFAULT_LIMIT, // max number that can be represented in the grid
     size: DEFAULT_SIZE, // section grid dimension size (e.g. 3x3)
@@ -52,6 +53,10 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             }
             return createHistory({ ...state }, grid );
 
+        case ACTIONS.LOG_ERROR:
+            let errors = ( state.errors + 1 );
+            return { ...state, errors };
+
         case ACTIONS.MOVE_ACTIVE_CELL:
 
             const { column, row } = action.payload,
@@ -59,7 +64,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             nextColumn = ( previousActive?.column + column ),
             nextRow = ( previousActive?.row + row );
             
-            // default active cell to the first grid
+            // default active cell to the previous active or first grid
             let activeCell = { ...( previousActive || grid[ 0 ] ) };
 
             if( !!previousActive && ( nextColumn >= 1 && nextColumn <= 9 && nextRow >= 1 && nextRow <= 9 ) ){

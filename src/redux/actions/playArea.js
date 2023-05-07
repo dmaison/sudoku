@@ -20,6 +20,12 @@ export const CLEAR_CELL = CELL + 'CLEAR';
 export const FILL_CELL = CELL + 'FILL';
 
 /**
+ * Used to log when the user enters an erroneous input
+ * @type {string}
+ */
+export const LOG_ERROR = CELL + 'LOG_ERROR';
+
+/**
  * Used to move the active cell
  * @type {string}
  */

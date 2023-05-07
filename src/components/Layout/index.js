@@ -4,10 +4,12 @@ import theme from './theme';
 import './style.css';
 import PlayArea from '../PlayArea';
 import Controls from '../Controls';
+import GameData from '../GameData';
 
 const Template = () => (
     <ThemeProvider theme={ theme }>
         <CssBaseline />
+        <GameData />
         <PlayArea />
         <Controls />
     </ThemeProvider>

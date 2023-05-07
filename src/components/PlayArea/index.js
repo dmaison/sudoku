@@ -16,7 +16,6 @@ const PlayArea = () => {
         <Container sx={{
             width: { md, xs }
         }}>
-            hello
             <Box
                 sx={{
                     border: `1px solid ${ theme.palette.primary.light }`

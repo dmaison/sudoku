@@ -9,7 +9,7 @@ import { grey } from '@mui/material/colors';
 import { alpha } from "@mui/material";
 import { withTheme  } from "@mui/styles";
 import { useDispatch, useSelector } from 'react-redux';
-import { ACTIVE_CELL } from '../../redux/actions/playArea';
+import { ACTIVE_CELL, LOG_ERROR } from '../../redux/actions/playArea';
 
 const Button = styled( ButtonBase )(() => ({
     alignItems: 'center',
@@ -84,9 +84,11 @@ const Cell = props => {
         dispatch({ type: ACTIVE_CELL, payload: props });
     }
 
+    // track the error state
     useEffect(() => {
         if( !visible ){
             const hasError = ( input && input !== answer );
+            if( hasError ) dispatch({ type: LOG_ERROR });
             setError( hasError );
         }
     }, [ visible, input, answer, setError ]);
