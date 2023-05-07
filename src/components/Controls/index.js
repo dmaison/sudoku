@@ -21,6 +21,13 @@ const Controls = () => {
     inputAry = useMemo(() => Array.from({ length: limit }, ( _, i ) => ( i + 1 ).toString() ), [ limit ]);
 
     /**
+     * Clears the current active cell
+     */
+    const clearCell = () => {
+        dispatch({ type: CLEAR_CELL });
+    }
+
+    /**
      * Sets the input value of the active cell to the value of the payload parameter
      * @param {number|string} payload
      */
@@ -67,7 +74,7 @@ const Controls = () => {
     const onControlsClick = ( _, value )=> {
         switch( value ){
             case CLEAR:
-                dispatch({ type: CLEAR_CELL, payload: value });
+                clearCell();
                 break;
             case NOTES:
                 dispatch({ type: TOGGLE_NOTES });
@@ -87,6 +94,10 @@ const Controls = () => {
                 handleFocusableElements
                 handleKeys={ [ 'left', 'up', 'right', 'down', 'w', 'a', 's', 'd' ] } 
                 onKeyEvent={ moveCell } />
+            <KeyboardEventHandler
+                handleFocusableElements
+                handleKeys={ [ 'backspace', 'delete' ] } 
+                onKeyEvent={ clearCell } />
             <KeyboardEventHandler
                 handleFocusableElements
                 handleKeys={ [ ...inputAry ] } 

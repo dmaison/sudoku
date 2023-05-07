@@ -22,7 +22,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             return { ...state, activeCell: { ...action.payload } };
 
         case ACTIONS.CLEAR_CELL:
-            if( index ) delete grid[ index ].input;
+            if( index !== undefined && grid[ index ]?.input !== grid[ index ].answer ) delete grid[ index ].input;
             return createHistory({ ...state }, grid );
 
         case ACTIONS.FILL_CELL:
