@@ -31,15 +31,24 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             const input = parseInt( action.payload );
             if( index ){
 
-                // if taking notes, set as a note
-                if( state.takingNotes && !grid[ index ].visible ){
+                let activeCell = grid[ index ];
 
-                    grid[ index ] = toggleNotes( grid[ index ], input );
+                // if taking notes, set as a note
+                if( state.takingNotes && !activeCell.visible ){
+
+                    activeCell = toggleNotes( activeCell, input );
 
                 // if not taking notes, set as input
                 } else {
-                    grid[ index ].input = input;
-                    grid[ index ].notes = [];
+                    activeCell.input = input;
+                    activeCell.notes = [];
+
+                    // clear sibling notes of the input value
+                    for( let cell of grid ){
+                        if( cell.column !== activeCell.column && cell.row !== activeCell.row && cell.section === activeCell.section ) continue;
+                        cell = toggleNotes( cell, input, true );
+                    }
+
                 }
             }
             return { ...state, grid };
