@@ -67,6 +67,13 @@ const Controls = () => {
     }
 
     /**
+     * Toggles the note state on and off
+     */
+    const toggleNotes = () => {
+        dispatch({ type: TOGGLE_NOTES });
+    }
+
+    /**
      * Allows for mobile input and control of the game
      * @param {*} _ 
      * @param {string} value Which button was pressed
@@ -77,7 +84,7 @@ const Controls = () => {
                 clearCell();
                 break;
             case NOTES:
-                dispatch({ type: TOGGLE_NOTES });
+                toggleNotes();
                 break;
             case UNDO:
                 dispatch({ type: UNDO_MOVE });
@@ -100,6 +107,10 @@ const Controls = () => {
                 onKeyEvent={ clearCell } />
             <KeyboardEventHandler
                 handleFocusableElements
+                handleKeys={ [ 'n' ] } 
+                onKeyEvent={ toggleNotes } />
+            <KeyboardEventHandler
+                handleFocusableElements
                 handleKeys={ [ ...inputAry ] } 
                 onKeyEvent={ fillCell } />
             <BottomNavigation showLabels onChange={ onControlsClick }>
@@ -113,12 +124,11 @@ const Controls = () => {
                                         { value }
                                     </Typography>
                                 } 
-                                key={ `input-${ value }` }
-                                />
+                                key={ `input-${ value }` } />
                         )
                     )   
                 }
-                <BottomNavigationAction value={ NOTES } label={ `Notes: ${ takingNotes ? 'On' : 'Off' }` } icon={ <EditIcon sx={{ color: takingNotes ? theme.palette.primary.main : null }} /> } />
+                <BottomNavigationAction value={ NOTES } label={ `Notes ${ takingNotes ? 'On' : 'Off' }` } icon={ <EditIcon sx={{ color: takingNotes ? theme.palette.primary.main : null }} /> } />
                 <BottomNavigationAction value={ CLEAR } label="Clear Cell" icon={ <ClearIcon sx={{ color: theme.palette.primary.main }} /> } />
                 <BottomNavigationAction disabled={ !hasHistory } value={ UNDO } label="Undo" icon={ <HistoryIcon sx={{ color: hasHistory ? theme.palette.primary.main : null }} /> } />
             </BottomNavigation>
