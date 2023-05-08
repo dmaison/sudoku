@@ -3,6 +3,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme, styled } from '@mui/material/styles';
 import { useEffect, useMemo, useState } from 'react';
 import { grey } from '@mui/material/colors';
@@ -75,7 +76,8 @@ const Cell = props => {
 
         return oddSection ? alpha( grey[ 400 ], .1 ) : null;
 
-    }, [ active, error, section, theme, activeCell, column, row, visible, answer, input ]);
+    }, [ active, error, section, theme, activeCell, column, row, visible, answer, input ]),
+    isMobile = useMediaQuery( theme.breakpoints.down('md') );
 
     /**
      * sets the current cell to the active cell
@@ -112,9 +114,13 @@ const Cell = props => {
                     { 
                         noteMap.map(
                             note => (
-                                <Typography key={ note }>
-                                    <span dangerouslySetInnerHTML={{ __html: notes.includes( note ) ? note : '&nbsp;' }} />
-                                </Typography>
+                                <Typography 
+                                    key={ note } 
+                                    variant="caption" 
+                                    dangerouslySetInnerHTML={{ __html: notes.includes( note ) ? note : '&nbsp;' }} 
+                                    sx={{
+                                        fontSize: isMobile ? '8px' : null
+                                    }} />
                             )
                         )
                     }

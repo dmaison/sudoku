@@ -11,9 +11,8 @@ const theme = createTheme({
         
     },
     typography: {
-       
-    }
 
+    }
 });
 
 export default responsiveFontSizes( theme );
