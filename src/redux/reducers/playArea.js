@@ -5,6 +5,7 @@ const INITIAL_GRID = createGrid(),
 INITIAL_STATE = {
     activeCell: null,
     errors: 0,
+    game: 1,
     gridHistory: [],
     limit: DEFAULT_LIMIT, // max number that can be represented in the grid
     size: DEFAULT_SIZE, // section grid dimension size (e.g. 3x3)
@@ -73,6 +74,9 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             }
 
             return { ...state, activeCell };
+
+        case ACTIONS.NEW_GAME:
+            return { ...INITIAL_STATE, game: ( state.game + 1 ), grid: createGrid() };
 
         case ACTIONS.PAUSE:
             return { ...state, paused: action.payload };

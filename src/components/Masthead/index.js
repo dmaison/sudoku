@@ -19,12 +19,19 @@ import DownloadIcon from '@mui/icons-material/Download';
 import UploadIcon from '@mui/icons-material/Upload';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { useDispatch } from 'react-redux';
-import { PAUSE } from '../../redux/actions/playArea';
+import { NEW_GAME, PAUSE } from '../../redux/actions/playArea';
 
 const Masthead = () => {
 
     const dispatch = useDispatch(),
     [ open, setOpen ] = useState( false );
+
+    /**
+     * Starts a new game
+     */
+    const newGame = () => {
+        dispatch({ type: NEW_GAME });
+    }
 
     /**
      * Toggle the open/closed state of the menu drawer
@@ -74,7 +81,7 @@ const Masthead = () => {
                     <List>
                         
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={ newGame }>
                                 <ListItemIcon>
                                     <AddIcon />
                                 </ListItemIcon>

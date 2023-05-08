@@ -32,6 +32,12 @@ export const LOG_ERROR = CELL + 'LOG_ERROR';
 export const MOVE_ACTIVE_CELL = CELL + 'MOVE_ACTIVE';
 
 /**
+ * Used to start a new game
+ * @type {string}
+ */
+export const NEW_GAME = BASE + 'NEW_GAME';
+
+/**
  * Used to pause/unpause the game
  * @type {string}
  */

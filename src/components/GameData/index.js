@@ -13,7 +13,7 @@ const Data = styled( withTheme( Typography ) )( ({ theme }) => ({
 
 const GameData = () => {
 
-    const { errors, paused } = useSelector( state => state.playArea ),
+    const { errors, game, paused } = useSelector( state => state.playArea ),
     theme = useTheme(),
     [ time, setTime ] = useState( 0 );
 
@@ -41,6 +41,11 @@ const GameData = () => {
     }, [ setTime, time, paused ]);
 
     useInterval( updateTime, 1000 );
+
+    // restart the timer every time a new game starts
+    useEffect(() => {
+        setTime( 0 );
+    }, [ game, setTime ] )
 
     return (
         <Container>
