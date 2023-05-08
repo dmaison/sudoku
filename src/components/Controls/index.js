@@ -34,7 +34,7 @@ const Controls = () => {
      * Clears the current active cell
      */
     const clearCell = () => {
-        if( !paused ) dispatch({ type: CLEAR_CELL });
+        dispatch({ type: CLEAR_CELL });
     }
 
     /**
@@ -42,7 +42,7 @@ const Controls = () => {
      * @param {number|string} payload
      */
     const fillCell = payload => {
-        if( !isNaN( payload ) && !paused ){
+        if( !isNaN( payload ) ){
             dispatch({ type: FILL_CELL, payload });
         }
     }
@@ -73,14 +73,7 @@ const Controls = () => {
                 break;
         }
 
-        if( !paused ) dispatch({ type: MOVE_ACTIVE_CELL, payload: { column, row }});
-    }
-
-    /**
-     * Toggles the note state on and off
-     */
-    const toggleNotes = () => {
-        if( !paused ) dispatch({ type: TOGGLE_NOTES });
+        dispatch({ type: MOVE_ACTIVE_CELL, payload: { column, row }});
     }
 
     /**
@@ -91,18 +84,34 @@ const Controls = () => {
     const onControlsClick = value => ()=> {
         switch( value ){
             case CLEAR:
-                clearCell();
+                validateExecution( clearCell )();
                 break;
             case NOTES:
-                toggleNotes();
+                validateExecution( toggleNotes )();
                 break;
             case UNDO:
                 dispatch({ type: UNDO_MOVE });
                 break;
             default:
-                fillCell( value );
+                validateExecution( fillCell )( value );
                 break;
         }
+    }
+
+    /**
+     * Toggles the note state on and off
+     */
+    const toggleNotes = () => {
+        dispatch({ type: TOGGLE_NOTES });
+    }
+
+    /**
+     * Determines if a control is eligible to be executed
+     * @param {function} func Function to be executed after validation
+     * @returns {function}
+     */
+    const validateExecution = func => input => {
+        if( !paused ) func( input );
     }
 
     return (
@@ -110,19 +119,19 @@ const Controls = () => {
             <KeyboardEventHandler
                 handleFocusableElements
                 handleKeys={ [ 'left', 'up', 'right', 'down', 'w', 'a', 's', 'd' ] } 
-                onKeyEvent={ moveCell } />
+                onKeyEvent={ validateExecution( moveCell ) } />
             <KeyboardEventHandler
                 handleFocusableElements
                 handleKeys={ [ 'backspace', 'delete' ] } 
-                onKeyEvent={ clearCell } />
+                onKeyEvent={ validateExecution( clearCell ) } />
             <KeyboardEventHandler
                 handleFocusableElements
                 handleKeys={ [ 'n' ] } 
-                onKeyEvent={ toggleNotes } />
+                onKeyEvent={ validateExecution( toggleNotes ) } />
             <KeyboardEventHandler
                 handleFocusableElements
                 handleKeys={ [ ...inputAry ] } 
-                onKeyEvent={ fillCell } />
+                onKeyEvent={ validateExecution( fillCell ) } />
             <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
                 {
                     inputAry.map(
