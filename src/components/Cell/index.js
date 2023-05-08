@@ -119,7 +119,8 @@ const Cell = props => {
                                     variant="caption" 
                                     dangerouslySetInnerHTML={{ __html: notes.includes( note ) ? note : '&nbsp;' }} 
                                     sx={{
-                                        fontSize: isMobile ? '8px' : null
+                                        fontSize: isMobile ? '8px' : null,
+                                        lineHeight: !isMobile ? '0.75rem' : null
                                     }} />
                             )
                         )
