@@ -25,7 +25,7 @@ const IconButton = styled( Button )`
 const Controls = () => {
 
     const dispatch = useDispatch(),
-    { limit, takingNotes } = useSelector( state => state.playArea ),
+    { limit, takingNotes, paused } = useSelector( state => state.playArea ),
     hasHistory = useSelector( state => ( state.playArea.gridHistory.length > 0 ) ),
     theme = useTheme(),
     inputAry = useMemo(() => Array.from({ length: limit }, ( _, i ) => ( i + 1 ).toString() ), [ limit ]);
@@ -34,7 +34,7 @@ const Controls = () => {
      * Clears the current active cell
      */
     const clearCell = () => {
-        dispatch({ type: CLEAR_CELL });
+        if( !paused ) dispatch({ type: CLEAR_CELL });
     }
 
     /**
@@ -42,7 +42,7 @@ const Controls = () => {
      * @param {number|string} payload
      */
     const fillCell = payload => {
-        if( !isNaN( payload ) ){
+        if( !isNaN( payload ) && !paused ){
             dispatch({ type: FILL_CELL, payload });
         }
     }
@@ -73,14 +73,14 @@ const Controls = () => {
                 break;
         }
 
-        dispatch({ type: MOVE_ACTIVE_CELL, payload: { column, row }});
+        if( !paused ) dispatch({ type: MOVE_ACTIVE_CELL, payload: { column, row }});
     }
 
     /**
      * Toggles the note state on and off
      */
     const toggleNotes = () => {
-        dispatch({ type: TOGGLE_NOTES });
+        if( !paused ) dispatch({ type: TOGGLE_NOTES });
     }
 
     /**
