@@ -1,6 +1,7 @@
 import Container from '@mui/material/Container'
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { styled } from "@mui/material/styles";
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import HistoryIcon from '@mui/icons-material/History';
@@ -11,6 +12,15 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { useMemo } from 'react';
 import { CLEAR_CELL, FILL_CELL, MOVE_ACTIVE_CELL, TOGGLE_NOTES, UNDO_MOVE } from '../../redux/actions/playArea';
 import { CLEAR, NOTES, UNDO } from './config';
+import { grey } from "@mui/material/colors";
+
+const IconButton = styled( Button )`
+    flex-direction: column;
+    min-width: initial;
+    && .MuiButton-startIcon {
+        margin-right: 0
+    }
+`;
 
 const Controls = () => {
 
@@ -78,7 +88,7 @@ const Controls = () => {
      * @param {*} _ 
      * @param {string} value Which button was pressed
      */
-    const onControlsClick = ( _, value )=> {
+    const onControlsClick = value => ()=> {
         switch( value ){
             case CLEAR:
                 clearCell();
@@ -113,25 +123,30 @@ const Controls = () => {
                 handleFocusableElements
                 handleKeys={ [ ...inputAry ] } 
                 onKeyEvent={ fillCell } />
-            <BottomNavigation showLabels onChange={ onControlsClick }>
+            <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
                 {
                     inputAry.map(
                         value => (
-                            <BottomNavigationAction 
-                                value={ value }
-                                icon={ 
-                                    <Typography variant="h3" component="span" sx={{ color: theme.palette.primary.main }}>
-                                        { value }
-                                    </Typography>
-                                } 
-                                key={ `input-${ value }` } />
+                            <Button key={ `input-${ value }` } onClick={ onControlsClick( value ) } sx={{  minWidth: 'initial' }}>
+                                <Typography variant="h3" component="span" sx={{ color: theme.palette.primary.main }}>
+                                    { value }
+                                </Typography>
+                            </Button>
                         )
                     )   
                 }
-                <BottomNavigationAction value={ NOTES } label={ `Notes ${ takingNotes ? 'On' : 'Off' }` } icon={ <EditIcon sx={{ color: takingNotes ? theme.palette.primary.main : null }} /> } />
-                <BottomNavigationAction value={ CLEAR } label="Clear Cell" icon={ <ClearIcon sx={{ color: theme.palette.primary.main }} /> } />
-                <BottomNavigationAction disabled={ !hasHistory } value={ UNDO } label="Undo" icon={ <HistoryIcon sx={{ color: hasHistory ? theme.palette.primary.main : null }} /> } />
-            </BottomNavigation>
+            </Stack>
+            <Stack direction="row" justifyContent="space-evenly">
+                <IconButton  onClick={ onControlsClick( NOTES ) } startIcon={ <EditIcon /> } sx={{ color: !takingNotes ? grey[ 400 ] : null, minWidth: '100px' }}>
+                    { `Notes ${ takingNotes ? 'On' : 'Off' } ` }
+                </IconButton>
+                <IconButton onClick={ onControlsClick( CLEAR ) } startIcon={ <ClearIcon /> }>
+                    Clear Cell
+                </IconButton>
+                <IconButton onClick={ onControlsClick( UNDO ) } disabled={ !hasHistory } startIcon={ <HistoryIcon /> }>
+                    Undo
+                </IconButton>
+            </Stack>
         </Container>
     )
 
