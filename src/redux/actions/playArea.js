@@ -32,6 +32,12 @@ export const LOG_ERROR = CELL + 'LOG_ERROR';
 export const MOVE_ACTIVE_CELL = CELL + 'MOVE_ACTIVE';
 
 /**
+ * Used to pause/unpause the game
+ * @type {string}
+ */
+export const PAUSE = BASE + 'PAUSE';
+
+/**
  * Used to toggle notes mode on or off
  * @type {string}
  */

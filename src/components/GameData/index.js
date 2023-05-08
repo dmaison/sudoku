@@ -13,7 +13,7 @@ const Data = styled( withTheme( Typography ) )( ({ theme }) => ({
 
 const GameData = () => {
 
-    const errors = useSelector( state => state.playArea.errors ),
+    const { errors, paused } = useSelector( state => state.playArea ),
     theme = useTheme(),
     [ time, setTime ] = useState( 0 );
 
@@ -37,8 +37,8 @@ const GameData = () => {
      * updates the current game time
      */
     const updateTime = useCallback( () => {
-        setTime( time + 1 );
-    }, [ setTime, time ]);
+        if( !paused ) setTime( time + 1 );
+    }, [ setTime, time, paused ]);
 
     useInterval( updateTime, 1000 );
 

@@ -9,6 +9,7 @@ INITIAL_STATE = {
     limit: DEFAULT_LIMIT, // max number that can be represented in the grid
     size: DEFAULT_SIZE, // section grid dimension size (e.g. 3x3)
     grid: INITIAL_GRID,
+    paused: false,
     takingNotes: false
 };
 
@@ -72,6 +73,9 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             }
 
             return { ...state, activeCell };
+
+        case ACTIONS.PAUSE:
+            return { ...state, paused: action.payload };
 
         case ACTIONS.TOGGLE_NOTES:
             return { ...state, takingNotes: !state.takingNotes };

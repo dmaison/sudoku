@@ -6,10 +6,12 @@ import './style.css';
 import PlayArea from '../PlayArea';
 import Controls from '../Controls';
 import GameData from '../GameData';
+import Masthead from '../Masthead';
 
 const Template = () => (
     <ThemeProvider theme={ theme }>
         <CssBaseline />
+        <Masthead />
         <GameData />
         <Divider sx={{ mt: 1, mb: 2 }} />
         <PlayArea />
