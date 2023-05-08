@@ -96,14 +96,6 @@ const Masthead = () => {
                                 <ListItemText primary="Restart" />
                             </ListItemButton>
                         </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <SettingsIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Change Difficulty" />
-                            </ListItemButton>
-                        </ListItem>
                         <Divider />
                         <ListItem disablePadding>
                             <ListItemButton>
