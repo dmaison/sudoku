@@ -29,8 +29,8 @@ const NewGame = ({ open, onClose }) => {
      * Overrides the current difficulty value
      * @param {string} difficulty 
      */
-    const select = ( difficulty ) => {
-        setSelectedDifficulty( difficulty )
+    const select = ({ target }) => {
+        setSelectedDifficulty( target.value );
     }
 
     return (
@@ -45,7 +45,7 @@ const NewGame = ({ open, onClose }) => {
                     fullWidth
                     label="Select a Difficulty" 
                     onChange={ select }
-                    defaultValue={ currentDifficulty.label }
+                    value={ selectedDifficulty }
                     select>
                     {
                         DIFFICULTIES.map(

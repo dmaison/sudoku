@@ -1,5 +1,5 @@
 import * as ACTIONS from '../actions/playArea';
-import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, DEFAULT_DIFFICULTY, spreadGrid } from '../../utils/playArea';
+import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, DEFAULT_DIFFICULTY, spreadGrid, DIFFICULTIES } from '../../utils/playArea';
 
 const INITIAL_GRID = createGrid(),
 INITIAL_STATE = {
@@ -77,7 +77,8 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             return { ...state, activeCell };
 
         case ACTIONS.NEW_GAME:
-            return { ...INITIAL_STATE, game: ( state.game + 1 ), grid: createGrid() };
+            const difficulty = DIFFICULTIES.find( ({ label }) => label === action.payload );
+            return { ...INITIAL_STATE, game: ( state.game + 1 ), grid: createGrid( undefined, undefined, difficulty ), difficulty };
 
         case ACTIONS.PAUSE:
             return { ...state, paused: action.payload };
