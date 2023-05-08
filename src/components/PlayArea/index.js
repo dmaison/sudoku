@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 
 const PlayArea = () => {
     
-    const grid = useSelector( state => state.playArea.grid ),
+    const { grid, paused } = useSelector( state => state.playArea ),
     theme = useTheme(),
     md = '60vh',
     xs = '100vw';
@@ -18,7 +18,9 @@ const PlayArea = () => {
         }}>
             <Box
                 sx={{
-                    border: `1px solid ${ theme.palette.primary.light }`
+                    border: `1px solid ${ theme.palette.primary.light }`,
+                    filter: paused ? 'blur(7px)' : null,
+                    transition: '.25s linear'
                 }}>
                 <Grid 
                     container 
