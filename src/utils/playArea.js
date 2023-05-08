@@ -20,12 +20,40 @@ export const DEFAULT_LIMIT = 9;
 export const DEFAULT_SIZE = 3;
 
 /**
+ * List of available difficulties
+ */
+export const DIFFICULTIES = [
+    { 
+        label: 'Easy',
+        probability: 0.5
+    },
+    { 
+        label: 'Normal',
+        probability: 0.3
+    },
+    { 
+        label: 'Hard',
+        probability: 0.25
+    },
+    { 
+        label: 'Extreme',
+        probability: 0.2
+    },
+];
+
+/**
+ * Default difficulty for starting the application
+ * @type {object}
+ */
+export const DEFAULT_DIFFICULTY = DIFFICULTIES[ 1 ];
+
+/**
  * Creates a puzzle grid
  * @param {number} [limit=9] The highest number allowed in the grid 
  * @param {number} [size=3] Both X and Y dimensions of the grouping (e.g. 3x3)
  * @returns {array} The grid
  */
-export const createGrid = ( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE ) => {
+export const createGrid = ( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE, difficulty=DEFAULT_DIFFICULTY ) => {
 
     const grid = [];
 
@@ -36,11 +64,8 @@ export const createGrid = ( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE ) => {
         bigColumn = Math.ceil( i / size ) % size || size,
         bigRow = Math.ceil( i / ( limit * size ) ) - 1,
         section = bigColumn + ( size * bigRow ),
-        rand = Math.random();
-
-        let visible = true;
-
-        if( rand < .5 ) visible = false;
+        rand = Math.random(),
+        visible = ( rand < difficulty.probability );
 
         grid.push({ 
             column, 

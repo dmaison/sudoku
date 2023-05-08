@@ -1,9 +1,10 @@
 import * as ACTIONS from '../actions/playArea';
-import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, spreadGrid } from '../../utils/playArea';
+import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, DEFAULT_DIFFICULTY, spreadGrid } from '../../utils/playArea';
 
 const INITIAL_GRID = createGrid(),
 INITIAL_STATE = {
     activeCell: null,
+    difficulty: DEFAULT_DIFFICULTY,
     errors: 0,
     game: 1,
     gridHistory: [],
