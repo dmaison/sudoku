@@ -79,7 +79,11 @@ export const createGrid = ( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE, difficulty=D
 
     }
 
-    return populateGrid( grid, limit );
+    try {
+        return populateGrid( grid, limit );
+    } catch( err ){
+        return grid;
+    }
 
 }
 
