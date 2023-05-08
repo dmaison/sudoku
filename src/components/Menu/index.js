@@ -11,81 +11,83 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import DownloadIcon from '@mui/icons-material/Download';
 import UploadIcon from '@mui/icons-material/Upload';
 import BugReportIcon from '@mui/icons-material/BugReport';
-import { useDispatch } from 'react-redux';
-import { NEW_GAME } from '../../redux/actions/playArea';
+import NewGame from '../NewGame';
+import { useState } from 'react';
 
 const Menu = ({ open, onClose }) => {
 
-    const dispatch = useDispatch();
+    const [ dialog, setDialog ] = useState( null ),
+    idNewGame = 'newGame';
 
     /**
-     * Starts a new game
+     * Opens a dialog
      */
-    const newGame = () => {
-        dispatch({ type: NEW_GAME });
+    const openDialog = id => () => {
+        setDialog( id );
     }
 
     return (
-        
-        <Drawer
-            anchor="left"
-            open={ open }
-            onClose={ onClose }>
-            <Box
-                role="presentation"
-                onClick={ onClose }
-                onKeyDown={ onClose }
-                sx={{ 
-                    width:  250,
-                }}>
-                <List>
-                    
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={ newGame }>
-                            <ListItemIcon>
-                                <AddIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="New Game" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <RestartAltIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Restart" />
-                        </ListItemButton>
-                    </ListItem>
-                    <Divider />
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <DownloadIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Save Game" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <UploadIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Load Game" />
-                        </ListItemButton>
-                    </ListItem>
-                    <Divider />
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <BugReportIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Report a Bug" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </Box>
-        </Drawer>
-        
+        <>
+            <NewGame open={ ( dialog === idNewGame ) } onClose={ openDialog( null ) } />
+            <Drawer
+                anchor="left"
+                open={ open }
+                onClose={ onClose }>
+                <Box
+                    role="presentation"
+                    onClick={ onClose }
+                    onKeyDown={ onClose }
+                    sx={{ 
+                        width:  250,
+                    }}>
+                    <List>
+                        
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={ openDialog( idNewGame ) }>
+                                <ListItemIcon>
+                                    <AddIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="New Game" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <RestartAltIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Restart" />
+                            </ListItemButton>
+                        </ListItem>
+                        <Divider />
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <DownloadIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Save Game" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <UploadIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Load Game" />
+                            </ListItemButton>
+                        </ListItem>
+                        <Divider />
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <BugReportIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Report a Bug" />
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                </Box>
+            </Drawer>
+        </>
     )
 }
 
