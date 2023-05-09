@@ -77,7 +77,11 @@ const Cell = props => {
         return oddSection ? alpha( grey[ 400 ], .1 ) : null;
 
     }, [ active, error, section, theme, activeCell, column, row, visible, answer, input ]),
-    isMobile = useMediaQuery( theme.breakpoints.down('md') );
+    isMobile = useMediaQuery( theme.breakpoints.down('md') ),
+    normalBorder = `1px solid ${ theme.palette.secondary.light }`,
+    altBorder = `1px solid ${ alpha( theme.palette.primary.light, .6 ) }`,
+    hasAltBorderBottom = ( row === 3 || row === 6 ),
+    hasAltBorderRight = ( column === 3 || column === 6 );
 
     /**
      * sets the current cell to the active cell
@@ -103,8 +107,12 @@ const Cell = props => {
             onClick={ onClick }
             sx={{ 
                 backgroundColor,
-                borderBottom: `1px solid ${ theme.palette.secondary.light }`,
-                borderRight: `1px solid ${ theme.palette.secondary.light }`,
+                borderBottom: row < 9 ?
+                    hasAltBorderBottom ? altBorder : normalBorder :
+                    null,
+                borderRight: column < 9 ? 
+                    hasAltBorderRight ? altBorder : normalBorder :
+                    null,
                 outline: error ? `${ theme.palette.error.light } solid 1px` : null,
                 '&& .MuiTouchRipple-child': {
                     backgroundColor: theme.palette[ error ? 'error' : 'primary' ].light
