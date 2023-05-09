@@ -6,6 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Link from '@mui/material/Link';
 import AddIcon from '@mui/icons-material/Add';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -14,6 +15,7 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import NewGame from '../NewGame';
 import Restart from '../Restart';
 import { useState } from 'react';
+import { REPORT_BUG_URL } from './config';
 
 const Menu = ({ open, onClose }) => {
 
@@ -80,7 +82,7 @@ const Menu = ({ open, onClose }) => {
                         </ListItem>
                         <Divider />
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton component={ Link } href={ REPORT_BUG_URL } target="_blank">
                                 <ListItemIcon>
                                     <BugReportIcon />
                                 </ListItemIcon>
