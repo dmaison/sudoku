@@ -31,7 +31,7 @@ const PlayArea = () => {
                     {
                         grid.map(
                             ( cell, index ) => (
-                                <Grid item xs={ 1 } key={ `cell-${ index }` }>
+                                <Grid item xs={ 1 } key={ `cell-${ index }` } sx={{ minHeight: '11.11111%' }}>
                                     <Cell { ...cell } />
                                 </Grid>
                             )
