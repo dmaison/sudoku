@@ -7,10 +7,12 @@ import PlayArea from '../PlayArea';
 import Controls from '../Controls';
 import GameData from '../GameData';
 import Masthead from '../Masthead';
+import YouWin from '../YouWin';
 
 const Template = () => (
     <ThemeProvider theme={ theme }>
         <CssBaseline />
+        <YouWin />
         <Masthead />
         <GameData />
         <Divider sx={{ mt: 1, mb: 2 }} />

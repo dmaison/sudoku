@@ -36,6 +36,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@reduxjs/toolkit", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:1.9.5"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
+            ["react-confetti", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:6.1.0"],\
             ["react-dom", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:18.2.0"],\
             ["react-keyboard-event-handler", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:1.5.4"],\
             ["react-redux", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:8.0.5"],\
@@ -15005,6 +15006,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-confetti", [\
+        ["npm:6.1.0", {\
+          "packageLocation": "./.yarn/cache/react-confetti-npm-6.1.0-9b9e19a3c8-24b6975df1.zip/node_modules/react-confetti/",\
+          "packageDependencies": [\
+            ["react-confetti", "npm:6.1.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:6.1.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-confetti-virtual-cf994e8665/0/cache/react-confetti-npm-6.1.0-9b9e19a3c8-24b6975df1.zip/node_modules/react-confetti/",\
+          "packageDependencies": [\
+            ["react-confetti", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:6.1.0"],\
+            ["@types/react", null],\
+            ["react", "npm:18.2.0"],\
+            ["tween-functions", "npm:1.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react-dev-utils", [\
         ["npm:12.0.1", {\
           "packageLocation": "./.yarn/cache/react-dev-utils-npm-12.0.1-83ba06e3ee-2c6917e47f.zip/node_modules/react-dev-utils/",\
@@ -16611,6 +16635,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@reduxjs/toolkit", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:1.9.5"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
+            ["react-confetti", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:6.1.0"],\
             ["react-dom", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:18.2.0"],\
             ["react-keyboard-event-handler", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:1.5.4"],\
             ["react-redux", "virtual:dfa8d5e46b05dedea4e27d7f7c1520a39910c3cae33908ab9a4781d7f312df6350dc8a4623d457e973bfb0aeb33ee8aa0cf43a2b21313bed6955030b868887f4#npm:8.0.5"],\
@@ -17073,6 +17098,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/typescript",\
             "typescript"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["tween-functions", [\
+        ["npm:1.2.0", {\
+          "packageLocation": "./.yarn/cache/tween-functions-npm-1.2.0-4c24ac77a5-880708d680.zip/node_modules/tween-functions/",\
+          "packageDependencies": [\
+            ["tween-functions", "npm:1.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
