@@ -20,8 +20,6 @@ const Template = () => {
         if( endGame ) setOpen( true );
     }, [ endGame, setOpen ]);
 
-    console.log( open )
-
     return (
         <ThemeProvider theme={ theme }>
             <CssBaseline />

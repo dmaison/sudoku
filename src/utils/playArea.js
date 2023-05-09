@@ -49,11 +49,14 @@ const TEST_DIFFICULTY = {
     probability: 0.95
 }
 
+// if its local development, add the test difficulty in
+if( process.env !== 'production' ) DIFFICULTIES.unshift( TEST_DIFFICULTY );
+
 /**
  * Default difficulty for starting the application
  * @type {object}
  */
-export const DEFAULT_DIFFICULTY = TEST_DIFFICULTY;
+export const DEFAULT_DIFFICULTY = DIFFICULTIES[ 0 ];
 
 /**
  * Creates a puzzle grid
