@@ -84,7 +84,7 @@ const YouWin = ({ open, onClose }) => {
                     </List>
                     <TextField 
                         fullWidth
-                        label="Start a New Game" 
+                        label="New Game Difficulty" 
                         onChange={ select }
                         value={ selectedDifficulty }
                         select>
