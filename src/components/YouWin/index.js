@@ -14,7 +14,7 @@ import Divider from '@mui/material/Divider';
 import { useDispatch, useSelector } from 'react-redux';
 import { NEW_GAME } from '../../redux/actions/playArea';
 import { DIFFICULTIES } from '../../utils/playArea'
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Confetti from "react-confetti";
 import SettingsIcon from '@mui/icons-material/Settings';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -23,8 +23,18 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 const YouWin = ({ open, onClose }) => {
 
     const dispatch = useDispatch(),
-    { difficulty, errors } = useSelector( state => state.playArea ),
-    [ selectedDifficulty, setSelectedDifficulty ] = useState( difficulty.label );
+    { difficulty, errors, game, endGame } = useSelector( state => state.playArea ),
+    [ selectedDifficulty, setSelectedDifficulty ] = useState( difficulty.label ),
+    time = useMemo(() => {
+        const totalSeconds = ( ( endGame - game ) / 1000 ),
+        minutes = Math.floor( totalSeconds / 60 ),
+        seconds = Math.floor( totalSeconds % 60 ).toLocaleString( 'en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        });
+
+        return `${ minutes }:${ seconds }`;
+    }, [ endGame, game ]);
 
     /**
      * Starts a new game
@@ -63,7 +73,7 @@ const YouWin = ({ open, onClose }) => {
                             <ListItemIcon>
                                 <AccessTimeFilledIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Time" secondary={ errors } />
+                            <ListItemText primary="Time" secondary={ time } />
                         </ListItem>
                         <ListItem disablePadding>
                             <ListItemIcon>
