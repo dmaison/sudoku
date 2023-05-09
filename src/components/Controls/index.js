@@ -25,7 +25,7 @@ const IconButton = styled( Button )`
 const Controls = () => {
 
     const dispatch = useDispatch(),
-    { limit, takingNotes, paused } = useSelector( state => state.playArea ),
+    { limit, takingNotes, paused, endGame } = useSelector( state => state.playArea ),
     hasHistory = useSelector( state => ( state.playArea.gridHistory.length > 0 ) ),
     theme = useTheme(),
     inputAry = useMemo(() => Array.from({ length: limit }, ( _, i ) => ( i + 1 ).toString() ), [ limit ]);
@@ -111,7 +111,7 @@ const Controls = () => {
      * @returns {function}
      */
     const validateExecution = func => input => {
-        if( !paused ) func( input );
+        if( !paused && !endGame ) func( input );
     }
 
     return (
