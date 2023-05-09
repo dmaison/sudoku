@@ -36,7 +36,7 @@ export const DIFFICULTIES = [
         probability: 0.5
     },
     { 
-        label: 'Extreme',
+        label: 'Expert',
         probability: 0.2
     },
 ];

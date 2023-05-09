@@ -44,6 +44,12 @@ export const NEW_GAME = BASE + 'NEW_GAME';
 export const PAUSE = BASE + 'PAUSE';
 
 /**
+ * Used to restart the current game
+ * @type {string}
+ */
+export const RESTART = BASE + 'RESTART';
+
+/**
  * Used to toggle notes mode on or off
  * @type {string}
  */

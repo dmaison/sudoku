@@ -12,12 +12,14 @@ import DownloadIcon from '@mui/icons-material/Download';
 import UploadIcon from '@mui/icons-material/Upload';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import NewGame from '../NewGame';
+import Restart from '../Restart';
 import { useState } from 'react';
 
 const Menu = ({ open, onClose }) => {
 
     const [ dialog, setDialog ] = useState( null ),
-    idNewGame = 'newGame';
+    idNewGame = 'new',
+    idRestartGame = 'restart';
 
     /**
      * Opens a dialog
@@ -29,6 +31,7 @@ const Menu = ({ open, onClose }) => {
     return (
         <>
             <NewGame open={ ( dialog === idNewGame ) } onClose={ openDialog( null ) } />
+            <Restart open={ ( dialog === idRestartGame ) } onClose={ openDialog( null ) } />
             <Drawer
                 anchor="left"
                 open={ open }
@@ -51,7 +54,7 @@ const Menu = ({ open, onClose }) => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={ openDialog( idRestartGame ) }>
                                 <ListItemIcon>
                                     <RestartAltIcon />
                                 </ListItemIcon>

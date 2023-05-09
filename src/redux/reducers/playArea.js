@@ -6,7 +6,7 @@ INITIAL_STATE = {
     activeCell: null,
     difficulty: DEFAULT_DIFFICULTY,
     errors: 0,
-    game: 1,
+    game: new Date(),
     gridHistory: [],
     limit: DEFAULT_LIMIT, // max number that can be represented in the grid
     size: DEFAULT_SIZE, // section grid dimension size (e.g. 3x3)
@@ -78,10 +78,13 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
         case ACTIONS.NEW_GAME:
             const difficulty = DIFFICULTIES.find( ({ label }) => label === action.payload );
-            return { ...INITIAL_STATE, game: ( state.game + 1 ), grid: createGrid( undefined, undefined, difficulty ), difficulty };
+            return { ...INITIAL_STATE, game: ( state.game + 1 ), grid: createGrid( undefined, undefined, difficulty ), difficulty, game: new Date() };
 
         case ACTIONS.PAUSE:
             return { ...state, paused: action.payload };
+
+        case ACTIONS.RESTART:
+            return { ...INITIAL_STATE, grid: spreadGrid( state.gridHistory[ 0 ] || state.grid ), game: new Date() };
 
         case ACTIONS.TOGGLE_NOTES:
             return { ...state, takingNotes: !state.takingNotes };
