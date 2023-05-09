@@ -42,10 +42,18 @@ export const DIFFICULTIES = [
 ];
 
 /**
+ * Used for testing, extremely easy
+ */
+const TEST_DIFFICULTY = { 
+    label: 'Test',
+    probability: 0.95
+}
+
+/**
  * Default difficulty for starting the application
  * @type {object}
  */
-export const DEFAULT_DIFFICULTY = DIFFICULTIES[ 1 ];
+export const DEFAULT_DIFFICULTY = TEST_DIFFICULTY;
 
 /**
  * Creates a puzzle grid
@@ -95,7 +103,6 @@ export const createGrid = ( limit=DEFAULT_LIMIT, size=DEFAULT_SIZE, difficulty=D
 export const createHistory = ( state, grid ) => {
 
     const gridHistory = [ ...state.gridHistory ];
-
     gridHistory.push( spreadGrid( state.grid ) );
 
     if( gridHistory.length > DEFAULT_HISTORY_LIMIT ) gridHistory.shift();

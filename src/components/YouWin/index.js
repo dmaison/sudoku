@@ -20,7 +20,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ErrorIcon from '@mui/icons-material/Error';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 
-const YouWin = ({ open=true, onClose }) => {
+const YouWin = ({ open, onClose }) => {
 
     const dispatch = useDispatch(),
     { difficulty, errors } = useSelector( state => state.playArea ),
@@ -49,7 +49,7 @@ const YouWin = ({ open=true, onClose }) => {
                     <Confetti /> : 
                     null
             }
-            <Dialog open>
+            <Dialog open={ open }>
                 <DialogTitle>You Won!</DialogTitle>
                 <DialogContent>
                     <List sx={{ mb: 3 }}>
@@ -71,7 +71,6 @@ const YouWin = ({ open=true, onClose }) => {
                             </ListItemIcon>
                             <ListItemText primary="Mistakes" secondary={ errors } />
                         </ListItem>
-                        
                     </List>
                     <TextField 
                         fullWidth

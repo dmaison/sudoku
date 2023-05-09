@@ -5,6 +5,7 @@ const INITIAL_GRID = createGrid(),
 INITIAL_STATE = {
     activeCell: null,
     difficulty: DEFAULT_DIFFICULTY,
+    endGame: null,
     errors: 0,
     game: new Date(),
     gridHistory: [],
@@ -31,6 +32,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
         case ACTIONS.FILL_CELL:
             const input = parseInt( action.payload );
+            let endGame = state.endGame;
             if( index !== undefined ){
 
                 let activeCell = grid[ index ];
@@ -43,18 +45,27 @@ const reducer = ( state=INITIAL_STATE, action ) => {
                 // if not taking notes, set as input
                 } else if( activeCell?.input !== activeCell.answer ){
 
+                    let allPopulated = true;
+
                     activeCell.input = input;
                     activeCell.notes = [];
 
                     // clear sibling notes of the input value
                     for( let cell of grid ){
+                        
+                        // while we're doing this, check to see if the grid is completed
+                        if( allPopulated && !cell.visible ) allPopulated = ( cell.answer === cell.input );
+
                         if( cell.column !== activeCell.column && cell.row !== activeCell.row && cell.section === activeCell.section ) continue;
                         cell = toggleNotes( cell, input, true );
                     }
 
+                    // if the grid is compeleted, set the endGame time
+                    if( activeCell.input === activeCell.answer && allPopulated ) endGame = new Date();
+
                 }
             }
-            return createHistory({ ...state }, grid );
+            return createHistory({ ...state, endGame }, grid );
 
         case ACTIONS.LOG_ERROR:
             let errors = ( state.errors + 1 );
