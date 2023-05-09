@@ -25,15 +25,15 @@ export const DEFAULT_SIZE = 3;
 export const DIFFICULTIES = [
     { 
         label: 'Easy',
-        probability: 0.5
+        probability: 0.75
     },
     { 
         label: 'Normal',
-        probability: 0.3
+        probability: 0.6
     },
     { 
         label: 'Hard',
-        probability: 0.25
+        probability: 0.5
     },
     { 
         label: 'Extreme',
