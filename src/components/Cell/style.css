@@ -1,5 +1,5 @@
 .cell--shimmer {
-    animation: 1s cellShimmer;
+    animation: 1s cellShimmer !important;
 }
 
 @keyframes cellShimmer {

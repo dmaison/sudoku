@@ -12,9 +12,13 @@ const Highlighter = () => {
      */
     const addHighlight = useCallback( items => {
         const selector = items.map( item => `[data-group*="${ item }"]` ).join( ',' ),
-        elems = document.querySelectorAll( selector );
+        elems = document.querySelectorAll( selector ),
+        effect = 'cell--shimmer';
 
-        for( const elem of elems ) elem.classList.add( 'cell--shimmer' );
+        for( const elem of elems ){
+            elem.classList.add( effect );
+            setTimeout( elem => elem.classList.remove( effect ), 1001, elem );
+        }
         
     }, []);
 
