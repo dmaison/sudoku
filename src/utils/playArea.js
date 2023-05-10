@@ -248,11 +248,7 @@ export const toggleNotes = ( cell, input, forceRemove=false ) => {
 export const trimCompletion = ( highlights={}, nextHighlight={}, limit=DEFAULT_LIMIT ) => {
 
     for( const key in nextHighlight ){
-        if( ( nextHighlight[ key ] === limit ) && !highlights[ key ] ){
-            highlights[ key ] = true;
-        } else {
-            highlights[ key ] = false;
-        }
+        highlights[ key ] = ( nextHighlight[ key ] === limit );
     }
 
     return { ...highlights };

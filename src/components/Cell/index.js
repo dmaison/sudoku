@@ -11,6 +11,7 @@ import { alpha } from "@mui/material";
 import { withTheme  } from "@mui/styles";
 import { useDispatch, useSelector } from 'react-redux';
 import { ACTIVE_CELL, LOG_ERROR } from '../../redux/actions/playArea';
+import './style.css';
 
 const Button = styled( ButtonBase )(() => ({
     alignItems: 'center',
@@ -106,6 +107,7 @@ const Cell = props => {
             elevation={ active ? 7 : 0 }
             square
             onClick={ onClick }
+            data-group={ `section${ section }|column${ column }|row${ row }` }
             sx={{ 
                 backgroundColor,
                 borderBottom: row < 9 ?

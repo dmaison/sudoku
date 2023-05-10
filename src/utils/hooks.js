@@ -25,4 +25,16 @@ export const useInterval = ( callback, delay ) =>{
     }, [ delay ]);
     
     return savedCallback.current;
-  }
+}
+
+/**
+ * Custom hook to replace prevProps and/or prevState
+ * @param {*} value The value to maintain the previous state of
+ */
+export const usePrevious = value => {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current = value 
+    });
+    return ref.current;
+}

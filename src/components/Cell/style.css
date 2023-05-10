@@ -1,0 +1,9 @@
+.cell--shimmer {
+    animation: 1s cellShimmer;
+}
+
+@keyframes cellShimmer {
+    0% { }
+    50% { background-color: white; }
+    100% {}
+}
