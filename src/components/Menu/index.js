@@ -14,7 +14,7 @@ import UploadIcon from '@mui/icons-material/Upload';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import NewGame from '../NewGame';
 import Restart from '../Restart';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { REPORT_BUG_URL } from './config';
 import { useDispatch } from 'react-redux';
 import { TOAST_ADD } from '../../redux/actions/app';
@@ -24,6 +24,7 @@ const Menu = ({ open, onClose }) => {
 
     const dispatch = useDispatch(),
     [ dialog, setDialog ] = useState( null ),
+    [ date, setDate ] = useState( null ),
     idNewGame = 'new',
     idRestartGame = 'restart';
 
@@ -38,7 +39,7 @@ const Menu = ({ open, onClose }) => {
      * Saves the game
      */
     const saveGame = () => {
-        dispatch({ type: SAVE });
+        dispatch({ type: SAVE, payload: date });
         dispatch({ 
             type: TOAST_ADD, 
             payload: {
@@ -61,6 +62,10 @@ const Menu = ({ open, onClose }) => {
             } 
         })
     }
+
+    useEffect(() => {
+        if( open ) setDate( new Date() );
+    }, [ open, setDate ])
 
     return (
         <>

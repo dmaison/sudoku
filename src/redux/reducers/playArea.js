@@ -68,9 +68,9 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             return createHistory({ ...state, endGame }, grid );
 
         case ACTIONS.LOAD:
-            const loadedState = localStorage.getItem( LOCALSTORAGE_NAME );
-            if( loadedState ) return { ...JSON.parse( loadedState ) };
-            return { ...state };
+            const loadedState = localStorage.getItem( LOCALSTORAGE_NAME ),
+            nextState = ( loadedState ) ? JSON.parse( loadedState ) : state;
+            return { ...nextState, save: new Date( nextState.save ), game: new Date( nextState.game ) };
 
         case ACTIONS.LOG_ERROR:
             let errors = ( state.errors + 1 );
@@ -103,7 +103,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             return { ...INITIAL_STATE, grid: spreadGrid( state.gridHistory[ 0 ] || state.grid ), game: new Date() };
 
         case ACTIONS.SAVE:
-            localStorage.setItem( LOCALSTORAGE_NAME, JSON.stringify({ ...state, save: new Date(), paused: false }) );
+            localStorage.setItem( LOCALSTORAGE_NAME, JSON.stringify({ ...state, save: action.payload, paused: false }) );
             return { ...state };
 
         case ACTIONS.TOGGLE_NOTES:

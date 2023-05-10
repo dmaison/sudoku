@@ -13,7 +13,7 @@ const Data = styled( withTheme( Typography ) )( ({ theme }) => ({
 
 const GameData = () => {
 
-    const { difficulty, errors, game, paused, endGame } = useSelector( state => state.playArea ),
+    const { difficulty, errors, game, paused, endGame, save } = useSelector( state => state.playArea ),
     theme = useTheme(),
     [ time, setTime ] = useState( 0 );
 
@@ -46,6 +46,13 @@ const GameData = () => {
     useEffect(() => {
         setTime( 0 );
     }, [ game, setTime ] );
+
+    useEffect(() => {
+        if( save ){
+            const ms = ( save - game );
+            setTime( Math.floor( ms / 1000 ) );
+        }
+    }, [ game, save, setTime ])
 
     return (
         <Container>
