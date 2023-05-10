@@ -25,6 +25,8 @@ jobs:
     steps:
     - name: Yarn Version
       run: 'yarn set version stable'
+    - name: Yarn Install
+      run: 'yarn'
     - name: Yarn Build
       run: 'yarn build'
     - name: deploy
