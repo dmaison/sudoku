@@ -3,7 +3,6 @@ on: [push]
 jobs:
   deploy:
     name: deploy bucket
-    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -19,6 +18,7 @@ jobs:
     - run: 'yarn install'
     - run: 'yarn build'
     - name: deploy
+      if: github.ref == 'refs/heads/master'
       uses: reggionick/s3-deploy@v3
       with:
           folder: build
