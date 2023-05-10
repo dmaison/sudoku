@@ -101,6 +101,7 @@ const Cell = props => {
 
     return (
         <Button 
+            aria-label={ `Game cell number ${ index }` }
             component={ Paper }
             elevation={ active ? 7 : 0 }
             square

@@ -147,7 +147,7 @@ const Controls = () => {
                 {
                     inputAry.map(
                         value => (
-                            <Button key={ `input-${ value }` } onClick={ onControlsClick( value ) } sx={{  minWidth: 'initial', pt: 0, pb: 0 }}>
+                            <Button key={ `input-${ value }` } onClick={ onControlsClick( value ) } sx={{  minWidth: 'initial', pt: 0, pb: 0 }} aria-label={ `Fill the active cell with ${ value }` }>
                                 <Typography 
                                     variant="h3" 
                                     component="span" 
@@ -160,13 +160,13 @@ const Controls = () => {
                 }
             </Stack>
             <Stack direction="row" justifyContent="space-evenly">
-                <IconButton  onClick={ onControlsClick( NOTES ) } startIcon={ <EditIcon /> } sx={{ color: !takingNotes ? grey[ 400 ] : null, minWidth: '100px' }}>
+                <IconButton aria-label={ `Turn notes ${ !takingNotes ? 'on' : 'off' } ` } onClick={ onControlsClick( NOTES ) } startIcon={ <EditIcon /> } sx={{ color: !takingNotes ? grey[ 400 ] : null, minWidth: '100px' }}>
                     { `Notes ${ takingNotes ? 'On' : 'Off' } ` }
                 </IconButton>
-                <IconButton onClick={ onControlsClick( CLEAR ) } startIcon={ <ClearIcon /> }>
+                <IconButton aria-label="Clear the active cell" onClick={ onControlsClick( CLEAR ) } startIcon={ <ClearIcon /> }>
                     Clear Cell
                 </IconButton>
-                <IconButton onClick={ onControlsClick( UNDO ) } disabled={ !hasHistory } startIcon={ <HistoryIcon /> }>
+                <IconButton aria-label="Undo the last move" onClick={ onControlsClick( UNDO ) } disabled={ !hasHistory } startIcon={ <HistoryIcon /> }>
                     Undo
                 </IconButton>
             </Stack>
