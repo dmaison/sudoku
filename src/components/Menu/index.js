@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { REPORT_BUG_URL } from './config';
 import { useDispatch } from 'react-redux';
 import { TOAST_ADD } from '../../redux/actions/app';
+import { LOAD, SAVE } from '../../redux/actions/playArea';
 
 const Menu = ({ open, onClose }) => {
 
@@ -37,6 +38,7 @@ const Menu = ({ open, onClose }) => {
      * Saves the game
      */
     const saveGame = () => {
+        dispatch({ type: SAVE });
         dispatch({ 
             type: TOAST_ADD, 
             payload: {
@@ -50,6 +52,7 @@ const Menu = ({ open, onClose }) => {
      * Load the game
      */
     const loadGame = () => {
+        dispatch({ type: LOAD });
         dispatch({ 
             type: TOAST_ADD, 
             payload: {

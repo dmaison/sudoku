@@ -20,6 +20,12 @@ export const CLEAR_CELL = CELL + 'CLEAR';
 export const FILL_CELL = CELL + 'FILL';
 
 /**
+ * Used to load a game from localstorage
+ * @type {string}
+ */
+export const LOAD = BASE + 'LOAD';
+
+/**
  * Used to log when the user enters an erroneous input
  * @type {string}
  */
@@ -48,6 +54,12 @@ export const PAUSE = BASE + 'PAUSE';
  * @type {string}
  */
 export const RESTART = BASE + 'RESTART';
+
+/**
+ * Used to save the current game
+ * @type {string}
+ */
+export const SAVE = BASE + 'SAVE';
 
 /**
  * Used to toggle notes mode on or off

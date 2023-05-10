@@ -1,5 +1,5 @@
 import * as ACTIONS from '../actions/playArea';
-import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, DEFAULT_DIFFICULTY, spreadGrid, DIFFICULTIES } from '../../utils/playArea';
+import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, DEFAULT_DIFFICULTY, spreadGrid, DIFFICULTIES, LOCALSTORAGE_NAME } from '../../utils/playArea';
 
 const INITIAL_GRID = createGrid(),
 INITIAL_STATE = {
@@ -67,6 +67,11 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             }
             return createHistory({ ...state, endGame }, grid );
 
+        case ACTIONS.LOAD:
+            const loadedState = localStorage.getItem( LOCALSTORAGE_NAME );
+            if( loadedState ) return { ...JSON.parse( loadedState ) };
+            return { ...state };
+
         case ACTIONS.LOG_ERROR:
             let errors = ( state.errors + 1 );
             return { ...state, errors };
@@ -96,6 +101,10 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
         case ACTIONS.RESTART:
             return { ...INITIAL_STATE, grid: spreadGrid( state.gridHistory[ 0 ] || state.grid ), game: new Date() };
+
+        case ACTIONS.SAVE:
+            localStorage.setItem( LOCALSTORAGE_NAME, JSON.stringify({ ...state, save: new Date(), paused: false }) );
+            return { ...state };
 
         case ACTIONS.TOGGLE_NOTES:
             return { ...state, takingNotes: !state.takingNotes };

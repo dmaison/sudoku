@@ -59,6 +59,12 @@ if( process.env !== 'production' ) DIFFICULTIES.unshift( TEST_DIFFICULTY );
 export const DEFAULT_DIFFICULTY = DIFFICULTIES[ 0 ];
 
 /**
+ * Used to save/load games from localstorage
+ * @type {string}
+ */
+export const LOCALSTORAGE_NAME = 'save';
+
+/**
  * Creates a puzzle grid
  * @param {number} [limit=9] The highest number allowed in the grid 
  * @param {number} [size=3] Both X and Y dimensions of the grouping (e.g. 3x3)
