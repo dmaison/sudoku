@@ -1,0 +1,25 @@
+name: Deploy to S3 (Production)
+on: [workflow_dispatch]
+jobs:
+  deploy:
+    name: deploy bucket
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      REACT_APP_TITLE: ${{ secrets.TITLE }}
+      REACT_APP_DESCRIPTION: ${{ secrets.DESCRIPTION }} 
+      REACT_APP_KEYWORDS: ${{ secrets.KEYWORDS }} 
+      REACT_APP_URL: ${{ secrets.URL }} 
+      REACT_APP_THEME_COLOR: ${{ secrets.THEME_COLOR }} 
+    steps:
+    - uses: actions/checkout@master
+    - run: 'yarn set version stable'
+    - run: 'yarn install'
+    - run: 'yarn build'
+    - name: deploy
+      uses: reggionick/s3-deploy@v3
+      with:
+          folder: build
+          bucket: ${{ secrets.BUCKET }}
+          bucket-region: us-east-1
