@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Check the branch
-      if: github.ref != 'refs/heads/staging'
+      if: github.ref != 'refs/heads/master'
       run: exit 1
     - name: Move on
       run: exit 0
@@ -31,5 +31,5 @@ jobs:
       uses: reggionick/s3-deploy@v3
       with:
         folder: build
-        bucket: ${{ secrets.BUCKET }}/sudoku
+        bucket: ${{ secrets.BUCKET }}
         bucket-region: us-east-1
