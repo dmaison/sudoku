@@ -47,6 +47,7 @@ const GameData = () => {
         setTime( 0 );
     }, [ game, setTime ] );
 
+    // set the timer to where the player left off after loading a game
     useEffect(() => {
         if( save ){
             const ms = ( save - game );
