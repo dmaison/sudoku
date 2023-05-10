@@ -5,8 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Dispatch Deploy
-      if: github.ref == 'refs/heads/staging'
+    - name: Check the branch
+      if: github.ref != 'refs/heads/staging'
+      run: exit 1
+    - name: Move on
+      run: exit 0
   deploy:
     runs-on: ubuntu-latest
     if: always()
