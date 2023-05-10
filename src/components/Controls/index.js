@@ -151,9 +151,7 @@ const Controls = () => {
                                 <Typography 
                                     variant="h3" 
                                     component="span" 
-                                    sx={{ 
-                                        color: theme.palette.primary.main
-                                    }}>
+                                    sx={{ color: theme.palette.primary.main }}>
                                     { value }
                                 </Typography>
                             </Button>
