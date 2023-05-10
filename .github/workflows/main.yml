@@ -22,5 +22,5 @@ jobs:
       uses: reggionick/s3-deploy@v3
       with:
           folder: build
-          bucket: ${{ secrets.BUCKET }}/sudoku
+          bucket: ${{ secrets.BUCKET }}
           bucket-region: us-east-1
