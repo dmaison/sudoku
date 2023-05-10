@@ -51,11 +51,7 @@ const Highlighter = () => {
         findHighlights();
     }, [ nextHighlight, findHighlights ]);
 
-    return (
-        <>
-            highlighter
-        </>
-    )
+    return null;
 
 }
 
