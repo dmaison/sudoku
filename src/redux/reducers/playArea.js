@@ -1,5 +1,5 @@
 import * as ACTIONS from '../actions/playArea';
-import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, DEFAULT_DIFFICULTY, spreadGrid, DIFFICULTIES, LOCALSTORAGE_NAME } from '../../utils/playArea';
+import { createGrid, createHistory, toggleNotes, DEFAULT_LIMIT, DEFAULT_SIZE, DEFAULT_DIFFICULTY, spreadGrid, DIFFICULTIES, LOCALSTORAGE_NAME, completionTracker, trimCompletion } from '../../utils/playArea';
 
 const INITIAL_GRID = createGrid(),
 INITIAL_STATE = {
@@ -9,6 +9,7 @@ INITIAL_STATE = {
     errors: 0,
     game: new Date(),
     gridHistory: [],
+    highlights: {},
     limit: DEFAULT_LIMIT, // max number that can be represented in the grid
     size: DEFAULT_SIZE, // section grid dimension size (e.g. 3x3)
     grid: INITIAL_GRID,
@@ -34,8 +35,12 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
         case ACTIONS.FILL_CELL:
             const input = parseInt( action.payload ),
-            nextHistory = [];
-            let endGame = state.endGame;
+            nextHistory = [],
+            completion = completionTracker();
+
+            let endGame = state.endGame,
+            highlights = { ...state.highlights };
+            
             if( index !== undefined ){
 
                 let activeCell = grid[ index ];
@@ -52,20 +57,20 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
                     for( let cell of grid ){
 
+                        const cellPopulated = ( cell !== activeCell ) ? ( cell.answer === cell.input ) : ( cell.answer === input );
+
+                        if( cellPopulated || cell.visible ){
+                            completion[ `column${ cell.column }` ] += 1;
+                            completion[ `row${ cell.row }` ] += 1;
+                            completion[ `section${ cell.section }` ] += 1;
+                        }
+
                         // maintain history up to date
                         nextHistory.push({ ...cell });
                         
                         // while we're doing this, check to see if the grid is completed
                         if( allPopulated && !cell.visible ){
-                            
-                            // every cell but the active cell
-                            if( cell !== activeCell ){
-                                allPopulated = ( cell.answer === cell.input );
-
-                            // the active cell
-                            } else {
-                                allPopulated = ( cell.answer === input );
-                            }
+                            allPopulated = cellPopulated;
                         }
 
                         // skip this cell if its not in the same column, row, or section as the active cell
@@ -74,6 +79,8 @@ const reducer = ( state=INITIAL_STATE, action ) => {
                         // clear the input from the notes of sibling cells
                         cell = toggleNotes( cell, input, true );
                     }
+
+                    highlights = trimCompletion( state.highlights, completion );
 
                     // update input value
                     activeCell.input = input;
@@ -87,7 +94,7 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
                 }
             }
-            return { ...state, grid, gridHistory, endGame };
+            return { ...state, grid, gridHistory, endGame, highlights };
 
         case ACTIONS.LOAD:
             const loadedState = localStorage.getItem( LOCALSTORAGE_NAME ),

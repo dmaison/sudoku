@@ -65,6 +65,21 @@ export const DEFAULT_DIFFICULTY = DIFFICULTIES[ 0 ];
 export const LOCALSTORAGE_NAME = 'save';
 
 /**
+ * Creates a completion tracker object
+ * @param {number} limit 
+ * @returns {object} 
+ */
+export const completionTracker = ( limit=DEFAULT_LIMIT ) => {
+    const obj = {}
+    for( let i = 1; i < ( limit + 1 ); ++i ){
+        obj[ `column${ i }` ] = 0;
+        obj[ `row${ i }` ] = 0;
+        obj[ `section${ i }` ] = 0;
+    }
+    return obj;
+}
+
+/**
  * Creates a puzzle grid
  * @param {number} [limit=9] The highest number allowed in the grid 
  * @param {number} [size=3] Both X and Y dimensions of the grouping (e.g. 3x3)
@@ -222,4 +237,24 @@ export const toggleNotes = ( cell, input, forceRemove=false ) => {
     }
 
     return cell;
+}
+
+/**
+ * Creates a viable next highlight
+ * @param {array} highlights 
+ * @param {object} nextHighlight 
+ * @returns {object}
+ */
+export const trimCompletion = ( highlights={}, nextHighlight={}, limit=DEFAULT_LIMIT ) => {
+
+    for( const key in nextHighlight ){
+        if( ( nextHighlight[ key ] === limit ) && !highlights[ key ] ){
+            highlights[ key ] = true;
+        } else {
+            highlights[ key ] = false;
+        }
+    }
+
+    return { ...highlights };
+
 }
