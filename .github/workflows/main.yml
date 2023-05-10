@@ -7,9 +7,6 @@ jobs:
     - uses: actions/checkout@master
     - name: Dispatch Deploy
       if: github.ref == 'refs/heads/staging'
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: Deploy to S3 (Staging)
   deploy:
     runs-on: ubuntu-latest
     if: always()
@@ -25,8 +22,6 @@ jobs:
     steps:
     - name: Yarn Version
       run: 'yarn set version stable'
-    - name: Yarn Install
-      run: 'yarn install'
     - name: Yarn Build
       run: 'yarn build'
     - name: deploy
