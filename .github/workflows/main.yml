@@ -7,11 +7,11 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      REACT_APP_TITLE: ${{ secrets.TITLE }}
-      REACT_APP_DESCRIPTION: ${{ secrets.DESCRIPTION }} 
-      REACT_APP_KEYWORDS: ${{ secrets.KEYWORDS }} 
-      REACT_APP_URL: ${{ secrets.URL }} 
-      REACT_APP_THEME_COLOR: ${{ secrets.THEME_COLOR }} 
+      REACT_APP_TITLE: ${{ vars.TITLE }}
+      REACT_APP_DESCRIPTION: ${{ vars.DESCRIPTION }} 
+      REACT_APP_KEYWORDS: ${{ vars.KEYWORDS }} 
+      REACT_APP_URL: ${{ vars.URL }} 
+      REACT_APP_THEME_COLOR: ${{ vars.THEME_COLOR }} 
     steps:
     - uses: actions/checkout@master
     - run: 'yarn set version stable'
@@ -21,5 +21,5 @@ jobs:
       uses: reggionick/s3-deploy@v3
       with:
           folder: build
-          bucket: ${{ secrets.BUCKET }}
+          bucket: ${{ secrets.BUCKET }}/sudoku
           bucket-region: us-east-1
