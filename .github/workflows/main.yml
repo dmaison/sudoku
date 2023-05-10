@@ -14,11 +14,11 @@ jobs:
       REACT_APP_THEME_COLOR: ${{ vars.THEME_COLOR }} 
     steps:
     - uses: actions/checkout@master
-      if: github.ref == 'refs/heads/master'
-      - run: 'yarn build'
-      - name: deploy
-        uses: reggionick/s3-deploy@v3
-        with:
-          folder: build
-          bucket: ${{ secrets.BUCKET }}
-          bucket-region: us-east-1
+    if: github.ref == 'refs/heads/master'
+    - run: 'yarn build'
+    - name: deploy
+      uses: reggionick/s3-deploy@v3
+      with:
+        folder: build
+        bucket: ${{ secrets.BUCKET }}
+        bucket-region: us-east-1
