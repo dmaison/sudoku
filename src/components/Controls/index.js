@@ -115,7 +115,10 @@ const Controls = () => {
     }
 
     return (
-        <Container sx={{ mt: 3 }}>
+        <Container sx={{ mt: {
+            md: 3,
+            xs: 1
+        } }}>
             <KeyboardEventHandler
                 handleFocusableElements
                 handleKeys={ [ 'left', 'up', 'right', 'down', 'w', 'a', 's', 'd' ] } 
@@ -132,12 +135,25 @@ const Controls = () => {
                 handleFocusableElements
                 handleKeys={ [ ...inputAry ] } 
                 onKeyEvent={ validateExecution( fillCell ) } />
-            <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
+            <Stack 
+                direction="row" 
+                justifyContent="space-between" 
+                sx={{ 
+                    mb: {
+                        md: 2,
+                        xs: 0
+                    }
+                }}>
                 {
                     inputAry.map(
                         value => (
-                            <Button key={ `input-${ value }` } onClick={ onControlsClick( value ) } sx={{  minWidth: 'initial' }}>
-                                <Typography variant="h3" component="span" sx={{ color: theme.palette.primary.main }}>
+                            <Button key={ `input-${ value }` } onClick={ onControlsClick( value ) } sx={{  minWidth: 'initial', pt: 0, pb: 0 }}>
+                                <Typography 
+                                    variant="h3" 
+                                    component="span" 
+                                    sx={{ 
+                                        color: theme.palette.primary.main
+                                    }}>
                                     { value }
                                 </Typography>
                             </Button>
