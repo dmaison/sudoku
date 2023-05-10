@@ -10,6 +10,7 @@ import Masthead from '../Masthead';
 import YouWin from '../YouWin';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import Notifications from '../Notifications';
 
 const Template = () => {
 
@@ -30,6 +31,7 @@ const Template = () => {
             <PlayArea />
             <Divider sx={{ mt: 2, mb: 1 }} />
             <Controls />
+            <Notifications />
         </ThemeProvider>
     )
 }

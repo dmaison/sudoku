@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
-import playArea from './reducers/playArea'
+import playArea from './reducers/playArea';
+import app from './reducers/app';
 
-export default combineReducers({ playArea });
+export default combineReducers({ app, playArea });
