@@ -57,7 +57,14 @@ const reducer = ( state=INITIAL_STATE, action ) => {
                         nextHistory.push({ ...cell });
                         
                         // while we're doing this, check to see if the grid is completed
-                        if( allPopulated && !cell.visible ) allPopulated = ( cell.answer === cell.input );
+                        if( allPopulated && !cell.visible ){
+                            if( cell !== activeCell ){
+                                // for all other cells
+                                allPopulated = ( cell.answer === cell.input );
+                            } else {
+                                allPopulated = ( cell.answer === input );
+                            }
+                        }
 
                         if( cell.column !== activeCell.column && cell.row !== activeCell.row && cell.section === activeCell.section ) continue;
                         cell = toggleNotes( cell, input, true );
