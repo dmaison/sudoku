@@ -23,6 +23,8 @@ jobs:
       REACT_APP_URL: ${{ vars.URL }} 
       REACT_APP_THEME_COLOR: ${{ vars.THEME_COLOR }} 
     steps:
+    - name: Get latest
+      run: 'git pull'
     - name: Yarn Install
       run: 'yarn'
     - name: Yarn Build
