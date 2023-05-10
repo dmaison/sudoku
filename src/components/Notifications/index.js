@@ -16,10 +16,7 @@ const Notifications = () => {
      * Hides the toast
      */
     const onClose = ( e, reason ) => {
-        if( reason !== 'clickaway' ){
-            console.log( 'close' );
-            setOpen( false );    
-        }
+        if( reason !== 'clickaway' ) setOpen( false );
     }
 
     /**
@@ -36,7 +33,7 @@ const Notifications = () => {
     return (
         <Snackbar 
             anchorOrigin={{ 
-                vertical: 'bottom', 
+                vertical: isMobile ? 'top' : 'bottom', 
                 horizontal: isMobile ? 'center' : 'right'
             }}
             autoHideDuration={ 6000 }

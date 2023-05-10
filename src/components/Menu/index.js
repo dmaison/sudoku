@@ -16,10 +16,13 @@ import NewGame from '../NewGame';
 import Restart from '../Restart';
 import { useState } from 'react';
 import { REPORT_BUG_URL } from './config';
+import { useDispatch } from 'react-redux';
+import { TOAST_ADD } from '../../redux/actions/app';
 
 const Menu = ({ open, onClose }) => {
 
-    const [ dialog, setDialog ] = useState( null ),
+    const dispatch = useDispatch(),
+    [ dialog, setDialog ] = useState( null ),
     idNewGame = 'new',
     idRestartGame = 'restart';
 
@@ -28,6 +31,32 @@ const Menu = ({ open, onClose }) => {
      */
     const openDialog = id => () => {
         setDialog( id );
+    }
+
+    /**
+     * Saves the game
+     */
+    const saveGame = () => {
+        dispatch({ 
+            type: TOAST_ADD, 
+            payload: {
+                message: 'Game saved to local storage',
+                severity: 'success'
+            } 
+        })
+    }
+
+    /**
+     * Load the game
+     */
+    const loadGame = () => {
+        dispatch({ 
+            type: TOAST_ADD, 
+            payload: {
+                message: 'Game loaded from local storage',
+                severity: 'info'
+            } 
+        })
     }
 
     return (
@@ -65,7 +94,7 @@ const Menu = ({ open, onClose }) => {
                         </ListItem>
                         <Divider />
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={ saveGame }>
                                 <ListItemIcon>
                                     <DownloadIcon />
                                 </ListItemIcon>
@@ -73,7 +102,7 @@ const Menu = ({ open, onClose }) => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={ loadGame }>
                                 <ListItemIcon>
                                     <UploadIcon />
                                 </ListItemIcon>
