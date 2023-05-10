@@ -18,6 +18,8 @@ INITIAL_STATE = {
 
 const reducer = ( state=INITIAL_STATE, action ) => {
 
+    const gridHistory = [ ...state.gridHistory ];
+
     let grid = spreadGrid( state.grid ),
     index = state.activeCell?.index;
 
@@ -31,7 +33,8 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             return createHistory({ ...state }, grid );
 
         case ACTIONS.FILL_CELL:
-            const input = parseInt( action.payload );
+            const input = parseInt( action.payload ),
+            nextHistory = [];
             let endGame = state.endGame;
             if( index !== undefined ){
 
@@ -47,11 +50,11 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
                     let allPopulated = true;
 
-                    activeCell.input = input;
-                    activeCell.notes = [];
-
                     // clear sibling notes of the input value
                     for( let cell of grid ){
+
+                        // maintain history up to date
+                        nextHistory.push({ ...cell });
                         
                         // while we're doing this, check to see if the grid is completed
                         if( allPopulated && !cell.visible ) allPopulated = ( cell.answer === cell.input );
@@ -60,12 +63,19 @@ const reducer = ( state=INITIAL_STATE, action ) => {
                         cell = toggleNotes( cell, input, true );
                     }
 
+                    // update input value
+                    activeCell.input = input;
+                    activeCell.notes = [];
+
                     // if the grid is compeleted, set the endGame time
                     if( activeCell.input === activeCell.answer && allPopulated ) endGame = new Date();
 
+                    // add history
+                    gridHistory.push( nextHistory );
+
                 }
             }
-            return createHistory({ ...state, endGame }, grid );
+            return { ...state, grid, gridHistory, endGame };
 
         case ACTIONS.LOAD:
             const loadedState = localStorage.getItem( LOCALSTORAGE_NAME ),
@@ -110,7 +120,6 @@ const reducer = ( state=INITIAL_STATE, action ) => {
             return { ...state, takingNotes: !state.takingNotes };
 
         case ACTIONS.UNDO_MOVE:
-            const gridHistory = [ ...state.gridHistory ];
             if( gridHistory.length > 0 ) grid = gridHistory.pop();
             return { ...state, grid, gridHistory };
 
