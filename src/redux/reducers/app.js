@@ -1,12 +1,7 @@
 import * as ACTIONS from '../actions/app';
 
 const INITIAL_STATE = {
-    notifications: [
-        {
-            severity: 'success',
-            message: 'test'
-        }
-    ]
+    notifications: []
 };
 
 const reducer = ( state=INITIAL_STATE, action ) => {
