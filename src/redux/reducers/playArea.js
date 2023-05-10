@@ -50,7 +50,6 @@ const reducer = ( state=INITIAL_STATE, action ) => {
 
                     let allPopulated = true;
 
-                    // clear sibling notes of the input value
                     for( let cell of grid ){
 
                         // maintain history up to date
@@ -58,15 +57,21 @@ const reducer = ( state=INITIAL_STATE, action ) => {
                         
                         // while we're doing this, check to see if the grid is completed
                         if( allPopulated && !cell.visible ){
+                            
+                            // every cell but the active cell
                             if( cell !== activeCell ){
-                                // for all other cells
                                 allPopulated = ( cell.answer === cell.input );
+
+                            // the active cell
                             } else {
                                 allPopulated = ( cell.answer === input );
                             }
                         }
 
+                        // skip this cell if its not in the same column, row, or section as the active cell
                         if( cell.column !== activeCell.column && cell.row !== activeCell.row && cell.section === activeCell.section ) continue;
+
+                        // clear the input from the notes of sibling cells
                         cell = toggleNotes( cell, input, true );
                     }
 
