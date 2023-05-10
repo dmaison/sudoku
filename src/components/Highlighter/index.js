@@ -13,12 +13,17 @@ const Highlighter = () => {
     const addHighlight = useCallback( items => {
         const selector = items.map( item => `[data-group*="${ item }"]` ).join( ',' ),
         elems = document.querySelectorAll( selector ),
-        effect = 'cell--shimmer';
+        grid = document.querySelector( '.board' ),
+        exclusion = 'cell--shimmer',
+        animate = 'board--animate';
 
+        grid.classList.add( animate );
         for( const elem of elems ){
-            elem.classList.add( effect );
-            setTimeout( elem => elem.classList.remove( effect ), 1001, elem );
+            elem.classList.add( exclusion );
+            setTimeout( elem => elem.classList.remove( exclusion ), 1001, elem );
         }
+
+        setTimeout( grid => grid.classList.remove( animate ), 1002, grid );
         
     }, []);
 

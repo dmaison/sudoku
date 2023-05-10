@@ -23,6 +23,7 @@ const PlayArea = () => {
                     transition: '.25s linear'
                 }}>
                 <Grid 
+                    className="board"
                     container 
                     columns={ 9 } 
                     sx={{ 
