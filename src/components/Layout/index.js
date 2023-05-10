@@ -11,6 +11,7 @@ import YouWin from '../YouWin';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Notifications from '../Notifications';
+import Highlighter from '../Highlighter';
 
 const Template = () => {
 
@@ -32,6 +33,7 @@ const Template = () => {
             <Divider sx={{ mt: 2, mb: 1 }} />
             <Controls />
             <Notifications />
+            <Highlighter />
         </ThemeProvider>
     )
 }
