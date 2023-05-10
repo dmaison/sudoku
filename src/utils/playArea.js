@@ -28,7 +28,7 @@ export const DIFFICULTIES = [
         probability: 0.75
     },
     { 
-        label: 'Normal',
+        label: 'Intermediate',
         probability: 0.6
     },
     { 
