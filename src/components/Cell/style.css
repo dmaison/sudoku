@@ -1,0 +1,19 @@
+.cell--shimmer {
+    animation: 1s cellShimmer !important;
+}
+
+.board--animate .cell:not( .cell--shimmer ) .MuiTypography-root{
+    animation: 1s fade !important;
+}
+
+@keyframes cellShimmer {
+    0% { }
+    50% { background-color: white; }
+    100% {}
+}
+
+@keyframes fade {
+    0% { }
+    50% { opacity: .3; }
+    100% {}
+}
