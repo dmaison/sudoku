@@ -23,9 +23,11 @@ jobs:
       REACT_APP_URL: ${{ vars.URL }} 
       REACT_APP_THEME_COLOR: ${{ vars.THEME_COLOR }} 
     steps:
-    - name: Yarn
+    - name: Yarn Version
       run: 'yarn set version stable'
+    - name: Yarn Install
       run: 'yarn install'
+    - name: Yarn Build
       run: 'yarn build'
     - name: deploy
       uses: reggionick/s3-deploy@v3
