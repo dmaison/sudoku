@@ -15,12 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@master
       if: github.ref == 'refs/heads/master'
-    - run: 'yarn set version stable'
-    - run: 'yarn install'
-    - run: 'yarn build'
-    - name: deploy
-      uses: reggionick/s3-deploy@v3
-      with:
+      - run: 'yarn build'
+      - name: deploy
+        uses: reggionick/s3-deploy@v3
+        with:
           folder: build
           bucket: ${{ secrets.BUCKET }}
           bucket-region: us-east-1
