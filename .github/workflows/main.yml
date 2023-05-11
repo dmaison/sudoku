@@ -24,7 +24,7 @@ jobs:
       REACT_APP_THEME_COLOR: ${{ vars.THEME_COLOR }} 
     steps:
     - name: Get latest
-      run: 'echo ls'
+      run: 'ls'
     - name: Yarn Install
       run: 'yarn'
     - name: Yarn Build
