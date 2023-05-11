@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/dmaison/sudoku/issues"
   },
-  "homepage": "https://games.dave.maison/sudoku",
+  "homepage": "https://games.dave.maison",
   "devDependencies": {
     "prop-types": "^15.8.1",
     "react-scripts": "^5.0.1"
