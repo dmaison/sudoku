@@ -50,7 +50,7 @@ const TEST_DIFFICULTY = {
 }
 
 // if its local development, add the test difficulty in
-if( process.env !== 'production' ) DIFFICULTIES.unshift( TEST_DIFFICULTY );
+if( process.env.NODE_ENV !== 'production' ) DIFFICULTIES.unshift( TEST_DIFFICULTY );
 
 /**
  * Default difficulty for starting the application
